@@ -111,11 +111,11 @@ public class Create_Account_Activity extends AppCompatActivity {
             if(imageUri!=null)
             {
                 uploadToFirebase(imageUri,0);
-            }else Toast.makeText(this,"No Green Card",Toast.LENGTH_LONG);
+            }else Toast.makeText(this,"No Green Card",Toast.LENGTH_LONG).show();
             if(profileUri!=null)
             {
                 uploadToFirebase(profileUri,1);
-            }else Toast.makeText(this,"No profile photo",Toast.LENGTH_LONG);
+            }else Toast.makeText(this,"No profile photo",Toast.LENGTH_LONG).show();;
 
             SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
             SharedPreferences.Editor editor = mSettings.edit();
@@ -208,17 +208,20 @@ public class Create_Account_Activity extends AppCompatActivity {
 
     public void cheekUseName(View view) {
         progressBarUserName.setVisibility(View.VISIBLE);
-        if(userName.length()>5)
+        userName=edUserName.getText().toString();
+        if(userName.length()>5) {
             myRef.child(userName).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     // This method is called once with the initial value and again
                     // whenever data at this location is updated.
-                    String value = dataSnapshot.child("").getValue(String.class);
-                    if(value==null)
-                    {
-                        test=true;
-                    }
+                    String value = dataSnapshot.child("Email").getValue(String.class);
+                    if (value == null) {
+                        test = true;
+                        Toast.makeText(Create_Account_Activity.this, "ok", Toast.LENGTH_LONG).show();
+                    } else
+                        Toast.makeText(Create_Account_Activity.this, "Error", Toast.LENGTH_LONG).show();
+
                     Log.d(TAG, "Value is: " + value);
                 }
 
@@ -228,7 +231,10 @@ public class Create_Account_Activity extends AppCompatActivity {
                     Log.w(TAG, "Failed to read value.", error.toException());
                 }
             });
-        test=true;
+
+            progressBarUserName.setVisibility(View.INVISIBLE);
+        }Toast.makeText(Create_Account_Activity.this,"Error",Toast.LENGTH_LONG).show();
+
 
 
     }
