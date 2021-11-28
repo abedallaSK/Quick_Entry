@@ -32,6 +32,12 @@ public class ForeMainActivity extends AppCompatActivity {
         binding = ActivityForeMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        int[] imageId={R.drawable.app_icon,R.drawable.app_icon,R.drawable.app_icon,R.drawable.app_icon,R.drawable.app_icon,R.drawable.app_icon};
+        String[] name ={"hsam","ahmd","abdllh","mroan","kadm","yosef"};
+        String[] lastMessage={"Heye","supp","let`s catchup","Dinner tonight?","Gotta ago","i`m in aeeting"};
+        String[] lastmsgTime ={"8:45 pm","9:00 am","7:34 pm","6:32 am","5:56 am","5:00 am"};
+        String[] phoneNo ={"0535831032","0545781092","0504831932","0526191085","0595584103","052561333"};
+        String[] country ={"Israel","India","Russia","Germany","Canada","United States"};
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = binding.viewPager;

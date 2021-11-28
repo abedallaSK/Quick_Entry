@@ -48,7 +48,7 @@ public class Create_ForemanAccountActivity extends AppCompatActivity {
             editor.putString(DATA_TAG, edEmail.getText().toString());
             editor.putInt("Type", 3);
             editor.commit();
-            Intent intent = new Intent(this, ForeMainActivity.class);
+            Intent intent = new Intent(this, ListformarActivity.class);
             intent.putExtra("Email", edEmail.getText().toString());
             startActivity(intent);
         }

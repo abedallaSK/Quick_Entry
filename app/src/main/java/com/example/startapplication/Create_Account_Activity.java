@@ -209,7 +209,7 @@ public class Create_Account_Activity extends AppCompatActivity {
     public void cheekUseName(View view) {
         progressBarUserName.setVisibility(View.VISIBLE);
         userName=edUserName.getText().toString();
-        if(userName.length()>5) {
+        if(userName.length()>=5) {
             myRef.child(userName).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {

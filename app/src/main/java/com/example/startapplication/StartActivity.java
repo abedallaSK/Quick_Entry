@@ -70,7 +70,7 @@ public class StartActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case 3:
-                intent = new Intent(this, ForeMainActivity.class);
+                intent = new Intent(this, ListformarActivity.class);
                 intent.putExtra("Email", email);
                 startActivity(intent);
                 break;
