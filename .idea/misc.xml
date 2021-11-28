@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_business_main.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_create_account.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_create_business_account.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_create_forman_account.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_start.xml" value="0.1" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_user_choice.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_user_main.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/app_bar_user_main.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/content_scrolling.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/content_user_main.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/fragment_business_main.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/fragment_fore_main.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/fragment_gallery.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/fragment_slideshow.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/nav_header_user_main.xml" value="0.20108695652173914" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
