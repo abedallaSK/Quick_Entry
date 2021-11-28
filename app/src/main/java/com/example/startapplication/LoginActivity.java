@@ -18,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Iterator;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText editText_Email;
@@ -53,27 +55,26 @@ public class LoginActivity extends AppCompatActivity {
     public void SingIn(View view) {
         String email=editText_Email.getText().toString();
         String password=editText_PassWord.getText().toString();
-        myRef.child(email).addValueEventListener(new ValueEventListener() {
+
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
+                Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
+                while (i.hasNext()) {
+                   Account account=(i.next()).getValue(Account.class);
+                    if ((account.getEmail().equals(email) || account.getUsername().equals(email)) && account.getPassword().equals(password) ){
+                        String ke=i.next().getKey();
+                        StartActivity(account.getType(),ke);
+                        break;
+                    }
 
-                String x=dataSnapshot.child("Password").getValue(String.class);
-                if(x!=null){
-                    if(x.equals(password))
-                    {
-                        int  y=dataSnapshot.child("Type").getValue(Integer.class);
-                        StartActivity(y,email);
-                    }}
-                else Toast.makeText(getApplicationContext(),"The Password or name Error ",Toast.LENGTH_SHORT).show();
+                }
+                Toast.makeText(getApplicationContext(),"The Password or name Error ",Toast.LENGTH_SHORT).show();
             }
-
             @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
+            public void onCancelled(DatabaseError databaseError) {
             }
+
         });
     }
 

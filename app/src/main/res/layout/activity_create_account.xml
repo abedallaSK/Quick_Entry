@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="ID (9 number) "
-                android:inputType="textPersonName"
+                android:inputType="number"
                 android:minHeight="48dp" />
 
             <EditText
@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Phone Number "
-                android:inputType="textPersonName"
+                android:inputType="number"
                 android:minHeight="48dp" />
 
             <EditText
@@ -150,7 +150,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Password"
-                android:inputType="textPersonName"
+                android:inputType="textPassword"
                 android:minHeight="48dp" />
 
             <EditText
@@ -159,7 +159,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Re-Password"
-                android:inputType="textPersonName"
+                android:inputType="textPassword"
                 android:minHeight="48dp" />
 
             <Button
@@ -169,12 +169,6 @@
                 android:layout_height="wrap_content"
                 android:onClick="Storage"
                 android:text="Vaccination certificate" />
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="No file" />
 
             <ImageView
                 android:id="@+id/imageView3"

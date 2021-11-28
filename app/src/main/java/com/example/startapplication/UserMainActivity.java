@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -26,19 +27,21 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class UserMainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityUserMainBinding binding;
     private DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Accounts");
+    private Account account;
 
 
 
     //
     private static final String PREFS_NAME = "LOGIN";
     private static final String DATA_TAG = "EMAIL";
-    private String email;
+    private String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,25 +63,29 @@ public class UserMainActivity extends AppCompatActivity {
         String data= mSettings.getString(DATA_TAG, null);
         TextView textView=findViewById(R.id.textViewName);
         textView.setText(data);
+        ImageView imageView=findViewById(R.id.imageView);
 
         //   typeAccount=sharedPreferences.getInt("Type",-1);
 
         Bundle bundle = getIntent().getExtras();
-        email= bundle.getString("Email");
+        key= bundle.getString("Email");
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         View header=navigationView.getHeaderView(0);
         TextView nameView = (TextView)header.findViewById(R.id.Name_Main);
         TextView emailView = (TextView)header.findViewById(R.id.Email_Main);
-        emailView.setText(email);
 
-        myRef.child(email).addValueEventListener(new ValueEventListener() {
+
+        myRef.child(key).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                nameView.setText(dataSnapshot.child("Name").getValue(String.class));
+                account=dataSnapshot.getValue(Account.class);
+                nameView.setText(account.getName());
+                emailView.setText(account.getEmail());
+               // Picasso.get().load(account.getProfileUri()).into(imageView);
 
             }
 
@@ -121,7 +128,7 @@ public class UserMainActivity extends AppCompatActivity {
         startActivity(new Intent(this,LoginActivity.class));
     }
 
-   /* public void Show(View view) {
+    /*public void Show(View view) {
         Intent intent = new Intent(this, GreenShowActivity.class);
         intent.putExtra("Email", email);
         startActivity(intent);

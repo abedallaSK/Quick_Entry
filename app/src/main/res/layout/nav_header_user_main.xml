@@ -24,7 +24,7 @@
             android:layout_height="100dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/add_icon_clen"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:srcCompat="@drawable/normal_profile_img" />
 
         <Button
             android:id="@+id/Logout"

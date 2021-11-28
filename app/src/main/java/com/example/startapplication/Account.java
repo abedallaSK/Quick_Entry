@@ -9,8 +9,18 @@ public class Account {
     private String phoneNumber;
     private String greenUri;
     private int type;
-    private String profileUri;
+    private   String profileUri;
     private String companyName;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    private String id;
 
     public String getProfileUri() {
         return profileUri;
@@ -32,7 +42,7 @@ public class Account {
     }
 
 
-    public Account(String name, String familyName, String username, String password, String email, String phoneNumber, String greenUri, int type,String profileUri) {
+    public Account(String username,String name, String familyName,  String password, String email, String phoneNumber, String id, int type,String profileUri,String greenUri) {
         this.name = name;
         this.familyName = familyName;
         this.username = username;
@@ -42,6 +52,7 @@ public class Account {
         this.greenUri = greenUri;
         this.type = type;
         this.profileUri=profileUri;
+        this.id=id;
     }
 
     public String getName() {

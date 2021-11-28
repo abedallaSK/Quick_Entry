@@ -31,6 +31,10 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 public class Create_Account_Activity extends AppCompatActivity {
 
     private EditText edName;
@@ -41,7 +45,7 @@ public class Create_Account_Activity extends AppCompatActivity {
     private EditText edPassword;
     private EditText edRe_Password;
     private DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Accounts");
-    private StorageReference reference= FirebaseStorage.getInstance().getReference("GreenCard");
+    private StorageReference reference = FirebaseStorage.getInstance().getReference("GreenCard");
     private Uri imageUri;
     private Uri profileUri;
     private ImageView imageView;
@@ -49,84 +53,79 @@ public class Create_Account_Activity extends AppCompatActivity {
     private static final String DATA_TAG = "EMAIL";
     private ProgressBar progressBar;
     private ProgressBar progressBarUserName;
-    private  ImageView profile;
+    private ImageView profile;
     private EditText edUserName;
-    private  boolean test=false;
-    private boolean emailTest=false;
+    private boolean test = false;
+    private boolean emailTest = false;
     private String userName;
+    private Account account;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
-        edName=findViewById(R.id.FirstName);
-        edLastName=findViewById(R.id.LastName);
-        edId=findViewById(R.id.Id);
-        edEmail=findViewById(R.id.Email);
-        edPassword=findViewById(R.id.Password);
-        edRe_Password=findViewById(R.id.Re_Password);
-        imageView=findViewById(R.id.imageView3);
-        progressBar=findViewById(R.id.progressBar);
-        progressBarUserName=findViewById(R.id.progressBar3);
-        profile=findViewById(R.id.profile_image);
-        edUserName =findViewById(R.id.username_normal);
+        edName = findViewById(R.id.FirstName);
+        edLastName = findViewById(R.id.LastName);
+        edId = findViewById(R.id.Id);
+        edEmail = findViewById(R.id.Email);
+        edPassword = findViewById(R.id.Password);
+        edRe_Password = findViewById(R.id.Re_Password);
+        imageView = findViewById(R.id.imageView3);
+        progressBar = findViewById(R.id.progressBar);
+        progressBarUserName = findViewById(R.id.progressBar3);
+        profile = findViewById(R.id.profile_image);
+        edUserName = findViewById(R.id.username_normal);
         progressBar.setVisibility(View.INVISIBLE);
+        edPhone = findViewById(R.id.PhoneNumber);
         progressBarUserName.setVisibility(View.INVISIBLE);
     }
 
     public void UserAccount(View view) {
 
-        if(!(edUserName.getText().toString().length()>3 && true))
-        {
-            Toast.makeText(this,"UserName Error",Toast.LENGTH_LONG).show();
+        if (!(edUserName.getText().toString().length() > 3 && true)) {
+            Toast.makeText(this, "UserName Error", Toast.LENGTH_LONG).show();
 
-        }else if(edName.getText().length()>1 && edEmail.getText().length()<1)
-        {
-            Toast.makeText(this,"First name Error",Toast.LENGTH_LONG).show();
-        }else if (edLastName.getText().length()<1)
-        {
-            Toast.makeText(this,"the lastName Error",Toast.LENGTH_LONG).show();
-        }else if (edPassword.getText().length()<5 &&edPassword.getText()== edRe_Password.getText())
-        {
-            Toast.makeText(this,"Password Error the pass word must to pe up from 5 latter's",Toast.LENGTH_LONG).show();
-        }else  if(edId.getText().length()<9)
-        {
-            Toast.makeText(this,"ID  Error the id word must to pe up from 9 number",Toast.LENGTH_LONG).show();
-        }
-        else if(edPhone.getText().length()<10)
-        {
-            Toast.makeText(this,"phone  Error the id word must to pe up from 10 number",Toast.LENGTH_LONG).show();
-        } else if (edEmail.getText().length()<1 && emailTest)
-        {
-            Toast.makeText(this,"Email  Error",Toast.LENGTH_LONG).show();
-        } else{
-
-
-            myRef.child(userName).child("Name").setValue(edName.getText().toString());
-            myRef.child(userName).child("Password").setValue(edPassword.getText().toString());
-            myRef.child(userName).child("Email").setValue(edEmail.getText().toString());
-            myRef.child(userName).child("Type").setValue(1);
-
-            if(imageUri!=null)
-            {
-                uploadToFirebase(imageUri,0);
-            }else Toast.makeText(this,"No Green Card",Toast.LENGTH_LONG).show();
-            if(profileUri!=null)
-            {
-                uploadToFirebase(profileUri,1);
-            }else Toast.makeText(this,"No profile photo",Toast.LENGTH_LONG).show();;
-
+        } else if (edName.getText().length() > 1 && edEmail.getText().length() < 1) {
+            Toast.makeText(this, "First name Error", Toast.LENGTH_LONG).show();
+        } else if (edLastName.getText().length() < 1) {
+            Toast.makeText(this, "the lastName Error", Toast.LENGTH_LONG).show();
+        } else if (edPassword.getText().length() < 5 && edPassword.getText() == edRe_Password.getText()) {
+            Toast.makeText(this, "Password Error the pass word must to pe up from 5 latter's", Toast.LENGTH_LONG).show();
+        } else if (edId.getText().length() < 9) {
+            Toast.makeText(this, "ID  Error the id word must to pe up from 9 number", Toast.LENGTH_LONG).show();
+        } else if (edPhone.getText().length() < 10) {
+            Toast.makeText(this, "phone  Error the id word must to pe up from 10 number", Toast.LENGTH_LONG).show();
+        } else if (edEmail.getText().length() < 1 && emailTest) {
+            Toast.makeText(this, "Email  Error", Toast.LENGTH_LONG).show();
+        } else {
+            userName = edUserName.getText().toString();
+            if (imageUri != null) {
+                uploadToFirebase(imageUri, 0);
+            } else Toast.makeText(this, "No Green Card", Toast.LENGTH_LONG).show();
+            if (profileUri != null) {
+                uploadToFirebase(profileUri, 1);
+            } else Toast.makeText(this, "No profile photo", Toast.LENGTH_LONG).show();
+            ;
+            account = new Account(userName, edName.getText().toString(), edLastName.getText().toString(), edPassword.getText().toString(), edEmail.getText().toString(), edPhone.getText().toString(), edPhone.getText().toString(), 1, profileUri.toString(), imageUri.toString());
+            myRef.push().setValue(account);
             SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
             SharedPreferences.Editor editor = mSettings.edit();
             editor.putString(DATA_TAG, edEmail.getText().toString());
-            editor.putInt("Type",1);
+            editor.putInt("Type", 1);
             editor.commit();
 
         }
     }
 
-    private void uploadToFirebase(Uri uri,int code){
+    public void listViewOnline(DatabaseReference dRef) {
+
+
+    }
+
+
+    //upload Green card and profile image
+    private void uploadToFirebase(Uri uri, int code) {
 
         final StorageReference fileRef = reference.child(System.currentTimeMillis() + "." + getFileExtension(uri));
         fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -135,12 +134,10 @@ public class Create_Account_Activity extends AppCompatActivity {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Model model = new Model(uri.toString());
-                        String modelId = myRef.push().getKey();
-                        if(code==0)
-                            myRef.child(edEmail.getText().toString()).child("Green").setValue(model);
-                        if(code==1)
-                            myRef.child(edEmail.getText().toString()).child("Green").setValue(model);
+                        if (code == 0)
+                            imageUri = uri;
+                        if (code == 1)
+                            profileUri = uri;
                         progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(Create_Account_Activity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
                         goTOActivity();
@@ -162,80 +159,78 @@ public class Create_Account_Activity extends AppCompatActivity {
         });
     }
 
-    private  void goTOActivity()
-    {
+    private void goTOActivity() {
         Intent intent = new Intent(this, UserMainActivity.class);
         intent.putExtra("Email", edEmail.getText().toString());
         startActivity(intent);
     }
 
     private String getFileExtension(Uri mUri) {
-        ContentResolver cr=getContentResolver();
-        MimeTypeMap mime=MimeTypeMap.getSingleton();
+        ContentResolver cr = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cr.getType(mUri));
 
     }
 
 
     public void Storage(View view) {
-        Intent galleryIntent=new Intent();
+        Intent galleryIntent = new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent,2);
+        startActivityForResult(galleryIntent, 2);
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==2 && resultCode==RESULT_OK && data !=null) {
-            imageUri=data.getData();
+        if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
+            imageUri = data.getData();
             imageView.setImageURI(imageUri);
         }
-        if(requestCode==3 && resultCode==RESULT_OK && data !=null) {
-            profileUri=data.getData();
+        if (requestCode == 3 && resultCode == RESULT_OK && data != null) {
+            profileUri = data.getData();
             profile.setImageURI(profileUri);
         }
 
     }
 
     public void AddProfilephotoNormal(View view) {
-        Intent galleryIntent=new Intent();
+        Intent galleryIntent = new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent,3);
+        startActivityForResult(galleryIntent, 3);
     }
 
     public void cheekUseName(View view) {
         progressBarUserName.setVisibility(View.VISIBLE);
-        userName=edUserName.getText().toString();
-        if(userName.length()>=5) {
-            myRef.child(userName).addValueEventListener(new ValueEventListener() {
+        userName = edUserName.getText().toString();
+        if (userName.length() >= 5) {
+
+            myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    // This method is called once with the initial value and again
-                    // whenever data at this location is updated.
-                    String value = dataSnapshot.child("Email").getValue(String.class);
-                    if (value == null) {
+                    Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
+                    while (i.hasNext()) {
+                        String s=(i.next()).child("username").getValue(String.class);
+                        if (s.equals(userName)){
+                            test = false;
+                            Toast.makeText(Create_Account_Activity.this, "The name is already exists", Toast.LENGTH_LONG).show();
+                            break;
+                        }
                         test = true;
-                        Toast.makeText(Create_Account_Activity.this, "ok", Toast.LENGTH_LONG).show();
-                    } else
-                        Toast.makeText(Create_Account_Activity.this, "Error", Toast.LENGTH_LONG).show();
-
-                    Log.d(TAG, "Value is: " + value);
+                        Toast.makeText(Create_Account_Activity.this, "OK you can use it", Toast.LENGTH_LONG).show();
+                    }
                 }
-
                 @Override
-                public void onCancelled(DatabaseError error) {
-                    // Failed to read value
-                    Log.w(TAG, "Failed to read value.", error.toException());
+                public void onCancelled(DatabaseError databaseError) {
+
+                    progressBarUserName.setVisibility(View.INVISIBLE);
                 }
+
             });
-
-            progressBarUserName.setVisibility(View.INVISIBLE);
-        }Toast.makeText(Create_Account_Activity.this,"Error",Toast.LENGTH_LONG).show();
-
-
+        } Toast.makeText(Create_Account_Activity.this, "Error the name must to be up 5", Toast.LENGTH_LONG).show();
 
     }
+
 }
