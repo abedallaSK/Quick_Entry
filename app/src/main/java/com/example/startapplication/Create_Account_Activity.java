@@ -37,10 +37,17 @@ public class Create_Account_Activity extends AppCompatActivity {
     private DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Accounts");
     private StorageReference reference= FirebaseStorage.getInstance().getReference("GreenCard");
     private Uri imageUri;
+    private Uri profileUri;
     private ImageView imageView;
     private static final String PREFS_NAME = "LOGIN";
     private static final String DATA_TAG = "EMAIL";
     private ProgressBar progressBar;
+    private ProgressBar progressBarUserName;
+    private  ImageView profile;
+    private EditText edUserName;
+    private  boolean test=false;
+    private boolean emailTest=false;
+    private String userName;
 
 
     @Override
@@ -55,24 +62,54 @@ public class Create_Account_Activity extends AppCompatActivity {
         edRe_Password=findViewById(R.id.Re_Password);
         imageView=findViewById(R.id.imageView3);
         progressBar=findViewById(R.id.progressBar);
-
+        progressBarUserName=findViewById(R.id.progressBar3);
+        profile=findViewById(R.id.profile_image);
+        edUserName =findViewById(R.id.username_normal);
         progressBar.setVisibility(View.INVISIBLE);
+        progressBarUserName.setVisibility(View.INVISIBLE);
     }
 
     public void UserAccount(View view) {
 
-        if(edName.getText().length()>1 && edEmail.getText().length()>1 && edPassword.getText().length()>1 ) {
-            String email=edEmail.getText().toString();
-            myRef.child(email).child("Name").setValue(edName.getText().toString());
-            myRef.child(email).child("Password").setValue(edPassword.getText().toString());
-            myRef.child(email).child("Email").setValue(edEmail.getText().toString());
-            myRef.child(email).child("Type").setValue(1);
+        if(!(edUserName.getText().toString().length()>3 && true))
+        {
+            Toast.makeText(this,"UserName Error",Toast.LENGTH_LONG).show();
+
+        }else if(edName.getText().length()>1 && edEmail.getText().length()<1)
+        {
+            Toast.makeText(this,"First name Error",Toast.LENGTH_LONG).show();
+        }else if (edLastName.getText().length()<1)
+        {
+            Toast.makeText(this,"the lastName Error",Toast.LENGTH_LONG).show();
+        }else if (edPassword.getText().length()<5 &&edPassword.getText()== edRe_Password.getText())
+        {
+            Toast.makeText(this,"Password Error the pass word must to pe up from 5 latter's",Toast.LENGTH_LONG).show();
+        }else  if(edId.getText().length()<9)
+        {
+            Toast.makeText(this,"ID  Error the id word must to pe up from 9 number",Toast.LENGTH_LONG).show();
+        }
+        else if(edPhone.getText().length()<10)
+        {
+            Toast.makeText(this,"phone  Error the id word must to pe up from 10 number",Toast.LENGTH_LONG).show();
+        } else if (edEmail.getText().length()<1 && emailTest)
+        {
+            Toast.makeText(this,"Email  Error",Toast.LENGTH_LONG).show();
+        } else{
+
+
+            myRef.child(userName).child("Name").setValue(edName.getText().toString());
+            myRef.child(userName).child("Password").setValue(edPassword.getText().toString());
+            myRef.child(userName).child("Email").setValue(edEmail.getText().toString());
+            myRef.child(userName).child("Type").setValue(1);
 
             if(imageUri!=null)
             {
-                uploadToFirebase(imageUri);
-            }else Toast.makeText(this,"No image",Toast.LENGTH_LONG);
-
+                uploadToFirebase(imageUri,0);
+            }else Toast.makeText(this,"No Green Card",Toast.LENGTH_LONG);
+            if(profileUri!=null)
+            {
+                uploadToFirebase(profileUri,1);
+            }else Toast.makeText(this,"No profile photo",Toast.LENGTH_LONG);
 
             SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
             SharedPreferences.Editor editor = mSettings.edit();
@@ -81,10 +118,9 @@ public class Create_Account_Activity extends AppCompatActivity {
             editor.commit();
 
         }
-        else  Toast.makeText(this,"you Must to full the all ", Toast.LENGTH_SHORT).show();
     }
 
-    private void uploadToFirebase(Uri uri){
+    private void uploadToFirebase(Uri uri,int code){
 
         final StorageReference fileRef = reference.child(System.currentTimeMillis() + "." + getFileExtension(uri));
         fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -95,7 +131,10 @@ public class Create_Account_Activity extends AppCompatActivity {
                     public void onSuccess(Uri uri) {
                         Model model = new Model(uri.toString());
                         String modelId = myRef.push().getKey();
-                        myRef.child(edEmail.getText().toString()).child("Green").setValue(model);
+                        if(code==0)
+                            myRef.child(edEmail.getText().toString()).child("Green").setValue(model);
+                        if(code==1)
+                            myRef.child(edEmail.getText().toString()).child("Green").setValue(model);
                         progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(Create_Account_Activity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
                         goTOActivity();
@@ -146,8 +185,25 @@ public class Create_Account_Activity extends AppCompatActivity {
         if(requestCode==2 && resultCode==RESULT_OK && data !=null) {
             imageUri=data.getData();
             imageView.setImageURI(imageUri);
-
-
         }
+        if(requestCode==3 && resultCode==RESULT_OK && data !=null) {
+            profileUri=data.getData();
+            profile.setImageURI(profileUri);
+        }
+
+    }
+
+    public void AddProfilephotoNormal(View view) {
+        Intent galleryIntent=new Intent();
+        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent,3);
+    }
+
+    public void cheekUseName(View view) {
+        progressBarUserName.setVisibility(View.VISIBLE);
+        test=true;
+
+
     }
 }
