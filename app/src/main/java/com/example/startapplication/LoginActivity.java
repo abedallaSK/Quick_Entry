@@ -33,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
     //
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,12 +64,13 @@ public class LoginActivity extends AppCompatActivity {
                 Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
                 while (i.hasNext()) {
                    Account account=(i.next()).getValue(Account.class);
-                    if ((account.getEmail().equals(email) || account.getUsername().equals(email)) && account.getPassword().equals(password) ){
-                        String ke=i.next().getKey();
-                        StartActivity(account.getType(),ke);
-                        break;
-                    }
-
+                   if(account.getEmail()!=null &&account.getUsername()!=null &&account.getPassword() !=null) {
+                       if ((account.getEmail().equals(email) || account.getUsername().equals(email)) && account.getPassword().equals(password)) {
+                           String ke = i.next().getKey();
+                           StartActivity(account.getType(), ke);
+                           break;
+                       }
+                   }
                 }
                 Toast.makeText(getApplicationContext(),"The Password or name Error ",Toast.LENGTH_SHORT).show();
             }

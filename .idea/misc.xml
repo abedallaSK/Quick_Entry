@@ -3,24 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Quick_Entry_Hakaton/app/src/main/res/layout/activity_business_main.xml" value="0.15217391304347827" />
-        <entry key="..\:/Quick_Entry_Hakaton/app/src/main/res/layout/activity_create_account.xml" value="0.15217391304347827" />
-        <entry key="..\:/Quick_Entry_Hakaton/app/src/main/res/layout/activity_create_business_account.xml" value="0.15217391304347827" />
-        <entry key="..\:/Quick_Entry_Hakaton/app/src/main/res/layout/activity_create_business_account2.xml" value="0.15217391304347827" />
-        <entry key="..\:/Quick_Entry_Hakaton/app/src/main/res/layout/activity_create_forman_account.xml" value="0.15217391304347827" />
-        <entry key="..\:/Quick_Entry_Hakaton/app/src/main/res/layout/activity_fore_main.xml" value="0.15217391304347827" />
-        <entry key="..\:/Quick_Entry_Hakaton/app/src/main/res/layout/activity_listformar.xml" value="0.1503623188405797" />
-        <entry key="..\:/Quick_Entry_Hakaton/app/src/main/res/layout/activity_user.xml" value="0.1" />
-        <entry key="..\:/Quick_Entry_Hakaton/app/src/main/res/layout/activity_user_choice.xml" value="0.15217391304347827" />
-        <entry key="..\:/Quick_Entry_Hakaton/app/src/main/res/layout/activity_user_main.xml" value="0.15217391304347827" />
-        <entry key="..\:/Quick_Entry_Hakaton/app/src/main/res/layout/app_bar_user_main.xml" value="0.15217391304347827" />
-        <entry key="..\:/Quick_Entry_Hakaton/app/src/main/res/layout/content_user_main.xml" value="0.15217391304347827" />
-        <entry key="..\:/Quick_Entry_Hakaton/app/src/main/res/layout/fragment_business_main.xml" value="0.15217391304347827" />
-        <entry key="..\:/Quick_Entry_Hakaton/app/src/main/res/layout/fragment_fore_main.xml" value="0.15217391304347827" />
-        <entry key="..\:/Quick_Entry_Hakaton/app/src/main/res/layout/fragment_gallery.xml" value="0.15217391304347827" />
-        <entry key="..\:/Quick_Entry_Hakaton/app/src/main/res/layout/fragment_home.xml" value="0.15217391304347827" />
-        <entry key="..\:/Quick_Entry_Hakaton/app/src/main/res/layout/fragment_slideshow.xml" value="0.15217391304347827" />
-        <entry key="..\:/Quick_Entry_Hakaton/app/src/main/res/layout/list_item.xml" value="0.15217391304347827" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_business_main.xml" value="0.20108695652173914" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_create_account.xml" value="0.33" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_create_business_account.xml" value="0.19010416666666666" />
@@ -28,6 +10,7 @@
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_start.xml" value="0.1" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_user.xml" value="0.18070652173913043" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_user_choice.xml" value="0.20108695652173914" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_user_main.xml" value="0.20108695652173914" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/app_bar_user_main.xml" value="0.20108695652173914" />
