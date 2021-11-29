@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-
+//Created by yosef
 public class ListAdapter2 extends ArrayAdapter<User> {
 
     public ListAdapter2(Context context, ArrayList<User>userArrayList){
@@ -20,7 +20,7 @@ public class ListAdapter2 extends ArrayAdapter<User> {
         super(context,R.layout.list_item,userArrayList);
     }
 
-
+   //
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -39,7 +39,6 @@ public class ListAdapter2 extends ArrayAdapter<User> {
         userName.setText(user.name);
         lastMsg.setText(user.lastMessage);
         time.setText(user.lastMsgTime);
-
 
         return convertView;
     }

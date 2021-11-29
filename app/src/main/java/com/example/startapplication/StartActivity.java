@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.TextView;
 import android.widget.Toast;
-
+//Created by abedalla
 public class StartActivity extends AppCompatActivity {
 
     public String email;

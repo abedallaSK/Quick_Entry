@@ -12,7 +12,7 @@ import com.example.startapplication.databinding.ActivityListformarBinding;
 import com.example.startapplication.databinding.ActivityUserBinding;
 
 import java.util.ArrayList;
-
+//Created by yosef
 public class ListformarActivity extends AppCompatActivity {
 
     ActivityListformarBinding binding;
@@ -39,7 +39,7 @@ public class ListformarActivity extends AppCompatActivity {
 
         }
 
-
+//update
         ListAdapter2 listAdapter = new ListAdapter2(ListformarActivity.this,userArrayList);
 
         binding.listview.setAdapter(listAdapter);

@@ -226,6 +226,7 @@ public class Create_Account_Activity extends AppCompatActivity {
                 }
 
             });
+            //test
         } Toast.makeText(Create_Account_Activity.this, "Error the name must to be up 5", Toast.LENGTH_LONG).show();
         return true;
     }

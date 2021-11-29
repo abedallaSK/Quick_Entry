@@ -111,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
                 break;
 
         }
-
+    // for test
        return "OK";
    }
 

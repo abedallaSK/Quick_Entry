@@ -1,5 +1,5 @@
 package com.example.startapplication;
-
+//Created by abedalla
 public class User {
 
     String name, lastMessage, lastMsgTime, phoneNo, country;
