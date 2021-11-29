@@ -99,9 +99,10 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case 2:
-                intent = new Intent(this, BusinessMainActivity.class);
+                Toast.makeText(this,"coming soon",Toast.LENGTH_SHORT).show();
+                /*intent = new Intent(this, BusinessMainActivity.class);
                 intent.putExtra("Email", email);
-                startActivity(intent);
+                startActivity(intent);*/
                 break;
             case 3:
                 intent = new Intent(this, ListformarActivity.class);
@@ -115,5 +116,10 @@ public class LoginActivity extends AppCompatActivity {
    }
 
     public void ForgetPassword(View view) {
+    }
+
+    public void user2(View view) {
+        Intent intent = new Intent(this, ListformarActivity.class);
+        startActivity(intent);
     }
 }

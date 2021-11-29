@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -65,14 +66,16 @@ public class StartActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case 2:
-                intent = new Intent(this, BusinessMainActivity.class);
+                Toast.makeText(this,"coming soon",Toast.LENGTH_SHORT).show();
+               /* intent = new Intent(this, BusinessMainActivity.class);
                 intent.putExtra("Email", email);
-                startActivity(intent);
+                startActivity(intent);*/
                 break;
             case 3:
-                intent = new Intent(this, ListformarActivity.class);
+                Toast.makeText(this,"coming soon",Toast.LENGTH_SHORT).show();
+               /* intent = new Intent(this, ListformarActivity.class);
                 intent.putExtra("Email", email);
-                startActivity(intent);
+                startActivity(intent);*/
                 break;
 
             default:

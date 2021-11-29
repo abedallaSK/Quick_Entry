@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 public class UserChoiceActivity extends AppCompatActivity {
 
@@ -18,11 +19,13 @@ public class UserChoiceActivity extends AppCompatActivity {
     }
 
     public void BusinessAcount(View view) {
-        startActivity(new Intent(this, Create_BusinessAccount_Activity.class));
+        Toast.makeText(this,"coming soon",Toast.LENGTH_SHORT).show();
+        /*startActivity(new Intent(this, Create_BusinessAccount_Activity.class));*/
     }
 
     public void ForemanAccount(View view) {
-        startActivity(new Intent(this, Create_ForemanAccountActivity.class));
+        Toast.makeText(this,"coming soon",Toast.LENGTH_SHORT).show();
+       /* startActivity(new Intent(this, Create_ForemanAccountActivity.class));*/
     }
 
 }
