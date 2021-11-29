@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
-public class Create_Account_ActivityTest extends TestCase {
+public class Create_Account_ActivityTest {
 
     @Test
     public void onCreate() {
