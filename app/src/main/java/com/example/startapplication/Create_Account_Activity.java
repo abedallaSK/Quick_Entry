@@ -101,10 +101,10 @@ public class Create_Account_Activity extends AppCompatActivity {
         } else {
             userName = edUserName.getText().toString();
             if (imageUri != null) {
-                uploadToFirebase(imageUri, 0);
+                //uploadToFirebase(imageUri, 0);
             } else Toast.makeText(this, "No Green Card", Toast.LENGTH_LONG).show();
             if (profileUri != null) {
-                uploadToFirebase(profileUri, 1);
+                //uploadToFirebase(profileUri, 1);
             } else Toast.makeText(this, "No profile photo", Toast.LENGTH_LONG).show();
             ;
             account = new Account(userName, edName.getText().toString(), edLastName.getText().toString(), edPassword.getText().toString(), edEmail.getText().toString(), edPhone.getText().toString(), edPhone.getText().toString(), 1, profileUri.toString(), imageUri.toString());
