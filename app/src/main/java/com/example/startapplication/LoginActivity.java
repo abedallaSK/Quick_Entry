@@ -1,13 +1,10 @@
 package com.example.startapplication;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -50,11 +47,14 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-    public void Create(View view) {
-        startActivity(new Intent(this, UserChoiceActivity.class));
+    public String Create(View view) {
+        Intent i=new Intent(this, UserChoiceActivity.class);
+        startActivity(i);
+        //for test
+        return  "OK";
     }
 
-    public void SingIn(View view) {
+    public Object SingIn(View view) {
         String email=editText_Email.getText().toString();
         String password=editText_PassWord.getText().toString();
 
@@ -79,9 +79,10 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         });
+        return null;
     }
 
-   public void StartActivity(int x,String email) {
+   public String StartActivity(int x, String email) {
 
         SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
 
@@ -110,7 +111,8 @@ public class LoginActivity extends AppCompatActivity {
 
         }
 
-    }
+       return "OK";
+   }
 
     public void ForgetPassword(View view) {
     }

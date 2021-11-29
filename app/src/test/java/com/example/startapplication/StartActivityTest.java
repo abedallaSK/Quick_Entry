@@ -1,25 +1,17 @@
 package com.example.startapplication;
 
-import android.app.Activity;
-
-import com.example.startapplication.databinding.ActivityStartBinding;
 
 import junit.framework.TestCase;
 
+import org.junit.Assert;
 
 
 public class StartActivityTest extends TestCase {
 
+    LoginActivity loginActivity;
 
-
-    public void testOnCreate() {
-         String email;
-       // StartActivity.getIntent().getStringExtra("");
-
-    }
-
-    public void testStartActivity() {
-      ///  StartActivity
+    public void testStartActivity() throws InstantiationException, IllegalAccessException {
+        Assert.assertEquals(loginActivity.getClass().newInstance().StartActivity(1, "test"), "OK");
 
     }
 }

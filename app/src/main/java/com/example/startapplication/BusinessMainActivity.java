@@ -117,22 +117,5 @@ public class BusinessMainActivity extends AppCompatActivity {
         doorRef.child(email).child(doorName.get(0)).child("status").setValue(true);
         counter++;
         doorRef.child(email).child(doorName.get(0)).child("counter").setValue(counter);
-
-
-
-        /*Thread myThread = new Thread(){
-            @Override
-            public void run() {
-                try {
-                    sleep(2000);
-
-                    finish();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        myThread.start();*/
-        //
     }
 }
