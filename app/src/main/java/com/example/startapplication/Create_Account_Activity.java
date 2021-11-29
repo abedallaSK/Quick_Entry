@@ -75,7 +75,7 @@ public class Create_Account_Activity extends AppCompatActivity {
         edPhone = findViewById(R.id.PhoneNumber);
         progressBarUserName.setVisibility(View.INVISIBLE);
     }
-
+//start user account
     public boolean UserAccount(View view) {
 
         if (!(edUserName.getText().toString().length() > 3 && true)) {
@@ -157,13 +157,13 @@ public class Create_Account_Activity extends AppCompatActivity {
             }
         });
     }
-
+//go to Activity
     private void goTOActivity() {
         Intent intent = new Intent(this, UserMainActivity.class);
         intent.putExtra("Email", edEmail.getText().toString());
         startActivity(intent);
     }
-
+    //go to bulid file
     private String getFileExtension(Uri mUri) {
         ContentResolver cr = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();

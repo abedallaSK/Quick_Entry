@@ -1,5 +1,5 @@
 package com.example.startapplication;
-
+//Created by abedalla
 public class Account {
     private String name;
     private String familyName;
@@ -42,6 +42,7 @@ public class Account {
     }
 
 
+//start
     public Account(String username,String name, String familyName,  String password, String email, String phoneNumber, String id, int type,String profileUri,String greenUri) {
         this.name = name;
         this.familyName = familyName;
