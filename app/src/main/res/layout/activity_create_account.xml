@@ -6,7 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".Create_Account_Activity">
 
-
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/normal_profile_img"
+        app:civ_border_color="#FF000000"
+        app:civ_border_width="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        android:onClick="AddProfilephotoNormal"/>
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -150,25 +162,7 @@
                 android:inputType="textPassword"
                 android:minHeight="48dp" />
 
-            <Button
-                android:id="@+id/button6"
-                style="@style/Widget.MaterialComponents.TimePicker.Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="Storage"
-                android:text="Vaccination certificate" />
 
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_menu_slideshow" />
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </ScrollView>
