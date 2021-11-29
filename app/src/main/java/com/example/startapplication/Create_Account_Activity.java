@@ -123,39 +123,7 @@ public class Create_Account_Activity extends AppCompatActivity {
 
 
     //upload Green card and profile image
-    private void uploadToFirebase(Uri uri, int code) {
 
-        final StorageReference fileRef = reference.child(System.currentTimeMillis() + "." + getFileExtension(uri));
-        fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        if (code == 0)
-                            imageUri = uri;
-                        if (code == 1)
-                            profileUri = uri;
-                        progressBar.setVisibility(View.INVISIBLE);
-                        Toast.makeText(Create_Account_Activity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
-                        goTOActivity();
-                    }
-                });
-            }
-        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                progressBar.setVisibility(View.VISIBLE);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                progressBar.setVisibility(View.INVISIBLE);
-
-                Toast.makeText(Create_Account_Activity.this, e.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     private void goTOActivity() {
         Intent intent = new Intent(this, UserMainActivity.class);
