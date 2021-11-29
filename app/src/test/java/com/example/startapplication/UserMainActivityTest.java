@@ -21,7 +21,7 @@ public class UserMainActivityTest extends TestCase {
 
     public void testOnCreateOptionsMenu() {
         Menu menu= null;
-        assertEquals(userMainActivity.onCreateOptionsMenu(menu),true);
+        assertEquals(userMainActivity.onCreateOptionsMenu(null),true);
     }
 
     public void testOnSupportNavigateUp() {
