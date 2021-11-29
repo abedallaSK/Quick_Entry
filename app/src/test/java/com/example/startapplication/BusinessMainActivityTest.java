@@ -10,20 +10,13 @@ import org.junit.Test;
 
 public class BusinessMainActivityTest extends TestCase {
 
+    BusinessMainActivity businessMainActivity;
     @Before
     public void setUp() throws Exception {
     }
 
     @After
     public void tearDown() throws Exception {
-    }
-
-    @Test
-    public void onCreate() {
-    }
-
-    @Test
-    public void logOut2() {
     }
 
 }

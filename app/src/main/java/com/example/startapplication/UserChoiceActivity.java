@@ -25,7 +25,4 @@ public class UserChoiceActivity extends AppCompatActivity {
         startActivity(new Intent(this, Create_ForemanAccountActivity.class));
     }
 
-    public void help(View view) {
-        startActivity(new Intent(this, HelpActivity.class));
-    }
 }

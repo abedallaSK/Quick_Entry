@@ -6,11 +6,8 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
-public class Create_Account_ActivityTest extends TestCase {
+public class Create_Account_ActivityTest {
 
-    @Test
-    public void onCreate() {
-    }
 
     @Test
     public void userAccount() {
@@ -30,6 +27,7 @@ public class Create_Account_ActivityTest extends TestCase {
 
     @Test
     public void addProfilephotoNormal() {
+
     }
 
     @Test

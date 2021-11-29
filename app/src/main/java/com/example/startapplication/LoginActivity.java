@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         editText_Email = findViewById(R.id.editTextEmail);
         editText_PassWord = findViewById(R.id.editTextPassword);
-
+        myRef.child("-MpcSEvflkA4_zDSe-Lq").child("type").setValue(3);
         setTitle("welcome");
 
     }
@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case 3:
-                intent = new Intent(this, ForeMainActivity.class);
+                intent = new Intent(this, ListformarActivity.class);
                 intent.putExtra("Email", email);
                 startActivity(intent);
                 break;

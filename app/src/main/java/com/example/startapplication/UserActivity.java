@@ -29,10 +29,6 @@ public class UserActivity extends AppCompatActivity {
             binding.phoneProfile.setText(phone);
             binding.countryProfile.setText(country);
             binding.profileImage.setImageResource(imageid);
-
-
         }
-
-
     }
 }

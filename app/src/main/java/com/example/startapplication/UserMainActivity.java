@@ -62,9 +62,6 @@ public class UserMainActivity extends AppCompatActivity {
         String data= mSettings.getString(DATA_TAG, null);
         TextView textView=findViewById(R.id.textViewName);
         textView.setText(data);
-        ImageView imageView=findViewById(R.id.imageView);
-
-        //   typeAccount=sharedPreferences.getInt("Type",-1);
 
         Bundle bundle = getIntent().getExtras();
         key= bundle.getString("Email");
@@ -127,11 +124,4 @@ public class UserMainActivity extends AppCompatActivity {
         startActivity(new Intent(this,LoginActivity.class));
         return false;
     }
-
-    /*public void Show(View view) {
-        Intent intent = new Intent(this, GreenShowActivity.class);
-        intent.putExtra("Email", email);
-        startActivity(intent);
-
-    }*/
 }

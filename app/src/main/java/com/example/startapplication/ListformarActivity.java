@@ -23,7 +23,7 @@ public class ListformarActivity extends AppCompatActivity {
         binding=ActivityListformarBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_listformar);
         setContentView(binding.getRoot());
-        int[] imageId={R.drawable.app_icon,R.drawable.app_icon,R.drawable.app_icon,R.drawable.app_icon,R.drawable.app_icon,R.drawable.app_icon};
+        int[] imageId={R.drawable.profile_img,R.drawable.app_icon,R.drawable.app_icon,R.drawable.app_icon,R.drawable.app_icon,R.drawable.app_icon};
         String[] name ={"hsam","ahmd","abdllh","mroan","kadm","yosef"};
         String[] lastMessage={"Heye","supp","let`s catchup","Dinner tonight?","Gotta ago","i`m in aeeting"};
         String[] lastmsgTime ={"8:45 pm","9:00 am","7:34 pm","6:32 am","5:56 am","5:00 am"};
@@ -57,8 +57,5 @@ public class ListformarActivity extends AppCompatActivity {
 
             }
         });
-
-
-
     }
 }

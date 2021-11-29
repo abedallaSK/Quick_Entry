@@ -19,18 +19,8 @@
             android:name=".Create_ForemanAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".ForeMainActivity"
-            android:exported="false"
-            android:label="@string/title_activity_fore_main"
-            android:theme="@style/Theme.StartApplication.NoActionBar" />
-        <activity
             android:name=".Create_BusinessAccount_Activity"
             android:exported="false" />
-        <activity
-            android:name=".HelpActivity"
-            android:exported="false"
-            android:label="@string/title_activity_help"
-            android:theme="@style/Theme.StartApplication.NoActionBar" />
         <activity
             android:name=".UserChoiceActivity"
             android:exported="false" />

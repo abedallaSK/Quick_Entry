@@ -36,11 +36,6 @@ public class BusinessMainActivity extends AppCompatActivity {
     private ActivityBusinessMainBinding binding;
     private static final String PREFS_NAME = "LOGIN";
     private static final String DATA_TAG = "EMAIL";
-    private ImageView imageView;
-    private String email;
-    private DatabaseReference doorRef = FirebaseDatabase.getInstance().getReference("Doors");
-    private List<String> doorName=new ArrayList();
-    private int counter;
 
 
     @Override
@@ -59,14 +54,6 @@ public class BusinessMainActivity extends AppCompatActivity {
         FloatingActionButton fab = binding.fab;
 
         SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
-        email= mSettings.getString(DATA_TAG, "");
-        //  if(email=="") logOut2(null);
-        doorName.add("Door_1");
-
-        imageView=findViewById(R.id.imageView7);
-        Picasso.get().load(R.drawable.open).into(imageView);
-        counter=0;
-        doorRef.child(email).child(doorName.get(0)).child("counter").setValue(counter);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,48 +61,13 @@ public class BusinessMainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
-        doorRef.child(email).child(doorName.get(0)).child("status").setValue(false);
-        doorRef.child(email).child(doorName.get(0)).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                boolean value = dataSnapshot.child("status").getValue(boolean.class);
-                counter=dataSnapshot.child("counter").getValue(Integer.class);
-                Log.d(TAG, "Value is: " + value);
-                if (value) {
-                    Picasso.get().load(R.drawable.close).into(imageView);
-                    new android.os.Handler().postDelayed(
-                            new Runnable() {
-                                public void run() {
-                                    Picasso.get().load(R.drawable.open).into(imageView);
-                                    doorRef.child(email).child(doorName.get(0)).child("status").setValue(false);
-                                }
-                            },
-                            5000);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
     }
+
     public void logOut2(View view) {
         SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = mSettings.edit();
         editor.clear();
         editor.commit();
         startActivity(new Intent(this,LoginActivity.class));
-    }
-
-    public void OpenDoor(View v) {
-
-        doorRef.child(email).child(doorName.get(0)).child("status").setValue(true);
-        counter++;
-        doorRef.child(email).child(doorName.get(0)).child("counter").setValue(counter);
     }
 }

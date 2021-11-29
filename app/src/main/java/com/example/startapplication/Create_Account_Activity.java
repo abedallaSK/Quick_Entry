@@ -81,28 +81,37 @@ public class Create_Account_Activity extends AppCompatActivity {
         progressBarUserName.setVisibility(View.INVISIBLE);
     }
 
-    public void UserAccount(View view) {
+    public boolean UserAccount(View view) {
 
         if (!(edUserName.getText().toString().length() > 3 && true)) {
             Toast.makeText(this, "UserName Error", Toast.LENGTH_LONG).show();
+            return false;
 
         } else if (edName.getText().length() > 1 && edEmail.getText().length() < 1) {
             Toast.makeText(this, "First name Error", Toast.LENGTH_LONG).show();
+            return false;
         } else if (edLastName.getText().length() < 1) {
             Toast.makeText(this, "the lastName Error", Toast.LENGTH_LONG).show();
-        } else if (edPassword.getText().length() < 5 && edPassword.getText() == edRe_Password.getText()) {
+            return false;
+        } else if (edPassword.getText().length() < 5 && edPassword.getText() == edRe_Password.getText())
+        {
             Toast.makeText(this, "Password Error the pass word must to pe up from 5 latter's", Toast.LENGTH_LONG).show();
+            return false;
         } else if (edId.getText().length() < 9) {
             Toast.makeText(this, "ID  Error the id word must to pe up from 9 number", Toast.LENGTH_LONG).show();
+            return false;
         } else if (edPhone.getText().length() < 10) {
             Toast.makeText(this, "phone  Error the id word must to pe up from 10 number", Toast.LENGTH_LONG).show();
+            return false;
         } else if (edEmail.getText().length() < 1 && emailTest) {
             Toast.makeText(this, "Email  Error", Toast.LENGTH_LONG).show();
+            return false;
         } else {
             userName = edUserName.getText().toString();
             if (imageUri != null) {
                 uploadToFirebase(imageUri, 0);
             } else Toast.makeText(this, "No Green Card", Toast.LENGTH_LONG).show();
+
             if (profileUri != null) {
                 uploadToFirebase(profileUri, 1);
             } else Toast.makeText(this, "No profile photo", Toast.LENGTH_LONG).show();
@@ -114,15 +123,10 @@ public class Create_Account_Activity extends AppCompatActivity {
             editor.putString(DATA_TAG, edEmail.getText().toString());
             editor.putInt("Type", 1);
             editor.commit();
+            return true;
 
         }
     }
-
-    public void listViewOnline(DatabaseReference dRef) {
-
-
-    }
-
 
     //upload Green card and profile image
     private void uploadToFirebase(Uri uri, int code) {
@@ -169,7 +173,6 @@ public class Create_Account_Activity extends AppCompatActivity {
         ContentResolver cr = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cr.getType(mUri));
-
     }
 
 
@@ -178,7 +181,6 @@ public class Create_Account_Activity extends AppCompatActivity {
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
         startActivityForResult(galleryIntent, 2);
-
     }
 
     @Override
@@ -192,7 +194,6 @@ public class Create_Account_Activity extends AppCompatActivity {
             profileUri = data.getData();
             profile.setImageURI(profileUri);
         }
-
     }
 
     public void AddProfilephotoNormal(View view) {
@@ -230,7 +231,5 @@ public class Create_Account_Activity extends AppCompatActivity {
 
             });
         } Toast.makeText(Create_Account_Activity.this, "Error the name must to be up 5", Toast.LENGTH_LONG).show();
-
     }
-
 }
