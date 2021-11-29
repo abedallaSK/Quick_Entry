@@ -1,7 +1,5 @@
 package com.example.startapplication;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
@@ -31,9 +28,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
 
 public class Create_Account_Activity extends AppCompatActivity {
 
@@ -176,11 +171,12 @@ public class Create_Account_Activity extends AppCompatActivity {
     }
 
 
-    public void Storage(View view) {
+    public boolean Storage(View view) {
         Intent galleryIntent = new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
         startActivityForResult(galleryIntent, 2);
+        return true;
     }
 
     @Override
@@ -203,7 +199,7 @@ public class Create_Account_Activity extends AppCompatActivity {
         startActivityForResult(galleryIntent, 3);
     }
 
-    public void cheekUseName(View view) {
+    public Boolean cheekUseName(View view) {
         progressBarUserName.setVisibility(View.VISIBLE);
         userName = edUserName.getText().toString();
         if (userName.length() >= 5) {
@@ -231,5 +227,6 @@ public class Create_Account_Activity extends AppCompatActivity {
 
             });
         } Toast.makeText(Create_Account_Activity.this, "Error the name must to be up 5", Toast.LENGTH_LONG).show();
+        return true;
     }
 }
