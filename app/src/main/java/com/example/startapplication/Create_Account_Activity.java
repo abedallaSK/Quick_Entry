@@ -118,10 +118,8 @@ public class Create_Account_Activity extends AppCompatActivity {
         }
     }
 
-    public void listViewOnline(DatabaseReference dRef) {
 
 
-    }
 
 
     //upload Green card and profile image
