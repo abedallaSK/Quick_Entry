@@ -162,7 +162,25 @@
                 android:inputType="textPassword"
                 android:minHeight="48dp" />
 
+            <Button
+                android:id="@+id/button6"
+                style="@style/Widget.MaterialComponents.TimePicker.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="Storage"
+                android:text="Vaccination certificate" />
 
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_menu_slideshow" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </ScrollView>
