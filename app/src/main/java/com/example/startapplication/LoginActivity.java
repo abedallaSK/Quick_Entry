@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //
     private static final String PREFS_NAME = "LOGIN";
-    private static final String DATA_TAG = "EMAIL";
+    private static final String DATA_TAG = "Code";
     //
 
 
@@ -38,8 +38,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         editText_Email = findViewById(R.id.editTextEmail);
         editText_PassWord = findViewById(R.id.editTextPassword);
-        myRef.child("-MpcSEvflkA4_zDSe-Lq").child("type").setValue(3);
         setTitle("welcome");
+
+        Toast.makeText(getApplicationContext(),"for foreman Test the Username is abedalla2 and the passowrd is 123456789 or you can click in the button  ",Toast.LENGTH_SHORT).show();
 
     }
 
@@ -82,12 +83,12 @@ public class LoginActivity extends AppCompatActivity {
         return null;
     }
 
-   public String StartActivity(int x, String email) {
+   public String StartActivity(int x, String Code) {
 
         SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
 
         SharedPreferences.Editor editor = mSettings.edit();
-        editor.putString(DATA_TAG, email);
+        editor.putString(DATA_TAG, Code);
         editor.putInt("Type",x);
         editor.commit();
 
@@ -95,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
         switch (x) {
             case 1:
                 Intent intent = new Intent(this, UserMainActivity.class);
-                intent.putExtra("Email", email);
+                intent.putExtra("Code", Code);
                 startActivity(intent);
                 break;
             case 2:
@@ -106,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                 break;
             case 3:
                 intent = new Intent(this, ListformarActivity.class);
-                intent.putExtra("Email", email);
+                intent.putExtra("Code", Code);
                 startActivity(intent);
                 break;
 

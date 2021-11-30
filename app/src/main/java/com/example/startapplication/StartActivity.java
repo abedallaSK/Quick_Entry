@@ -15,7 +15,7 @@ public class StartActivity extends AppCompatActivity {
     public String email;
     public int typeAccount=-1;
     private static final String PREFS_NAME = "LOGIN";
-    private static final String DATA_TAG = "EMAIL";
+    private static final String DATA_TAG = "Code";
     private final Handler mHideHandler = new Handler();
 
 
@@ -62,7 +62,7 @@ public class StartActivity extends AppCompatActivity {
         switch (x) {
             case 1:
                 Intent intent = new Intent(this, UserMainActivity.class);
-                intent.putExtra("Email", email);
+                intent.putExtra("Code", email);
                 startActivity(intent);
                 break;
             case 2:

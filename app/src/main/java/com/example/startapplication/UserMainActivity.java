@@ -39,7 +39,7 @@ public class UserMainActivity extends AppCompatActivity {
 
     //
     private static final String PREFS_NAME = "LOGIN";
-    private static final String DATA_TAG = "EMAIL";
+    private static final String DATA_TAG = "Code";
     private String key;
 
     @Override
@@ -64,7 +64,7 @@ public class UserMainActivity extends AppCompatActivity {
         textView.setText(data);
 
         Bundle bundle = getIntent().getExtras();
-        key= bundle.getString("Email");
+        key= bundle.getString("Code");
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;

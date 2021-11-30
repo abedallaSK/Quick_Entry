@@ -88,7 +88,7 @@ public class Create_Account_Activity extends AppCompatActivity {
         } else if (edLastName.getText().length() < 1) {
             Toast.makeText(this, "the lastName Error", Toast.LENGTH_LONG).show();
             return false;
-        } else if (edPassword.getText().length() < 5 && edPassword.getText() == edRe_Password.getText())
+        } else if (edPassword.getText().length() < 5 && edPassword.getText().toString().equals(edRe_Password.getText().toString()))
         {
             Toast.makeText(this, "Password Error the pass word must to pe up from 5 latter's", Toast.LENGTH_LONG).show();
             return false;
@@ -105,12 +105,23 @@ public class Create_Account_Activity extends AppCompatActivity {
             userName = edUserName.getText().toString();
             if (imageUri != null) {
                 uploadToFirebase(imageUri, 0);
-            } else Toast.makeText(this, "No Green Card", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "No Green Card", Toast.LENGTH_LONG).show();
+                 return false;
+            }
 
             if (profileUri != null) {
                 uploadToFirebase(profileUri, 1);
-            } else Toast.makeText(this, "No profile photo", Toast.LENGTH_LONG).show();
-            ;
+            } else {
+                Toast.makeText(this, "No profile photo", Toast.LENGTH_LONG).show();
+                return false;
+            }
+            if(imageUri==null || profileUri== null)
+            {
+                Toast.makeText(this, "No profile photo", Toast.LENGTH_LONG).show();
+                 return false;
+            }
+
             account = new Account(userName, edName.getText().toString(), edLastName.getText().toString(), edPassword.getText().toString(), edEmail.getText().toString(), edPhone.getText().toString(), edPhone.getText().toString(), 1, profileUri.toString(), imageUri.toString());
             myRef.push().setValue(account);
             SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
@@ -213,11 +224,14 @@ public class Create_Account_Activity extends AppCompatActivity {
                         if (s.equals(userName)){
                             test = false;
                             Toast.makeText(Create_Account_Activity.this, "The name is already exists", Toast.LENGTH_LONG).show();
+                            progressBarUserName.setVisibility(View.INVISIBLE);
                             break;
                         }
-                        test = true;
-                        Toast.makeText(Create_Account_Activity.this, "OK you can use it", Toast.LENGTH_LONG).show();
+
                     }
+                    test = true;
+                    Toast.makeText(Create_Account_Activity.this, "OK you can use it", Toast.LENGTH_LONG).show();
+                    progressBarUserName.setVisibility(View.INVISIBLE);
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
@@ -227,7 +241,7 @@ public class Create_Account_Activity extends AppCompatActivity {
 
             });
             //test
-        } Toast.makeText(Create_Account_Activity.this, "Error the name must to be up 5", Toast.LENGTH_LONG).show();
+        }else Toast.makeText(Create_Account_Activity.this, "Error the name must to be up 5", Toast.LENGTH_LONG).show();
         return true;
     }
 }
