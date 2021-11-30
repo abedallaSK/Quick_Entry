@@ -85,16 +85,13 @@ public class LoginActivity extends AppCompatActivity {
 
    public String StartActivity(int x, String Code) {
 
-        SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
-
-        SharedPreferences.Editor editor = mSettings.edit();
-        editor.putString(DATA_TAG, Code);
-        editor.putInt("Type",x);
-        editor.commit();
-
-
         switch (x) {
             case 1:
+                SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
+                SharedPreferences.Editor editor = mSettings.edit();
+                editor.putString(DATA_TAG, Code);
+                editor.putInt("Type",x);
+                editor.commit();
                 Intent intent = new Intent(this, UserMainActivity.class);
                 intent.putExtra("Code", Code);
                 startActivity(intent);
@@ -107,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                 break;
             case 3:
                 intent = new Intent(this, ListformarActivity.class);
-                intent.putExtra("Code", Code);
+                //intent.putExtra("Code", Code);
                 startActivity(intent);
                 break;
 
