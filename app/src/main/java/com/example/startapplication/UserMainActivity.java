@@ -73,7 +73,7 @@ public class UserMainActivity extends AppCompatActivity {
         TextView emailView = (TextView)header.findViewById(R.id.Email_Main);
 
 
-        myRef.child(key).addValueEventListener(new ValueEventListener() {
+       /* myRef.child(key).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -90,7 +90,7 @@ public class UserMainActivity extends AppCompatActivity {
                 // Failed to read value
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
-        });
+        });*/
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
