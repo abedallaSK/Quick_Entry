@@ -124,14 +124,40 @@ public class Create_Account_Activity extends AppCompatActivity {
 
             account = new Account(userName, edName.getText().toString(), edLastName.getText().toString(), edPassword.getText().toString(), edEmail.getText().toString(), edPhone.getText().toString(), edPhone.getText().toString(), 1, profileUri.toString(), imageUri.toString());
             myRef.push().setValue(account);
-            SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
-            SharedPreferences.Editor editor = mSettings.edit();
-            editor.putString(DATA_TAG, edEmail.getText().toString());
-            editor.putInt("Type", 1);
-            editor.commit();
+
+
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
+                    while (i.hasNext()) {
+                        Account account=(i.next()).getValue(Account.class);
+                        if(account.getUsername()!=null) {
+                            if (account.getUsername().equals(userName)) {
+                                String ke = i.next().getKey();
+                                SaveData(ke);
+                                break;
+                            }
+                        }
+                    }
+                    Toast.makeText(getApplicationContext(),"The Password or name Error ",Toast.LENGTH_SHORT).show();
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+
+            });
             return true;
 
         }
+    }
+    public  void  SaveData(String key)
+    {
+        SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = mSettings.edit();
+        editor.putString(DATA_TAG, userName);
+        editor.putInt("Type", 1);
+        editor.commit();
     }
 
     //upload Green card and profile image
