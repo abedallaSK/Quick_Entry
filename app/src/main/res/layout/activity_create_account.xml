@@ -4,33 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Create_Account_Activity">
+    tools:context=".Create_Account_Activity"
+    android:background="@drawable/backround_dark">
+
+
+    <View
+        android:id="@+id/header_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/header_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </View>
+
+    <View
+
+        android:id="@+id/view3"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/bottom_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:layout_marginTop="8dp"
+        android:id="@+id/imageView_mainProfile"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:onClick="AddProfilePhotoNormal"
         android:src="@drawable/normal_profile_img"
         app:civ_border_color="#FF000000"
         app:civ_border_width="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
-        android:onClick="AddProfilephotoNormal"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/view3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image">
+        app:layout_constraintTop_toBottomOf="@+id/imageView_mainProfile">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,17 +67,18 @@
                     android:id="@+id/username_normal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_baseline_person_24"
                     android:ems="10"
                     android:hint="Username"
                     android:inputType="textPersonName" />
 
                 <Button
-                    android:id="@+id/button16"
+                    android:id="@+id/btCheck"
                     style="@style/Widget.MaterialComponents.TimePicker.Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:onClick="cheekUseName"
+                    android:onClick="CheekUseName"
                     android:text="check" />
 
                 <ProgressBar
@@ -71,6 +93,7 @@
                 android:id="@+id/FirstName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_baseline_person_24"
                 android:ems="10"
                 android:hint="First Name"
                 android:inputType="textPersonName"
@@ -80,6 +103,7 @@
                 android:id="@+id/LastName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_baseline_group_24"
                 android:ems="10"
                 android:hint="Last Name"
                 android:inputType="textPersonName"
@@ -89,6 +113,7 @@
                 android:id="@+id/Id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_baseline_credit_card_24"
                 android:ems="10"
                 android:hint="ID (9 number) "
                 android:inputType="number"
@@ -98,6 +123,7 @@
                 android:id="@+id/PhoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_baseline_phone_24"
                 android:ems="10"
                 android:hint="Phone Number "
                 android:inputType="number"
@@ -107,6 +133,7 @@
                 android:id="@+id/editTextDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_baseline_today_24"
                 android:ems="10"
                 android:hint="Birthday"
                 android:inputType="date"
@@ -116,6 +143,8 @@
                 android:id="@+id/Email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_baseline_email_24"
+                android:drawableLeft="@drawable/ic_baseline_email_24"
                 android:ems="10"
                 android:hint="E-mail"
                 android:inputType="textPersonName"
@@ -141,6 +170,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:onClick="SendCode"
                     android:text="send code " />
             </LinearLayout>
 
@@ -148,6 +178,7 @@
                 android:id="@+id/Password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_baseline_lock_24_black"
                 android:ems="10"
                 android:hint="Password"
                 android:inputType="textPassword"
@@ -157,6 +188,7 @@
                 android:id="@+id/Re_Password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_baseline_lock_24_black"
                 android:ems="10"
                 android:hint="Re-Password"
                 android:inputType="textPassword"
@@ -176,32 +208,26 @@
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_menu_slideshow" />
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+
 
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/button4"
-        style="@style/Widget.MaterialComponents.TimePicker.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="16dp"
-        android:text="Back"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="58dp"
+        android:layout_height="54dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/btCreate"
         style="@style/Widget.MaterialComponents.TimePicker.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="50dp"
         android:layout_marginBottom="16dp"
         android:onClick="UserAccount"
         android:text="Create"
@@ -213,12 +239,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:text="Create account"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:shadowColor="@color/black"/>
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        style="@android:style/Widget.Holo.Light.ImageButton"
+        android:layout_width="65dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="?attr/actionModeCloseDrawable" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

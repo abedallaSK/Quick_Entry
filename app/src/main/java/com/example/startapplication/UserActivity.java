@@ -1,15 +1,26 @@
 package com.example.startapplication;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.example.startapplication.classes.Account;
 import com.example.startapplication.databinding.ActivityUserBinding;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class UserActivity extends AppCompatActivity {
     ActivityUserBinding binding;
-
+    private DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Accounts");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,15 +31,30 @@ public class UserActivity extends AppCompatActivity {
         Intent intent =this.getIntent();
         if (intent != null){
 
-            String name = intent.getStringExtra("name");
-            String phone = intent.getStringExtra("phone");
-            String country = intent.getStringExtra("country");
-            int imageid = intent.getIntExtra("imageid",R.drawable.app_icon);
+            String key = intent.getStringExtra("KEY");
 
-            binding.nameProfile.setText(name);
-            binding.phoneProfile.setText(phone);
-            binding.countryProfile.setText(country);
-            binding.profileImage.setImageResource(imageid);
+            // Read from the database
+            myRef.child(key).addValueEventListener(new ValueEventListener() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // This method is called once with the initial value and again
+                    // whenever data at this location is updated.
+                    Account account = dataSnapshot.getValue(Account.class);
+                    binding.nameProfile.setText(account.getName()+" "+account.getFamilyName());
+                    binding.phoneProfile.setText(account.getId());
+                    binding.countryProfile.setText(account.getType()+"");
+                    Picasso.get().load(account.getProfileUri()).into(binding.imageViewMainProfile);
+                    Picasso.get().load(account.getGreenUri()).into(binding.imageView6);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+                    Log.w(TAG, "Failed to read value.", error.toException());
+                }
+            });
+
         }
     }
 }

@@ -4,8 +4,6 @@ import static org.junit.Assert.*;
 
 import android.widget.EditText;
 
-import junit.framework.TestCase;
-
 import org.junit.Test;
 
 public class Create_Account_ActivityTest {
@@ -37,6 +35,6 @@ Create_Account_Activity create_account_activity;
 
     @Test
     public void cheekUseName() {
-        assertEquals(create_account_activity.cheekUseName(null),true);
+        assertEquals(create_account_activity.CheekUseName(null),true);
     }
 }

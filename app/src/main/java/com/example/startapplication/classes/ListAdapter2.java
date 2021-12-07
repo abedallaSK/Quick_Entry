@@ -1,4 +1,4 @@
-package com.example.startapplication;
+package com.example.startapplication.classes;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,13 +11,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.startapplication.R;
+import com.example.startapplication.classes.Account;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 //Created by yosef
-public class ListAdapter2 extends ArrayAdapter<User> {
+public class ListAdapter2 extends ArrayAdapter<Account> {
 
-    public ListAdapter2(Context context, ArrayList<User>userArrayList){
+    public ListAdapter2(Context context, ArrayList<Account>userArrayList){
 
-        super(context,R.layout.list_item,userArrayList);
+        super(context, R.layout.list_item,userArrayList);
     }
 
    //
@@ -25,7 +29,7 @@ public class ListAdapter2 extends ArrayAdapter<User> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        User user =getItem(position);
+        Account account =getItem(position);
 
         if (convertView==null){
             convertView= LayoutInflater.from(getContext()).inflate(R.layout.list_item,parent,false);
@@ -35,10 +39,11 @@ public class ListAdapter2 extends ArrayAdapter<User> {
         TextView lastMsg= convertView.findViewById(R.id.lastMessage);
         TextView time = convertView.findViewById(R.id.msgtime);
 
-        imageView.setImageResource(user.imageId);
-        userName.setText(user.name);
-        lastMsg.setText(user.lastMessage);
-        time.setText(user.lastMsgTime);
+        Picasso.get().load(account.getProfileUri()).into(imageView);
+      //  imageView.setImageResource(account.getProfileUri());
+        userName.setText(account.getName());
+        lastMsg.setText(account.getEmail());
+        time.setText(account.getId());
 
         return convertView;
     }

@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StartApplication">
         <activity
+            android:name=".BusinessMainActivity"
+            android:exported="false"
+            android:label="@string/title_activity_business_main"
+            android:theme="@style/Theme.StartApplication.NoActionBar" />
+        <activity
             android:name=".ListformarActivity"
             android:exported="false" />
         <activity
@@ -37,8 +42,7 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>

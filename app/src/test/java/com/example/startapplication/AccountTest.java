@@ -2,7 +2,7 @@ package com.example.startapplication;
 
 import static org.junit.Assert.*;
 
-import junit.framework.TestCase;
+import com.example.startapplication.classes.Account;
 
 import org.junit.Test;
 

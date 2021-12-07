@@ -1,4 +1,4 @@
-package com.example.startapplication;
+package com.example.startapplication.classes;
 //Created by abedalla
 public class User {
 

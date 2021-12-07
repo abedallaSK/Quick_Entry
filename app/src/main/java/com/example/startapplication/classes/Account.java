@@ -1,4 +1,4 @@
-package com.example.startapplication;
+package com.example.startapplication.classes;
 //Created by abedalla
 public class Account {
     private String name;
@@ -11,6 +11,33 @@ public class Account {
     private int type;
     private   String profileUri;
     private String companyName;
+
+
+    public Account() {
+    }
+    //start
+    public Account(String username,String name, String familyName,  String password, String email, String phoneNumber, String id, int type,String profileUri,String greenUri,String key) {
+        this.name = name;
+        this.familyName = familyName;
+        this.username = username;
+        Password = password;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.greenUri = greenUri;
+        this.type = type;
+        this.profileUri=profileUri;
+        this.id=id;
+        this.key=key;
+    }
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    private String key;
 
     public String getId() {
         return id;
@@ -38,23 +65,9 @@ public class Account {
         this.companyName = companyName;
     }
 
-    public Account() {
-    }
 
 
-//start
-    public Account(String username,String name, String familyName,  String password, String email, String phoneNumber, String id, int type,String profileUri,String greenUri) {
-        this.name = name;
-        this.familyName = familyName;
-        this.username = username;
-        Password = password;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.greenUri = greenUri;
-        this.type = type;
-        this.profileUri=profileUri;
-        this.id=id;
-    }
+
 
     public String getName() {
         return name;

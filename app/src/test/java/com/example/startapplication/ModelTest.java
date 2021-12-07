@@ -1,6 +1,6 @@
 package com.example.startapplication;
 
-import static org.junit.Assert.*;
+import com.example.startapplication.classes.Model;
 
 import junit.framework.TestCase;
 

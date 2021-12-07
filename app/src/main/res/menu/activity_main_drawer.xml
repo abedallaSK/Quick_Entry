@@ -3,18 +3,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
+
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
+            android:icon="@drawable/ic_baseline_credit_card_24"
+            android:title="Show green Card" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:icon="@drawable/ic_baseline_nfc_24"
+            android:title=" Scan NFC" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:icon="@drawable/ic_baseline_qr_code_24"
+            android:title="Scan QR" />
     </group>
+
+    <item android:title="Main">
+    <menu>
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_baseline_help_24"
+            android:title="help" />
+        <item
+            android:id="@+id/nav_aboutme"
+            android:icon="@drawable/ic_baseline_person_24"
+            android:title="About me" />
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/ic_baseline_add_to_queue_24"
+            android:title="Tools" />
+    </menu>
+    </item>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_baseline_share_24"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_baseline_send_24"
+                android:title="Send" />
+        </menu>
+    </item>
+
+    <item android:title="Support">
+        <menu>
+            <item
+                android:id="@+id/donation"
+                android:icon="@drawable/ic_baseline_monetization_on_24"
+                android:title="donation" />
+            <item
+                android:id="@+id/vip_accountd"
+                android:icon="@drawable/ic_baseline_stars_24"
+                android:title="Vip Account" />
+        </menu>
+    </item>
+    <item android:title="Connect">
+        <menu>
+            <item
+                android:id="@+id/Connect"
+                android:icon="@drawable/ic_baseline_phone_24"
+                android:title="Connect with us " />
+        </menu>
+    </item>
+
+
 </menu>
