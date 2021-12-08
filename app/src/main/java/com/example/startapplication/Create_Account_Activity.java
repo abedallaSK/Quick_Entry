@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.startapplication.classes.Account;
@@ -35,10 +36,13 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.net.URL;
 import java.util.Iterator;
 
 public class Create_Account_Activity extends AppCompatActivity {
 
+    private  EditText edNumber;
+    private EditText edCode;
     private EditText edName;
     private EditText edLastName;
     private EditText edId;
@@ -66,6 +70,9 @@ public class Create_Account_Activity extends AppCompatActivity {
     private Button btCreate;
     private Button btCheck;
     private   String key;
+    private int type;
+    private Button btGreen;
+    private Switch swIgnore;
 
     private final Handler mHideHandler = new Handler();
     private final Runnable mHideRunnable = new Runnable() {
@@ -83,7 +90,14 @@ public class Create_Account_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_create_account);
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, 0);
+        type=getIntent().getIntExtra("Type",0);
+        if(type==0)
+        {
+            Toast.makeText(this,"Error",Toast.LENGTH_LONG).show();
+        }
         edName = findViewById(R.id.FirstName);
+
+
         edLastName = findViewById(R.id.LastName);
         edId = findViewById(R.id.Id);
         edEmail = findViewById(R.id.Email);
@@ -98,6 +112,20 @@ public class Create_Account_Activity extends AppCompatActivity {
         edPhone = findViewById(R.id.PhoneNumber);
         btCreate=findViewById(R.id.btCreate);
         btCheck=findViewById(R.id.btCheck);
+        edNumber=findViewById(R.id.NumberOfPeople);
+        btGreen=findViewById(R.id.button6);
+        swIgnore=findViewById(R.id.switch2);
+
+        if(type==1){
+            edNumber.setVisibility(View.INVISIBLE);
+            swIgnore.setVisibility(View.INVISIBLE);
+        }
+        if(type==2) {
+           edUserName.setHint("Company name");
+            btGreen.setVisibility(View.INVISIBLE);
+            profile.setImageResource(R.drawable.profile_img);
+
+        }
         btCheck.setEnabled(false);
         btCreate.setEnabled(false);
         progressBarUserName.setVisibility(View.INVISIBLE);
@@ -180,10 +208,12 @@ public class Create_Account_Activity extends AppCompatActivity {
         } else if (edLastName.getText().length() < 1) {
             Toast.makeText(this, "the lastName Error", Toast.LENGTH_LONG).show();
             return false;
-        } else if (edPassword.getText().length() < 5 && !edPassword.getText().toString().equals(edRe_Password.getText().toString()))
-        {
-            Toast.makeText(this, "Password Error the pass word must to pe up from 5 latter's", Toast.LENGTH_LONG).show();
-            return false;
+        } else if (!(edPassword.getText().toString().equals(edRe_Password.getText().toString()))) {
+            Toast.makeText(this, "the password must be equals", Toast.LENGTH_LONG).show();
+            if (edPassword.getText().length() < 5) {
+                Toast.makeText(this, "the password must be more then 5", Toast.LENGTH_LONG).show();
+                return false;
+            }
         } else if (edId.getText().length() != 9) {
             Toast.makeText(this, "ID  Error the id word must to pe up from 9 number", Toast.LENGTH_LONG).show();
             return false;
@@ -195,33 +225,24 @@ public class Create_Account_Activity extends AppCompatActivity {
             return false;
         } else {
             userName = edUserName.getText().toString();
-            if (imageUriData != null) {
-                uploadToFirebase(imageUriData, 0);
-            } else {
-                Toast.makeText(this, "No Green Card", Toast.LENGTH_LONG).show();
-                 return false;
+            if (type==1) {
+                if (imageUriData != null) {
+                    uploadToFirebase(imageUriData, 0);
+                } else {
+                    Toast.makeText(this, "No Green Card", Toast.LENGTH_LONG).show();
+                    return false;
+                }
             }
-
             if (profileUriData != null) {
                 uploadToFirebase(profileUriData, 1);
             } else {
                 Toast.makeText(this, "No profile photo", Toast.LENGTH_LONG).show();
                 return false;
             }
-            if(profileUriWeb ==null || imageUriWeb==null) return  false;
-            key= myRef.push().getKey();
-            account = new Account(userName, edName.getText().toString(), edLastName.getText().toString(), edPassword.getText().toString(), edEmail.getText().toString(), edPhone.getText().toString(), edPhone.getText().toString(), 1, profileUriWeb.toString(), imageUriWeb.toString(), key);
 
-            myRef.child(key).setValue(account);
-
-            SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
-            SharedPreferences.Editor editor = mSettings.edit();
-            editor.putString(DATA_TAG, key);
-            editor.putInt("Type", 1);
-            editor.commit();
-            goTOActivity();
             return true;
         }
+        return false;
     }
 
     //upload Green card and profile image
@@ -239,6 +260,14 @@ public class Create_Account_Activity extends AppCompatActivity {
                             profileUriWeb = uri;
                         progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(Create_Account_Activity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                        if (type==1){
+                        if (profileUriWeb != null && imageUriWeb != null)
+                        goTOActivity();}
+                        if(type==2)
+                        {
+                            if (profileUriWeb != null)
+                                goTOActivity();
+                        }
                     }
                 });
             }
@@ -258,9 +287,38 @@ public class Create_Account_Activity extends AppCompatActivity {
     }
 //go to Activity
     private void goTOActivity() {
-        Intent intent = new Intent(this, UserMainActivity.class);
-        intent.putExtra(DATA_TAG, key);
-        startActivity(intent);
+
+        key = myRef.push().getKey();
+        if(type==1) {
+            account = new Account(userName, edName.getText().toString(), edLastName.getText().toString(),
+                    edPassword.getText().toString(), edEmail.getText().toString(),
+                    edPhone.getText().toString(), edId.getText().toString(), 1,
+                    profileUriWeb.toString(), imageUriWeb.toString(), key);
+
+            myRef.child(key).setValue(account);
+            SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
+            SharedPreferences.Editor editor = mSettings.edit();
+            editor.putString(DATA_TAG, key);
+            editor.putInt("Type", type);
+            editor.commit();
+            startActivity(new Intent(this, UserMainActivity.class));
+        }
+        if(type==2) {
+            String value= edNumber.getText().toString();
+            int finalValue=Integer.parseInt(value);
+            account = new Account(userName, edName.getText().toString(), edLastName.getText().toString(),
+                    edPassword.getText().toString(), edEmail.getText().toString(),
+                    edPhone.getText().toString(), edId.getText().toString(), 2,
+                    profileUriWeb.toString(), key,finalValue);
+            myRef.child(key).setValue(account);
+            SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
+            SharedPreferences.Editor editor = mSettings.edit();
+            editor.putString(DATA_TAG, key);
+            editor.putInt("Type", type);
+            editor.commit();
+            startActivity(new Intent(this, BusinessMainActivity.class));
+        }
+
     }
     //go to bulid file
     private String getFileExtension(Uri mUri) {

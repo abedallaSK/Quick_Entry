@@ -149,9 +149,7 @@ public class UserMainActivity extends AppCompatActivity {
         return false;
     }
 
-    public void Show(View view) {
 
-    }
     public String getKey()
     {
         return  key;

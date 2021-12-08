@@ -91,8 +91,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public String Create(View view) {
-        Intent i=new Intent(this, UserChoiceActivity.class);
-        startActivity(i);
+        startActivity(new Intent(this, UserChoiceActivity.class));
         //for test
         return  "OK";
     }
@@ -134,18 +133,18 @@ public class LoginActivity extends AppCompatActivity {
 
 
    public String StartActivity(int x, String Code) {
+
+        SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
+       SharedPreferences.Editor editor = mSettings.edit();
+       editor.putString(DATA_TAG, Code);
+       editor.putInt("Type",x);
+       editor.commit();
         switch (x) {
             case 1:
-                SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
-                SharedPreferences.Editor editor = mSettings.edit();
-                editor.putString(DATA_TAG, Code);
-                editor.putInt("Type",x);
-                editor.commit();
                 Intent intent = new Intent(this, UserMainActivity.class);
                 startActivity(intent);
                 break;
             case 2:
-                Toast.makeText(this,"coming soon",Toast.LENGTH_SHORT).show();
                 intent = new Intent(this, BusinessMainActivity.class);
                 //intent.putExtra("Email", email);
                 startActivity(intent);
@@ -166,11 +165,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void user2(View view) {
         Intent intent = new Intent(this, ListformarActivity.class);
-        startActivity(intent);
-    }
-
-    public void user3(View view) {
-        Intent intent = new Intent(this, BusinessMainActivity.class);
         startActivity(intent);
     }
 }

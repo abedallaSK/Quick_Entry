@@ -126,7 +126,7 @@
                 android:drawableLeft="@drawable/ic_baseline_phone_24"
                 android:ems="10"
                 android:hint="Phone Number "
-                android:inputType="number"
+                android:inputType="phone"
                 android:minHeight="48dp" />
 
             <EditText
@@ -147,7 +147,7 @@
                 android:drawableLeft="@drawable/ic_baseline_email_24"
                 android:ems="10"
                 android:hint="E-mail"
-                android:inputType="textPersonName"
+                android:inputType="textEmailAddress"
                 android:minHeight="48dp" />
 
             <LinearLayout
@@ -194,6 +194,31 @@
                 android:inputType="textPassword"
                 android:minHeight="48dp" />
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/NumberOfPeople"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_baseline_people_24"
+                    android:ems="10"
+                    android:hint="number of people"
+                    android:inputType="textShortMessage|numberDecimal" />
+
+                <Switch
+                    android:id="@+id/switch2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:showText="true"
+                    android:switchTextAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textOff="ignore"
+                    android:textOn="limit" />
+            </LinearLayout>
+
             <Button
                 android:id="@+id/button6"
                 style="@style/Widget.MaterialComponents.TimePicker.Button"
@@ -205,8 +230,7 @@
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_menu_slideshow" />
+                android:layout_height="wrap_content" />
 
 
 

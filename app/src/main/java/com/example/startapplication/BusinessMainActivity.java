@@ -2,10 +2,12 @@ package com.example.startapplication;
 
 import static android.content.ContentValues.TAG;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.example.startapplication.classes.Account;
 import com.example.startapplication.databinding.ActivityUserBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -20,6 +22,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.startapplication.ui.main.SectionsPagerAdapter;
 import com.example.startapplication.databinding.ActivityBusinessMainBinding;
@@ -38,12 +42,11 @@ public class BusinessMainActivity extends AppCompatActivity {
     private ActivityBusinessMainBinding binding;
     private static final String PREFS_NAME = "LOGIN";
     private static final String DATA_TAG = "KEY";
-    private ImageView imageView;
-    private String email = "222";
+    private String key ;
     private DatabaseReference doorRef = FirebaseDatabase.getInstance().getReference("Doors");
+    private DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Accounts");
     private List<String> doorName = new ArrayList();
-    private int counter;
-
+    private TextView tital;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,66 +54,57 @@ public class BusinessMainActivity extends AppCompatActivity {
         binding = ActivityBusinessMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
+        key = mSettings.getString(DATA_TAG, "");
+        if(key=="") logOut();
+        else {
+        doorName.add("Door_1");
+
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = binding.viewPager;
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
         FloatingActionButton fab = binding.fab;
+        tital=findViewById(R.id.title);
 
-        //SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
-        ///email = mSettings.getString(DATA_TAG, "");
-        ////  if(email=="") logOut2(null);
-        doorName.add("Door_1");
 
-        // imageView = findViewById(R.id.imageView16);
-     //   Picasso.get().load(R.drawable.ic_baseline_lock_24).into(imageView);
-        counter = 0;
-        doorRef.child(email).child(doorName.get(0)).child("counter").setValue(counter);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                logOut();
             }
         });
 
-
-
-       /* doorRef.child(email).child(doorName.get(0)).child("status").setValue(false);
-        doorRef.child(email).child(doorName.get(0)).addValueEventListener(new ValueEventListener() {
+        }
+        myRef.child(key).addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                boolean value = dataSnapshot.child("status").getValue(boolean.class);
-                counter = dataSnapshot.child("counter").getValue(Integer.class);
-                Log.d(TAG, "Value is: " + value);
-                if (value) {
-                    Picasso.get().load(R.drawable.ic_baseline_lock_open_24).into(imageView);
-                    new android.os.Handler().postDelayed(
-                            new Runnable() {
-                                public void run() {
-                                    Picasso.get().load(R.drawable.ic_baseline_lock_24).into(imageView);
-                                    doorRef.child(email).child(doorName.get(0)).child("status").setValue(false);
-                                }
-                            },
-                            5000);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                Account account=snapshot.getValue(Account.class);
+                if(account!=null) {
+                   tital.setText(account.getUsername());
+                   ImageView imageView=findViewById(R.id.imageView17);
+                   Picasso.get().load(account.getProfileUri()).into(imageView);
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
-    }*/
+
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.user_main, menu);
+        getMenuInflater().inflate(R.menu.user_business_main, menu);
         return true;
     }
 
@@ -132,12 +126,17 @@ public class BusinessMainActivity extends AppCompatActivity {
             editor.clear();
             editor.commit();
             startActivity(new Intent(this, LoginActivity.class));
-        }
+    }
 
-        public void OpenDoor (View v){
-            doorRef.child(email).child(doorName.get(0)).child("status").setValue(true);
-            counter++;
-            doorRef.child(email).child(doorName.get(0)).child("counter").setValue(counter);
-        }
+
+
+
+    public void addDoor(View view) {
+        Toast.makeText(this,"coming soon",Toast.LENGTH_SHORT).show();
+    }
+    public String getKey()
+    {
+        return key;
+    }
 
 }

@@ -1,9 +1,13 @@
 package com.example.startapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.content.Intent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -26,7 +30,7 @@ import java.util.Set;
 public class ListformarActivity extends AppCompatActivity {
 
     ActivityListformarBinding binding;
-
+    private static final String PREFS_NAME = "LOGIN";
     private DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Accounts");
     private ArrayList<Account> list_of_Account = new ArrayList<>();
    // private ArrayList<String> list_of_Key = new ArrayList<>();
@@ -81,5 +85,31 @@ public class ListformarActivity extends AppCompatActivity {
 
             }
         });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.user_business_main, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.main_logout:
+                logOut();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void logOut (){
+        SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = mSettings.edit();
+        editor.clear();
+        editor.commit();
+        startActivity(new Intent(this, LoginActivity.class));
     }
 }

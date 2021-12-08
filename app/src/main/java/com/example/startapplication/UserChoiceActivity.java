@@ -28,17 +28,21 @@ public class UserChoiceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_choice);
     }
     public void NormalAccount(View view) {
-        startActivity(new Intent(this, Create_Account_Activity.class));
+        Intent intent=new Intent(this, Create_Account_Activity.class);
+        intent.putExtra("Type",1);
+        startActivity(intent);
     }
 
     public void BusinessAcount(View view) {
-        Toast.makeText(this,"coming soon",Toast.LENGTH_SHORT).show();
-        /*startActivity(new Intent(this, Create_BusinessAccount_Activity.class));*/
+        Intent intent=new Intent(this, Create_Account_Activity.class);
+        intent.putExtra("Type",2);
+        startActivity(intent);
     }
 
     public void ForemanAccount(View view) {
-        Toast.makeText(this,"coming soon",Toast.LENGTH_SHORT).show();
-       /* startActivity(new Intent(this, Create_ForemanAccountActivity.class));*/
+        Intent intent=new Intent(this, Create_Account_Activity.class);
+        intent.putExtra("Type",3);
+        startActivity(intent);
     }
 
 

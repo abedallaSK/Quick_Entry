@@ -9,16 +9,18 @@ import androidx.lifecycle.ViewModel;
 public class PageViewModel extends ViewModel {
 
     private MutableLiveData<Integer> mIndex = new MutableLiveData<>();
-    private LiveData<String[]> mText = Transformations.map(mIndex, new Function<Integer, String[]>() {
+    private LiveData<String> mText = Transformations.map(mIndex, new Function<Integer, String>() {
         @Override
-        public String[] apply(Integer input) {
+        public String apply(Integer input) {
             if(input==1)
-            {
-                String countryList[] = {"India", "China", "australia", "Portugle", "America", "NewZealand","Sce", "Sce", "australia", "Portugle", "America", "NewZealand"};
-                return countryList;
-            }
-            String countryList[]={"Abedalla", "Nor", "Marwan", "Yosef","India", "China", "australia", "Portugle", "America", "NewZealand","Sce", "Sce", "australia", "Portugle", "America", "NewZealand"};
-            return  countryList;
+           return "1";
+            if(input==2)
+                return "2";
+            if(input==3)
+                return  "3";
+            if(input==4)
+                return "4";
+            return "5";
         }
     });
 
@@ -26,7 +28,7 @@ public class PageViewModel extends ViewModel {
         mIndex.setValue(index);
     }
 
-    public LiveData<String[]> getText() {
+    public LiveData<String> getText() {
         return mText;
     }
 }

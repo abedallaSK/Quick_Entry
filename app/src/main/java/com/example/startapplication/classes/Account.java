@@ -1,5 +1,5 @@
 package com.example.startapplication.classes;
-//Created by abedalla
+//Created by Abedalla
 public class Account {
     private String name;
     private String familyName;
@@ -10,7 +10,7 @@ public class Account {
     private String greenUri;
     private int type;
     private   String profileUri;
-    private String companyName;
+    private int numberOfPeople;
 
 
     public Account() {
@@ -28,6 +28,27 @@ public class Account {
         this.profileUri=profileUri;
         this.id=id;
         this.key=key;
+    }
+    public Account(String username,String name, String familyName,  String password, String email, String phoneNumber, String id, int type,String profileUri,String key,int numberOfPeople) {
+        this.name = name;
+        this.familyName = familyName;
+        this.username = username;
+        Password = password;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.numberOfPeople=numberOfPeople;
+        this.type = type;
+        this.profileUri=profileUri;
+        this.id=id;
+        this.key=key;
+    }
+
+    public int getNumberOfPeople() {
+        return numberOfPeople;
+    }
+
+    public void setNumberOfPeople(int numberOfPeople) {
+        this.numberOfPeople = numberOfPeople;
     }
     public String getKey() {
         return key;
@@ -56,17 +77,6 @@ public class Account {
     public void setProfileUri(String profileUri) {
         this.profileUri = profileUri;
     }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-
-
 
 
     public String getName() {

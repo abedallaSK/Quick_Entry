@@ -12,8 +12,11 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="title_activity_business_main">BusinessMainActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_1">Door 1</string>
+    <string name="tab_text_2">Door 2</string>
+    <string name="tab_text_3">Door 3</string>
+    <string name="tab_text_4">Door 4</string>
+    <string name="tab_text_5">Door 5</string>
     <string name="title_activity_help">HelpActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
