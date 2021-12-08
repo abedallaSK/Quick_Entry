@@ -73,7 +73,7 @@ public class UserMainActivity extends AppCompatActivity {
         textView.setText( key);
 
         DrawerLayout drawer = binding.drawerLayout;
-        NavigationView navigationView = binding.navView;
+        NavigationView navigationView = binding.navViewHome;
         View header=navigationView.getHeaderView(0);
         TextView nameView = (TextView)header.findViewById(R.id.Name_Main);
         TextView emailView = (TextView)header.findViewById(R.id.Email_Main);

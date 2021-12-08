@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import com.example.startapplication.classes.Account;
 import com.example.startapplication.classes.ListAdapter2;
 import com.example.startapplication.databinding.ActivityListformarBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +36,7 @@ public class ListformarActivity extends AppCompatActivity {
     private ArrayList<Account> list_of_Account = new ArrayList<>();
    // private ArrayList<String> list_of_Key = new ArrayList<>();
     private ListAdapter2 listAdapter;
+    private int mood=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class ListformarActivity extends AppCompatActivity {
         binding = ActivityListformarBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_listformar);
         setContentView(binding.getRoot());
+
 
 // Read from the database
 
@@ -69,7 +72,9 @@ public class ListformarActivity extends AppCompatActivity {
 
                 while (i.hasNext()) {
                     String key=i.next().getKey();
-                    set.add((dataSnapshot.child(key)).getValue(Account.class));
+                    Account account=dataSnapshot.child(key).getValue(Account.class);
+                    if(account.getType()==mood)
+                    set.add(account);
                 }
 
                 list_of_Account.clear();

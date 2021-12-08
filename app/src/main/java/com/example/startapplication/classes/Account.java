@@ -11,6 +11,7 @@ public class Account {
     private int type;
     private   String profileUri;
     private int numberOfPeople;
+    private  Boolean checkGreen;
 
 
     public Account() {
@@ -28,6 +29,7 @@ public class Account {
         this.profileUri=profileUri;
         this.id=id;
         this.key=key;
+        this.checkGreen=false;
     }
     public Account(String username,String name, String familyName,  String password, String email, String phoneNumber, String id, int type,String profileUri,String key,int numberOfPeople) {
         this.name = name;

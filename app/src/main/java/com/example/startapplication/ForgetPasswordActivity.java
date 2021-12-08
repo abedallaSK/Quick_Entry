@@ -1,12 +1,17 @@
 package com.example.startapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -30,6 +35,8 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     private EditText edPasswordShow;
     private DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Accounts");
     private String key;
+    private static final String PREFS_NAME = "LOGIN";
+    private static final String DATA_TAG = "KEY";
 
 
 
@@ -136,4 +143,37 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         }else Toast.makeText(this, "the password must to be more then 5", Toast.LENGTH_SHORT).show();
 
     }
+
+    public void help(View view) {
+        Toast.makeText(this, "connect with us", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.user_business_main, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.main_logout:
+                logOut();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void logOut (){
+        SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = mSettings.edit();
+        editor.clear();
+        editor.commit();
+        startActivity(new Intent(this, LoginActivity.class));
+    }
+
+
 }

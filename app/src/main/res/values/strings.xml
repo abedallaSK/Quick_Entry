@@ -114,4 +114,10 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="title_activity_fore_main">ForeMainActivity</string>
+    <string name="title_activity_forman_main">Forman_Main_Activity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_test">TestActivity</string>
 </resources>

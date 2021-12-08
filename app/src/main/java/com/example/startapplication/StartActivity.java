@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.startapplication.classes.Account;
 import com.google.firebase.database.DataSnapshot;
@@ -110,7 +109,7 @@ public class StartActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case 3:
-                intent = new Intent(this, ListformarActivity.class);
+                intent = new Intent(this,Foreman_Main_Activity.class);
                 intent.putExtra("KEY",key);
                 startActivity(intent);
                 break;
