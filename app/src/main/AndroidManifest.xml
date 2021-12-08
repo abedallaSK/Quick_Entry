@@ -30,9 +30,6 @@
             android:label="@string/title_activity_business_main"
             android:theme="@style/Theme.StartApplication.NoActionBar" />
         <activity
-            android:name=".ListformarActivity"
-            android:exported="false" />
-        <activity
             android:name=".UserActivity"
             android:exported="false" />
         <activity

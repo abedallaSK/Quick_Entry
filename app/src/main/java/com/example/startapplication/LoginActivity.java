@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case 3:
-                intent = new Intent(this, ListformarActivity.class);
+                intent = new Intent(this, Foreman_Main_Activity.class);
                 startActivity(intent);
                 break;
 
@@ -163,8 +163,4 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void user2(View view) {
-        Intent intent = new Intent(this, ListformarActivity.class);
-        startActivity(intent);
-    }
 }

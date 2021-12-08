@@ -37,7 +37,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     private String key;
     private static final String PREFS_NAME = "LOGIN";
     private static final String DATA_TAG = "KEY";
-
+     private Spinner spinner;
 
 
     private final Handler mHideHandler = new Handler();
@@ -53,7 +53,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     };
 
 
-    Spinner spinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

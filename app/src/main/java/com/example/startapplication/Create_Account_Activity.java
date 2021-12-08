@@ -349,7 +349,7 @@ public class Create_Account_Activity extends AppCompatActivity {
             editor.putString(DATA_TAG, key);
             editor.putInt("Type", type);
             editor.commit();
-            startActivity(new Intent(this, ListformarActivity.class));
+            startActivity(new Intent(this, Foreman_Main_Activity.class));
         }
 
     }

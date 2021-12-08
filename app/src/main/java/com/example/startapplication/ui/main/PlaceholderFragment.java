@@ -3,8 +3,6 @@ package com.example.startapplication.ui.main;
 import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,20 +22,14 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.startapplication.BusinessMainActivity;
-import com.example.startapplication.ListformarActivity;
-import com.example.startapplication.LoginActivity;
 import com.example.startapplication.R;
-import com.example.startapplication.UserMainActivity;
 import com.example.startapplication.classes.Account;
-import com.example.startapplication.classes.ListAdapter2;
-import com.example.startapplication.databinding.ActivityBusinessMainBinding;
 import com.example.startapplication.databinding.FragmentBusinessMainBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashSet;

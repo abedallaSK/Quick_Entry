@@ -1,11 +1,13 @@
 package com.example.startapplication.ui.home_foreman;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,12 +16,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.startapplication.Foreman_Main_Activity;
-import com.example.startapplication.ListformarActivity;
-import com.example.startapplication.UserMainActivity;
+import com.example.startapplication.R;
+import com.example.startapplication.UserActivity;
 import com.example.startapplication.classes.Account;
 import com.example.startapplication.classes.ListAdapter2;
 import com.example.startapplication.databinding.FragmentHomeForemanBinding;
-import com.example.startapplication.databinding.FragmentNotificationsBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,7 +42,7 @@ public class HomeForemanFragment extends Fragment {
     // private ArrayList<String> list_of_Key = new ArrayList<>();
     private ListAdapter2 listAdapter;
     private int mood=1;
-    Spinner spinner;
+     private Spinner spinner;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeForemanViewModel =
@@ -50,39 +51,62 @@ public class HomeForemanFragment extends Fragment {
         binding = FragmentHomeForemanBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         Foreman_Main_Activity activity = ( Foreman_Main_Activity ) getActivity();
-
+        spinner = binding.spinnerForeman;
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
+                R.array.planets_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
         homeForemanViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
 
-
-                myRef.addValueEventListener(new ValueEventListener() {
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                        mood=position+1;
+                        myRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        Set<Account> set = new HashSet<>();
-                        Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
+                                Set<Account> set = new HashSet<>();
+                                Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
 
-                        while (i.hasNext()) {
-                            String key=i.next().getKey();
-                            Account account=dataSnapshot.child(key).getValue(Account.class);
-                            if(account.getType()==mood)
-                                set.add(account);
-                        }
+                                while (i.hasNext()) {
+                                    String key=i.next().getKey();
+                                    Account account=dataSnapshot.child(key).getValue(Account.class);
+                                    if(account.getType()==mood)
+                                        set.add(account);
+                                }
 
-                        list_of_Account.clear();
-                        list_of_Account.addAll(set);
-                        // arrayAdapter.notifyDataSetChanged();
-                        listAdapter = new ListAdapter2(activity, list_of_Account);
-                        binding.listview.setAdapter(listAdapter);
-                        binding.listview.setClickable(true);
+                                list_of_Account.clear();
+                                list_of_Account.addAll(set);
+                                listAdapter = new ListAdapter2(activity, list_of_Account);
+                                binding.listview.setAdapter(listAdapter);
+                                binding.listview.setClickable(true);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        binding.listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Intent intent=new Intent(activity, UserActivity.class);
+                                intent.putExtra("KEY",list_of_Account.get(position).getKey());
+                                startActivity(intent);
+                            }
+                        });
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
+                    public void onNothingSelected(AdapterView<?> parentView) {
+                        // your code here
                     }
+
                 });
+
             }
         });
         return root;
