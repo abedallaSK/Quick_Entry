@@ -9,6 +9,7 @@
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.2203125" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/drawable/ic_baseline_lock_24_black.xml" value="0.2203125" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/drawable/ic_baseline_lock_open_24.xml" value="0.2203125" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/drawable/ic_search_black_24dp.xml" value="0.4036458333333333" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/drawable/loginform.xml" value="0.38958333333333334" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout-w1240dp/activity_listview.xml" value="0.1" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_business_main.xml" value="0.33" />
@@ -16,6 +17,7 @@
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_create_business_account.xml" value="0.19010416666666666" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_create_forman_account.xml" value="0.20108695652173914" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_fore_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_forget_passowrd.xml" value="0.33" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_listformar.xml" value="0.3481182795698925" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_main.xml" value="0.1" />
@@ -35,6 +37,7 @@
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/listview_business_door.xml" value="0.3875" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/nav_header_user_main.xml" value="0.33" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/menu/activity_main_drawer.xml" value="0.5" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/menu/menu_help.xml" value="0.3734375" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/menu/user_business_main.xml" value="0.3875" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/menu/user_main.xml" value="0.3734375" />

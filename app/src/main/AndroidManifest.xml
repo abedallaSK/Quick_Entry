@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StartApplication">
         <activity
+            android:name=".ForgetPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".BusinessMainActivity"
             android:exported="false"
             android:label="@string/title_activity_business_main"
@@ -42,7 +45,7 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>

@@ -110,10 +110,9 @@ public class StartActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case 3:
-                Toast.makeText(this,"coming soon",Toast.LENGTH_SHORT).show();
-               /* intent = new Intent(this, ListformarActivity.class);
-                intent.putExtra("Email", email);
-                startActivity(intent);*/
+                intent = new Intent(this, ListformarActivity.class);
+                intent.putExtra("KEY",key);
+                startActivity(intent);
                 break;
 
             default:

@@ -219,6 +219,15 @@
                     android:textOn="limit" />
             </LinearLayout>
 
+            <EditText
+                android:id="@+id/serialNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="serial Number"
+                android:inputType="textPersonName"
+                android:drawableLeft="@drawable/ic_baseline_security_24"/>
+
             <Button
                 android:id="@+id/button6"
                 style="@style/Widget.MaterialComponents.TimePicker.Button"

@@ -18,7 +18,13 @@
     <string name="tab_text_4">Door 4</string>
     <string name="tab_text_5">Door 5</string>
     <string name="title_activity_help">HelpActivity</string>
+    <string-array name="planets_array">
+        <item>Normal User</item>
+        <item>Business User</item>
+        <item>Foreman User</item>
+    </string-array>
     <string name="large_text">
+
         "Material is the metaphor.\n\n"
 
         "A material metaphor is the unifying theory of a rationalized space and a system of motion."

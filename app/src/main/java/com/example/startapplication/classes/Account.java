@@ -42,6 +42,18 @@ public class Account {
         this.id=id;
         this.key=key;
     }
+    public Account(String username,String name, String familyName,  String password, String email, String phoneNumber, String id, int type,String profileUri,String key) {
+        this.name = name;
+        this.familyName = familyName;
+        this.username = username;
+        Password = password;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.type = type;
+        this.profileUri=profileUri;
+        this.id=id;
+        this.key=key;
+    }
 
     public int getNumberOfPeople() {
         return numberOfPeople;

@@ -73,6 +73,7 @@ public class Create_Account_Activity extends AppCompatActivity {
     private int type;
     private Button btGreen;
     private Switch swIgnore;
+    private EditText edSerialNumber;
 
     private final Handler mHideHandler = new Handler();
     private final Runnable mHideRunnable = new Runnable() {
@@ -115,15 +116,25 @@ public class Create_Account_Activity extends AppCompatActivity {
         edNumber=findViewById(R.id.NumberOfPeople);
         btGreen=findViewById(R.id.button6);
         swIgnore=findViewById(R.id.switch2);
+        edSerialNumber=findViewById(R.id.serialNumber);
 
         if(type==1){
             edNumber.setVisibility(View.INVISIBLE);
             swIgnore.setVisibility(View.INVISIBLE);
+            edSerialNumber.setVisibility(View.INVISIBLE);
         }
         if(type==2) {
            edUserName.setHint("Company name");
             btGreen.setVisibility(View.INVISIBLE);
             profile.setImageResource(R.drawable.profile_img);
+            edSerialNumber.setVisibility(View.INVISIBLE);
+
+        }
+        if(type==3) {
+            btGreen.setVisibility(View.INVISIBLE);
+            edNumber.setVisibility(View.INVISIBLE);
+            swIgnore.setVisibility(View.INVISIBLE);
+            profile.setImageResource(R.drawable.foreman);
 
         }
         btCheck.setEnabled(false);
@@ -233,6 +244,14 @@ public class Create_Account_Activity extends AppCompatActivity {
                     return false;
                 }
             }
+            if (type==3) {
+                if (!(edSerialNumber.getText().toString().equals("102030"))) {
+                    Toast.makeText(this, "Serial Number not correct", Toast.LENGTH_LONG).show();
+                    return false;
+                }
+            }
+
+
             if (profileUriData != null) {
                 uploadToFirebase(profileUriData, 1);
             } else {
@@ -263,7 +282,7 @@ public class Create_Account_Activity extends AppCompatActivity {
                         if (type==1){
                         if (profileUriWeb != null && imageUriWeb != null)
                         goTOActivity();}
-                        if(type==2)
+                        if(type==2 || type==3)
                         {
                             if (profileUriWeb != null)
                                 goTOActivity();
@@ -317,6 +336,20 @@ public class Create_Account_Activity extends AppCompatActivity {
             editor.putInt("Type", type);
             editor.commit();
             startActivity(new Intent(this, BusinessMainActivity.class));
+        }
+        if(type==3)
+        {
+            account = new Account(userName, edName.getText().toString(), edLastName.getText().toString(),
+                    edPassword.getText().toString(), edEmail.getText().toString(),
+                    edPhone.getText().toString(), edId.getText().toString(), 3,
+                    profileUriWeb.toString(), key);
+            myRef.child(key).setValue(account);
+            SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
+            SharedPreferences.Editor editor = mSettings.edit();
+            editor.putString(DATA_TAG, key);
+            editor.putInt("Type", type);
+            editor.commit();
+            startActivity(new Intent(this, ListformarActivity.class));
         }
 
     }
