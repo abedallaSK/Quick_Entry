@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/drawable/bottom_bg.xml" value="0.38958333333333334" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/drawable/header_bg.xml" value="0.38958333333333334" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.18076923076923077" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/drawable/ic_baseline_done_24.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.2203125" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/drawable/ic_baseline_lock_24_black.xml" value="0.2203125" />
@@ -24,7 +25,7 @@
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_start.xml" value="0.1" />
-        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_user.xml" value="0.25" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_user.xml" value="0.22" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_user_choice.xml" value="0.33" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/activity_user_main.xml" value="0.20108695652173914" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/app_bar_user_main.xml" value="0.20108695652173914" />
@@ -34,8 +35,8 @@
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/fragment_dashboard.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/fragment_fore_main.xml" value="0.20108695652173914" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/fragment_gallery.xml" value="0.20108695652173914" />
-        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/fragment_home_foreman.xml" value="0.1799145299145299" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/fragment_home_foreman.xml" value="0.22" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/fragment_slideshow.xml" value="0.20108695652173914" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/layout/list_item.xml" value="0.5" />

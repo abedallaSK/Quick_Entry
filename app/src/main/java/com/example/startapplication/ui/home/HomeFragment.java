@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment {
                         // This method is called once with the initial value and again
                         // whenever data at this location is updated.
                         String value = dataSnapshot.getValue(String.class);
-                        final ImageView imageView = binding.imageViewGreenCard;
+                        final ImageView imageView = binding.photoView;
                         Picasso.get().load(value).into(imageView);
                         Log.d(TAG, "Value is: " + value);
                     }

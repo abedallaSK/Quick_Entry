@@ -1,4 +1,10 @@
 package com.example.startapplication.classes;
+
+import android.location.Location;
+
+import java.text.DateFormat;
+import java.util.Date;
+
 //Created by Abedalla
 public class Account {
     private String name;
@@ -11,7 +17,10 @@ public class Account {
     private int type;
     private   String profileUri;
     private int numberOfPeople;
-    private  Boolean checkGreen;
+    private  int checkGreen;
+    private String date;
+
+
 
 
     public Account() {
@@ -29,7 +38,9 @@ public class Account {
         this.profileUri=profileUri;
         this.id=id;
         this.key=key;
-        this.checkGreen=false;
+        this.checkGreen=0;
+        this.date="unavailable";
+
     }
     public Account(String username,String name, String familyName,  String password, String email, String phoneNumber, String id, int type,String profileUri,String key,int numberOfPeople) {
         this.name = name;
@@ -57,6 +68,20 @@ public class Account {
         this.key=key;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+    public int getCheckGreen() {
+        return checkGreen;
+    }
+
+    public void setCheckGreen(int checkGreen) {
+        this.checkGreen = checkGreen;
+    }
     public int getNumberOfPeople() {
         return numberOfPeople;
     }

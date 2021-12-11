@@ -53,7 +53,7 @@ public class HomeForemanFragment extends Fragment {
         Foreman_Main_Activity activity = ( Foreman_Main_Activity ) getActivity();
         spinner = binding.spinnerForeman;
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
-                R.array.planets_array, android.R.layout.simple_spinner_item);
+                R.array.filter_list, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         homeForemanViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -63,7 +63,7 @@ public class HomeForemanFragment extends Fragment {
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                        mood=position+1;
+                        mood=position;
                         myRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -74,7 +74,23 @@ public class HomeForemanFragment extends Fragment {
                                 while (i.hasNext()) {
                                     String key=i.next().getKey();
                                     Account account=dataSnapshot.child(key).getValue(Account.class);
-                                    if(account.getType()==mood)
+                                    if(mood==0)  set.add(account);
+                                    if(mood==4)
+                                    {
+                                        if(account.getCheckGreen()==1)
+                                            set.add(account);
+                                    }
+                                    if(mood==5)
+                                    {
+                                        if(account.getCheckGreen()==2)
+                                            set.add(account);
+                                    }
+                                    if(mood==6)
+                                    {
+                                        if(account.getCheckGreen()==0)
+                                            set.add(account);
+                                    }
+                                    else if(account.getType()==mood)
                                         set.add(account);
                                 }
 

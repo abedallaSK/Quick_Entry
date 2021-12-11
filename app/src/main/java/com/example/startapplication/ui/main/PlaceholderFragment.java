@@ -140,7 +140,9 @@ public class PlaceholderFragment extends Fragment {
                             // This method is called once with the initial value and again
                             // whenever data at this location is updated.
                             boolean value = dataSnapshot.child("status").getValue(boolean.class);
-                            counter = dataSnapshot.child("counter").getValue(Integer.class);
+                            Integer integer=dataSnapshot.child("counter").getValue(Integer.class);
+                            if(integer==null) counter=0;
+                            else counter=integer;
                             textView.setText(counter + "/"+maxnumber);
                             Log.d(TAG, "Value is: " + value);
                             if (value) {

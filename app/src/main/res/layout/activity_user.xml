@@ -6,47 +6,65 @@
     android:layout_height="match_parent"
     tools:context=".UserActivity">
 
-    <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_baseline_clear_24" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageView_mainProfile"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/profile_img"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
-        android:id="@+id/scode_profile"
+        android:id="@+id/tvstatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/imageView_mainProfile"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/black"
-        android:text="" />
-
-    <ScrollView
-        android:layout_width="405dp"
-        android:layout_height="280dp"
-        android:layout_alignParentTop="true"
+        android:layout_marginTop="8dp"
+        android:text="in sight"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_mainProfile">
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/yellow"/>
+
+    <ImageView
+        android:id="@+id/imgstatus"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_access_time_24" />
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView8">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/status"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageView_mainProfile"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/profile_img"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView_mainProfile"
+                    app:layout_constraintTop_toTopOf="@+id/imageView_mainProfile"
+                    app:srcCompat="@drawable/ic_baseline_star_24" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
             <RelativeLayout
                 android:id="@+id/relative_name"
                 android:layout_width="match_parent"
@@ -79,7 +97,6 @@
                 </LinearLayout>
 
             </RelativeLayout>
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -117,7 +134,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/relative_house_no"
+                android:id="@+id/relative_green_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
@@ -150,16 +167,92 @@
 
             </RelativeLayout>
 
-            <ImageView
+
+            <com.github.chrisbanes.photoview.PhotoView
                 android:id="@+id/imageView6"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/ic_menu_report_image" />
+                android:layout_height="match_parent"
+                android:src="@android:drawable/ic_menu_report_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:zoomage_animateOnReset="true"
+                app:zoomage_autoCenter="true"
+                app:zoomage_autoResetMode="UNDER"
+                app:zoomage_maxScale="10"
+                app:zoomage_minScale="0.5"
+                app:zoomage_restrictBounds="false"
+                app:zoomage_translatable="true"
+                app:zoomage_zoomable="true" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/black" />
+
+            <RelativeLayout
+                android:id="@+id/relative_green"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingVertical="10dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="70dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Is the green card correct?"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                    <Switch
+                        android:id="@+id/switch_user"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textOff="No"
+                        android:textOn="Yes" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingVertical="10dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="70dp"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/editTextDate_user"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_baseline_today_24"
+                        android:ems="10"
+                        android:hint="Expiry date"
+                        android:inputType="date" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
 
         </LinearLayout>
     </ScrollView>
@@ -170,34 +263,31 @@
         android:layout_height="64dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_delete_24" />
+        app:srcCompat="@drawable/ic_baseline_delete_24"
+        android:onClick="delete"/>
 
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_baseline_done_24" />
-
-    <EditText
-        android:id="@+id/editTextDate2"
+    <Button
+        android:id="@+id/save"
+        style="@style/Widget.MaterialComponents.TimePicker.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="date"
-        app:layout_constraintBottom_toTopOf="@+id/imageView9"
-        app:layout_constraintEnd_toStartOf="@+id/imageView9"
-        app:layout_constraintStart_toEndOf="@+id/imageView10" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="save"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView11"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView_mainProfile"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_star_24" />
+    <Button
+        android:id="@+id/Cansel"
+        style="@style/Widget.MaterialComponents.TimePicker.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Cansel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

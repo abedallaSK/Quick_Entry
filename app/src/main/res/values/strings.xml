@@ -18,10 +18,19 @@
     <string name="tab_text_4">Door 4</string>
     <string name="tab_text_5">Door 5</string>
     <string name="title_activity_help">HelpActivity</string>
-    <string-array name="planets_array">
+    <string-array name="user_list">
         <item>Normal User</item>
         <item>Business User</item>
         <item>Foreman User</item>
+    </string-array>
+    <string-array name="filter_list">
+        <item>All User</item>
+        <item>Normal User</item>
+        <item>Business User</item>
+        <item>Foreman User</item>
+        <item>With green card</item>
+        <item>Without green card</item>
+        <item>Waiting</item>
     </string-array>
     <string name="large_text">
 
