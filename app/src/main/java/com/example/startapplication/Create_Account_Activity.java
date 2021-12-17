@@ -391,7 +391,7 @@ public class Create_Account_Activity extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 profileUriData = result.getUri();
-                imageView.setImageURI(imageUriData);
+                imageView.setImageURI(profileUriData);
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BusinessMainActivity">
+    tools:context=".BusinessMainActivity"
+    android:background="@drawable/backround_dark">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -56,6 +57,9 @@
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabs"
+                    app:tabTextColor="@color/black"
+                    android:background="@drawable/bottom_bg"
+                    android:scrollbarSize="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
