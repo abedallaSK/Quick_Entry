@@ -89,7 +89,7 @@ public class UserMainActivity extends AppCompatActivity {
                     if(account!=null) {
                         nameView.setText(account.getName());
                         emailView.setText(account.getEmail());
-                        Picasso.get().load(account.getProfileUri()).into(imageView);
+                        Picasso.get().load(account.getProfileUri()).resize(256,256).into(imageView);
                     }
 
                 }
@@ -153,5 +153,11 @@ public class UserMainActivity extends AppCompatActivity {
     public String getKey()
     {
         return  key;
+    }
+
+    public void goProfileUser(View view) {
+            Intent intent=new Intent(this,ProfileActivity.class);
+            intent.putExtra("KEY",key);
+            startActivity(intent);
     }
 }

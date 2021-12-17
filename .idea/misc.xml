@@ -50,6 +50,21 @@
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/menu/user_business_main.xml" value="0.3875" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/menu/user_main.xml" value="0.3734375" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2953125" />
+        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/drawable/buttonshape.xml" value="0.2203125" />
+        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/drawable/circle.xml" value="0.2203125" />
+        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/drawable/circle_border.xml" value="0.11388888888888889" />
+        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/drawable/grad.xml" value="0.11388888888888889" />
+        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/drawable/ic_settings.xml" value="0.11481481481481481" />
+        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/drawable/ic_user.xml" value="0.11388888888888889" />
+        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/activity_business_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/activity_create_account.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/activity_profile.xml" value="0.4307692307692308" />
+        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/activity_user_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/app_bar_user_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/content_user_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/fragment_home_foreman.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/nav_header_user_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/menu/bottom_nav_menu_foreman.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>

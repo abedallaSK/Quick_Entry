@@ -35,6 +35,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.net.URL;
 import java.util.Iterator;
@@ -369,7 +371,7 @@ public class Create_Account_Activity extends AppCompatActivity {
         return true;
     }
 
-    @Override
+  /*  @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
@@ -380,13 +382,34 @@ public class Create_Account_Activity extends AppCompatActivity {
             profileUriData = data.getData();
             profile.setImageURI(profileUriData);
         }
+    }*/
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                profileUriData = result.getUri();
+                imageView.setImageURI(imageUriData);
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+        }
+        if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
+            imageUriData = data.getData();
+            imageView.setImageURI(imageUriData);
+        }
     }
 
     public void AddProfilePhotoNormal(View view) {
-        Intent galleryIntent = new Intent();
+        CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .start(this);
+        /*Intent galleryIntent = new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent, 3);
+        startActivityForResult(galleryIntent, 3);*/
     }
 
     public Boolean CheekUseName(View view) {

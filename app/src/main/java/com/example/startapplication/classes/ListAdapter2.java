@@ -39,7 +39,7 @@ public class ListAdapter2 extends ArrayAdapter<Account> {
         TextView lastMsg= convertView.findViewById(R.id.lastMessage);
         TextView time = convertView.findViewById(R.id.msgtime);
 
-        Picasso.get().load(account.getProfileUri()).into(imageView);
+        Picasso.get().load(account.getProfileUri()).resize(64,64).into(imageView);
       //  imageView.setImageResource(account.getProfileUri());
         userName.setText(account.getName());
         lastMsg.setText(account.getEmail());

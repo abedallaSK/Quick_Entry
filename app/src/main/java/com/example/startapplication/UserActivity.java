@@ -53,7 +53,7 @@ public class UserActivity extends AppCompatActivity {
                     if (account != null) {
                         binding.nameProfile.setText(account.getName() + " " + account.getFamilyName());
                         binding.phoneProfile.setText(account.getId());
-                        Picasso.get().load(account.getProfileUri()).into(binding.imageViewMainProfile);
+                        Picasso.get().load(account.getProfileUri()).resize(512,512).into(binding.imageViewMainProfile);
                         if (account.getType() == 1) {
                             Picasso.get().load(account.getGreenUri()).into(binding.imageView6);
                             binding.countryProfile.setText("normal user");

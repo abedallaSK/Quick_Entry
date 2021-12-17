@@ -139,4 +139,9 @@ public class BusinessMainActivity extends AppCompatActivity {
         return key;
     }
 
+    public void goProfile(View view) {
+        Intent intent=new Intent(this,ProfileActivity.class);
+        intent.putExtra("KEY",key);
+        startActivity(intent);
+    }
 }
