@@ -21,7 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.startapplication.BusinessMainActivity;
+import com.example.startapplication.BusinessDoorActivity;
 import com.example.startapplication.R;
 import com.example.startapplication.classes.Account;
 import com.example.startapplication.databinding.FragmentBusinessMainBinding;
@@ -90,7 +90,7 @@ public class PlaceholderFragment extends Fragment {
         final ImageView imageView1 = binding.imageView12;
         final ListView listView=binding.ForemanListView;
         final Button button =binding.button17;
-        BusinessMainActivity activity = (BusinessMainActivity) getActivity();
+        BusinessDoorActivity activity = (BusinessDoorActivity) getActivity();
         key = activity.getKey();
         final ArrayList<String> list= new ArrayList<>();
         pageViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {

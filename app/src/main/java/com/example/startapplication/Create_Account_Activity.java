@@ -1,7 +1,6 @@
 package com.example.startapplication;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,7 +37,6 @@ import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import java.net.URL;
 import java.util.Iterator;
 
 public class Create_Account_Activity extends AppCompatActivity {
@@ -337,7 +335,7 @@ public class Create_Account_Activity extends AppCompatActivity {
             editor.putString(DATA_TAG, key);
             editor.putInt("Type", type);
             editor.commit();
-            startActivity(new Intent(this, BusinessMainActivity.class));
+            startActivity(new Intent(this, BusinessDoorActivity.class));
         }
         if(type==3)
         {
