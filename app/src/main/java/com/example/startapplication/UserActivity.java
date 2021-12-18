@@ -91,12 +91,12 @@ public class UserActivity extends AppCompatActivity {
 
             }
         });
-            binding.Cansel.setOnClickListener(new View.OnClickListener() {
+            /*binding.Cansel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     startActivity(new Intent(UserActivity.this,Foreman_Main_Activity.class));
                 }
-            });
+            });*/
 
 
     }

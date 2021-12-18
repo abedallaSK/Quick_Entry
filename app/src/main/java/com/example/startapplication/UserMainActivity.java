@@ -69,8 +69,8 @@ public class UserMainActivity extends AppCompatActivity {
         key= mSettings.getString(DATA_TAG, "Cash");
         if(key.equals("Cash"))
             logOut();
-        TextView textView=findViewById(R.id.textViewName);
-        textView.setText( key);
+      //  TextView textView=findViewById(R.id.textViewName);
+       // textView.setText( key);
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navViewHome;
@@ -81,6 +81,7 @@ public class UserMainActivity extends AppCompatActivity {
 
             assert key != null;
             myRef.child(key).addValueEventListener(new ValueEventListener() {
+                @SuppressLint("ResourceAsColor")
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     // This method is called once with the initial value and again
@@ -90,6 +91,24 @@ public class UserMainActivity extends AppCompatActivity {
                         nameView.setText(account.getName());
                         emailView.setText(account.getEmail());
                         Picasso.get().load(account.getProfileUri()).resize(256,256).into(imageView);
+                        TextView tvstatus=findViewById(R.id.tvstatus2);
+                        ImageView imageView1=findViewById(R.id.imgstatus2);
+                        if (account.getCheckGreen() == 0) {
+                            imageView1.setImageResource(R.drawable.ic_baseline_access_time_24);
+                            tvstatus.setTextColor(R.color.yellow);
+                            tvstatus.setText("in sight");
+                        } else if (account.getCheckGreen() == 1) {
+                            imageView1.setImageResource(R.drawable.ic_baseline_done_24);
+                            tvstatus.setTextColor(R.color.green);
+                            tvstatus.setText("OK");
+                            TextView textView2=findViewById(R.id.textView7);
+                            textView2.setText(account.getDate());
+
+                        } else if (account.getCheckGreen() == 2) {
+                            imageView1.setImageResource(R.drawable.ic_baseline_clear_24);
+                            tvstatus.setTextColor(R.color.red);
+                            tvstatus.setText("OK");
+                        }
                     }
 
                 }

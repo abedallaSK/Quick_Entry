@@ -55,7 +55,7 @@ public class PlaceholderFragment extends Fragment {
     private List<String> doorName=new ArrayList();
     private int counter=0;
     private int maxnumber=99999;
-
+    private boolean islock=false;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -89,7 +89,8 @@ public class PlaceholderFragment extends Fragment {
          imageView.setImageResource(R.drawable.ic_baseline_lock_24);
         final ImageView imageView1 = binding.imageView12;
         final ListView listView=binding.ForemanListView;
-        final Button button =binding.button17;
+        final Button button =binding.btOpen;
+        final Button btLock =binding.btLock;
         BusinessDoorActivity activity = (BusinessDoorActivity) getActivity();
         key = activity.getKey();
         final ArrayList<String> list= new ArrayList<>();
@@ -139,7 +140,18 @@ public class PlaceholderFragment extends Fragment {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             // This method is called once with the initial value and again
                             // whenever data at this location is updated.
-                            boolean value = dataSnapshot.child("status").getValue(boolean.class);
+                            boolean value;
+                          Objects op = dataSnapshot.child("status").getValue(Objects.class);
+                          if(op==null) value=false;
+                          else value =dataSnapshot.child("status").getValue(boolean.class);
+
+                            op = dataSnapshot.child("islock").getValue(Objects.class);
+                            if(op==null) islock=false;
+                           else islock=dataSnapshot.child("islock").getValue(boolean.class);
+
+                            button.setEnabled(islock);
+                            if(islock)  btLock.setText("Lock");
+                            else btLock.setText("Unlock");
                             Integer integer=dataSnapshot.child("counter").getValue(Integer.class);
                             if(integer==null) counter=0;
                             else counter=integer;
@@ -162,6 +174,13 @@ public class PlaceholderFragment extends Fragment {
                         public void onCancelled(DatabaseError error) {
                             // Failed to read value
                             Log.w(TAG, "Failed to read value.", error.toException());
+                        }
+                    });
+
+                    btLock.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                          doorRef.child(key).child(doorName.get(0)).child("islock").setValue(!islock);
                         }
                     });
 
@@ -194,6 +213,7 @@ public class PlaceholderFragment extends Fragment {
                    textView.setVisibility(View.INVISIBLE);
                     imageView.setVisibility(View.INVISIBLE);
                     button.setVisibility(View.INVISIBLE);
+                    btLock.setVisibility(View.INVISIBLE);
                 }
 
             }
