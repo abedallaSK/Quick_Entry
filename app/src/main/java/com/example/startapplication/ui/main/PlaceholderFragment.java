@@ -141,13 +141,8 @@ public class PlaceholderFragment extends Fragment {
                             // This method is called once with the initial value and again
                             // whenever data at this location is updated.
                             boolean value;
-                          Objects op = dataSnapshot.child("status").getValue(Objects.class);
-                          if(op==null) value=false;
-                          else value =dataSnapshot.child("status").getValue(boolean.class);
-
-                            op = dataSnapshot.child("islock").getValue(Objects.class);
-                            if(op==null) islock=false;
-                           else islock=dataSnapshot.child("islock").getValue(boolean.class);
+                            value = dataSnapshot.child("status").getValue(boolean.class);
+                            islock=dataSnapshot.child("islock").getValue(boolean.class);
 
                             button.setEnabled(islock);
                             if(islock)  btLock.setText("Lock");

@@ -1,6 +1,9 @@
 package com.example.startapplication.ui.home_foreman;
 
+import static com.example.startapplication.R.array.*;
+
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,19 +47,25 @@ public class HomeForemanFragment extends Fragment {
     private ListAdapter2 listAdapter;
     private int mood=1;
      private Spinner spinner;
+     private String[] strings={"All User","Normal","Business User","Foreman User","With green card","without green card","Waiting"};
+
     public View onCreateView(@NonNull LayoutInflater inflater,
+
                              ViewGroup container, Bundle savedInstanceState) {
         homeForemanViewModel =
                 new ViewModelProvider(this).get(HomeForemanViewModel.class);
 
         binding = FragmentHomeForemanBinding.inflate(inflater, container, false);
+
         View root = binding.getRoot();
         Foreman_Main_Activity activity = ( Foreman_Main_Activity ) getActivity();
         spinner = binding.spinnerForeman;
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
-                R.array.filter_list, android.R.layout.simple_spinner_item);
+                filter_list, android.R.layout.simple_spinner_item);
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
         homeForemanViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
