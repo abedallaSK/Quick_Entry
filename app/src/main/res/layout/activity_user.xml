@@ -12,20 +12,24 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/profileimage_backround"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageView_mainProfile"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="42dp"
+            android:layout_marginBottom="16dp"
             android:src="@drawable/profile_img"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.52" />
 
         <ImageView
             android:id="@+id/imageView8"
@@ -40,8 +44,8 @@
             android:id="@+id/imgstatus"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_marginStart="-70dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginStart="-64dp"
+            android:layout_marginTop="32dp"
             app:layout_constraintStart_toEndOf="@+id/imageView_mainProfile"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_baseline_access_time_24" />
@@ -62,53 +66,13 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/bt_save_foreman_user"
-        style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bottom_bg_circular"
-        android:onClick="save"
-        android:shadowColor="#A8A8A8"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
-        android:text="save"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        app:icon="@drawable/ic_baseline_save_alt_24"
-        app:iconTint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bt_edit_foreman_user"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-    <Button
-        android:id="@+id/bt_edit_foreman_user"
-        style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bottom_bg_circular"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
-        android:text="Edit"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        app:icon="@drawable/ic_baseline_edit_24"
-        app:iconTint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/bt_save_foreman_user" />
 
     <ScrollView
         android:id="@+id/scrollView3"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_alignParentTop="true"
-        app:layout_constraintBottom_toTopOf="@+id/bt_edit_foreman_user"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/status">
@@ -244,6 +208,11 @@
 
             </RelativeLayout>
 
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <RelativeLayout
                 android:id="@+id/relative_date"
                 android:layout_width="match_parent"
@@ -290,5 +259,51 @@
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/bottom_bg_circular_trasnfo">
+
+        <Button
+            android:id="@+id/bt_edit_foreman_user"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottom_bg_circular_trasnfo"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="Edit"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            app:icon="@drawable/ic_baseline_edit_24"
+            app:iconTint="#FFFFFF" />
+
+        <Button
+            android:id="@+id/bt_save_foreman_user"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottom_bg_circular_trasnfo"
+            android:onClick="save"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="save"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            app:icon="@drawable/ic_baseline_save_alt_24"
+            app:iconTint="#FFFFFF" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

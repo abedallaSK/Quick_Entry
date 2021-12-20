@@ -13,10 +13,13 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.Toast;
 
 import com.example.startapplication.classes.Account;
@@ -48,6 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
     private boolean isProfilePhoto=true;
     private static final String PREFS_NAME = "LOGIN";
     private static final String DATA_TAG = "KEY";
+    private  Account account;
 
     private final Runnable mHideRunnable = new Runnable() {
         @Override
@@ -58,8 +62,7 @@ public class ProfileActivity extends AppCompatActivity {
     };
     private Uri profileUriData;
     private Uri greenUriData;
-    private Uri profileUriWeb;
-    private Uri  imageUriWeb ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +74,8 @@ public class ProfileActivity extends AppCompatActivity {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, 0);
 
-        binding.tvName.setEnabled(false);
-        binding.tvName.setEnabled(false);
-        binding.edEmail.setEnabled(false);
-        binding.edPhone.setEnabled(false);
+        viewEnabled(false);
+
 
         key=getIntent().getStringExtra("KEY");
         if(key!=null) {
@@ -84,16 +85,19 @@ public class ProfileActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     // This method is called once with the initial value and again
                     // whenever data at this location is updated.
-                    Account account = dataSnapshot.getValue(Account.class);
+                    account = dataSnapshot.getValue(Account.class);
                     if (account != null) {
-                        binding.tvName.setText(account.getName() + " " + account.getFamilyName());
-                        binding.tvUsername.setText(account.getId());
+                        binding.ednameProfile.setText(account.getName());
+                        binding.edLastNameProfile.setText(account.getId());
                         Picasso.get().load(account.getProfileUri()).into(binding.imageView17);
                         binding.edEmail.setText(account.getEmail());
                         binding.edPhone.setText(account.getPhoneNumber());
-                       if(account.getType()==1)
-                           Picasso.get().load(account.getGreenUri()).into(binding.imageView10);
-
+                        binding.edPassword.setText(account.getPassword());
+                        binding.edMaxNumber.setText(account.getNumberOfPeople()+"");
+                       if(account.getType()==1)  {
+                           binding.edNumberOfDoor.setText(account.getDate());
+                           Picasso.get().load(account.getGreenUri()).into(binding.imageView10);}
+                       else binding.imageView10.setVisibility(View.INVISIBLE);
                     }
                 }
 
@@ -104,41 +108,84 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             });
         }
+            binding.ednameProfile.addTextChangedListener(loginTextWatcher);
+            binding.edLastNameProfile.addTextChangedListener(loginTextWatcher);
+            binding.edEmail.addTextChangedListener(loginTextWatcher);
+            binding.edPhone.addTextChangedListener(loginTextWatcher);
+           // binding.edBirthday.addTextChangedListener(loginTextWatcher);
+            binding.edMaxNumber.addTextChangedListener(loginTextWatcher);
+            binding.edNumberOfDoor.addTextChangedListener(loginTextWatcher);
+            binding.edPassword.addTextChangedListener(loginTextWatcher);
+
+
     }
 
+    private final TextWatcher loginTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @SuppressLint("ResourceAsColor")
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            String edNameInput = binding.ednameProfile.getText().toString().trim();
+            String edLastNameInput =   binding.edLastNameProfile.getText().toString().trim();
+            String edIdInput =  binding.edEmail.getText().toString().trim();
+            String edEmailInput = binding.edPhone.getText().toString().trim();
+            String edPasswordInput =  binding.edPassword.getText().toString().trim();
+            String edRe_PasswordInput = binding.edMaxNumber.getText().toString().trim();
+            String edUserNameInput =binding.edNumberOfDoor.getText().toString().trim();
+          //  String edBi =binding.edBirthday.getText().toString().trim();
+
+            if(binding.btEditProfile.getText().toString().equals("Save"))
+            {
+                binding.btEditProfile.setEnabled(!edNameInput.isEmpty() && !edLastNameInput.isEmpty() && !edIdInput.isEmpty() &&
+                    !edEmailInput.isEmpty() && !edPasswordInput.isEmpty() && !edRe_PasswordInput.isEmpty() &&
+                    !edUserNameInput.isEmpty());
+            }
+        }
+
+        @SuppressLint("ResourceAsColor")
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
+    };
+
+
+    public void viewEnabled(boolean isEnabled)
+    {
+        binding.ednameProfile.setEnabled(isEnabled);
+        binding.edLastNameProfile.setEnabled(isEnabled);
+        binding.edEmail.setEnabled(isEnabled);
+        binding.edPhone.setEnabled(isEnabled);
+        binding.edPassword.setEnabled(isEnabled);
+        binding.edMaxNumber.setEnabled(isEnabled);
+
+    }
     public void edit(View view) {
 
-        if(binding.edit.getText()=="edit")
+        if(binding.btEditProfile.getText()=="Edit")
         {
-            //binding.tvName.setEnabled(true);
-            binding.edEmail.setEnabled(true);
-            binding.edPhone.setEnabled(true);
-            binding.edit.setText("save");
+           viewEnabled(true);
+            binding.btEditProfile.setText("Save");
+        }else  if(binding.btEditProfile.getText()=="Save"){
+            binding.btEditProfile.setText("Edit");
+            viewEnabled(false);
 
-        }else {
-            binding.edit.setText("edit");
-            //binding.tvName.setEnabled(false);
-            binding.edEmail.setEnabled(false);
-            binding.edPhone.setEnabled(false);
-            //if(binding.tvName.getText().length()>1)
-            //{
-              //  Toast.makeText(this, "the name error", Toast.LENGTH_SHORT).show();
-            /*}else*/}
-          /*  if(binding.edEmail.getText().length()<1){
-                Toast.makeText(this, "the email error", Toast.LENGTH_SHORT).show();
-            }else if(binding.edPhone.getText().length()<1){
-                Toast.makeText(this, "the phone error", Toast.LENGTH_SHORT).show();
-            }else {
-                myRef.child(key).child("email").setValue(binding.edEmail.getText());
-                myRef.child(key).child("id").setValue(binding.edPhone.getText());
+            myRef.child(key).child("name").setValue(binding.ednameProfile.getText().toString());
+            myRef.child(key).child("familyName").setValue(binding.edLastNameProfile.getText().toString());
+            myRef.child(key).child("password").setValue(binding.edPassword.getText().toString());
+            myRef.child(key).child("email").setValue(binding.edEmail.getText().toString());
+            myRef.child(key).child("phoneNumber").setValue(binding.edPhone.getText().toString());
+            if(profileUriData!=null) uploadToFirebase(profileUriData, 0);
+            if(account.getType()==1)
+            {
+                    myRef.child(key).child("checkGreen").setValue(0);
+                    if(greenUriData!=null)  uploadToFirebase(profileUriData, 1);
             }
-       }*/
 
-    }
-
-    public void save(View view) {
-
-        //*saveEverytime
+        }
     }
 
     @Override
@@ -157,6 +204,7 @@ public class ProfileActivity extends AppCompatActivity {
                      }
                 } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                     Exception error = result.getError();
+                    Toast.makeText(ProfileActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
                 }
         }
     }
@@ -170,6 +218,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     private void uploadToFirebase(Uri uri, int code) {
+
         final StorageReference fileRef = reference.child(System.currentTimeMillis() + "." + getFileExtension(uri));
         fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -178,11 +227,12 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
                         if (code == 0)
-                            imageUriWeb = uri;
+                            myRef.child(key).child("profileUri").setValue(uri.toString());
                         if (code == 1)
-                            profileUriWeb = uri;
+                            myRef.child(key).child("greenUri").setValue(uri.toString());
                         //progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(ProfileActivity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                        binding.btEditProfile.setText("saved");
                     }
                 });
             }
@@ -196,6 +246,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
                // progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(ProfileActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                binding.btEditProfile.setText("not saved");
             }
         });
     }
@@ -221,5 +272,8 @@ public class ProfileActivity extends AppCompatActivity {
         editor.clear();
         editor.commit();
         startActivity(new Intent(this,LoginActivity.class));
+    }
+
+    public void back(View view) {
     }
 }

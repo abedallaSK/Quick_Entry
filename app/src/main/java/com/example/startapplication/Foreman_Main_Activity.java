@@ -26,7 +26,7 @@ public class Foreman_Main_Activity extends AppCompatActivity {
     private ActivityFormanMainBinding binding;
     private static final String PREFS_NAME = "LOGIN";
     private static final String DATA_TAG = "KEY";
-
+    private String key;
 
 
     @Override
@@ -37,6 +37,11 @@ public class Foreman_Main_Activity extends AppCompatActivity {
         setContentView(binding.getRoot());
         ActionBar actionBar;
         actionBar = getSupportActionBar();
+
+        SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
+        key= mSettings.getString(DATA_TAG, "Cash");
+        if(key.equals("Cash"))
+            logOut();
 
         // Define ColorDrawable object and parse color
         // using parseColor method
@@ -71,8 +76,17 @@ public class Foreman_Main_Activity extends AppCompatActivity {
             case R.id.main_logout:
                 logOut();
                 break;
+            case R.id.action_settings:
+                goToprofile();
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void goToprofile() {
+        Intent intent=new Intent(this,ProfileActivity.class);
+        intent.putExtra("KEY",key);
+        startActivity(intent);
     }
 
     public void logOut (){

@@ -50,7 +50,9 @@
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/menu/user_business_main.xml" value="0.3875" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/menu/user_main.xml" value="0.3734375" />
         <entry key="..\:/Users/AAZ19/AndroidStudioProjects/StartApplication2/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2953125" />
+        <entry key="..\:/Users/AAZ19/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/simple_spinner_dropdown_item.xml" value="0.3875" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/drawable-v24/bottom_bg_circular.xml" value="0.2203125" />
+        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/drawable/bnv_tab_item_foreground.xml" value="0.2203125" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/drawable/bottom_bg_circular_trasnfo.xml" value="0.2203125" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/drawable/bottom_bg_left.xml" value="0.2203125" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/drawable/bottom_bg_normal.xml" value="0.2203125" />
@@ -61,9 +63,11 @@
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/drawable/header_bg.xml" value="0.2203125" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/drawable/header_bg_blue.xml" value="0.1125" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/drawable/header_bg_right.xml" value="0.2203125" />
+        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.2203125" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.2203125" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/drawable/ic_settings.xml" value="0.11481481481481481" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/drawable/ic_user.xml" value="0.11388888888888889" />
+        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/drawable/selector.xml" value="0.2203125" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/drawable/spinner_item.xml" value="0.2203125" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout-w1240dp/activity_listview.xml" value="0.1" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/activity_business_door.xml" value="0.2028985507246377" />
@@ -72,10 +76,11 @@
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/activity_forget_passowrd.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/activity_forman_main.xml" value="0.2993527508090615" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/activity_fullscreen.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/activity_help.xml" value="0.1743659420289855" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/activity_login.xml" value="0.2028985507246377" />
-        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/activity_profile.xml" value="0.2" />
+        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/activity_profile.xml" value="0.5" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/activity_start.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/activity_user.xml" value="0.2" />
+        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/activity_user.xml" value="0.25" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/activity_user_choice.xml" value="0.2028985507246377" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/activity_user_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/app_bar_user_main.xml" value="0.20416666666666666" />
@@ -91,6 +96,7 @@
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/list_user_door.xml" value="0.33" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/listview_business_door.xml" value="0.2028985507246377" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/nav_header_user_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/spiner_secletin_backround.xml" value="0.22" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/layout/spinner_item.xml" value="0.25" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/menu/activity_main_drawer.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/AAZ19/StudioProjects/Quick_Entry_Abedalla/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />

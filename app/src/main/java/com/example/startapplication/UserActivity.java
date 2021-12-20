@@ -2,6 +2,7 @@ package com.example.startapplication;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.CalendarView;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -51,6 +53,7 @@ public class UserActivity extends AppCompatActivity {
 
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, 0);
+        binding.editTextDateUser.setEnabled(true);
         Intent intent =this.getIntent();
         if (intent != null){
 
@@ -65,16 +68,21 @@ public class UserActivity extends AppCompatActivity {
                     // whenever data at this location is updated.
                      account = dataSnapshot.getValue(Account.class);
                     if (account != null) {
-                        binding.nameProfile2.setText(account.getName() + " " + account.getFamilyName());
+                        binding.nameProfile2.setText(account.getName() /*+ "" + account.getFamilyName()*/);
                         binding.phoneProfile.setText(account.getId());
                         Picasso.get().load(account.getProfileUri()).resize(512,512).into(binding.imageViewMainProfile);
                         if (account.getType() == 1) {
                             Picasso.get().load(account.getGreenUri()).into(binding.imageView6);
                             binding.countryProfile.setText("normal user");
+
                             if (account.getCheckGreen() == 0) {
                                 binding.imgstatus.setImageResource(R.drawable.ic_baseline_access_time_24);
                                 binding.tvstatus.setTextColor(Color.parseColor("#FFFF00"));
                                 binding.tvstatus.setText("in sight");
+                                binding.switchUser.setChecked(false);
+                                binding.calendarView.setVisibility(View.INVISIBLE);
+                                binding.editTextDateUser.setVisibility(View.INVISIBLE);
+
                             } else if (account.getCheckGreen() == 1) {
                                 binding.imgstatus.setImageResource(R.drawable.ic_baseline_done_24);
                                 binding.tvstatus.setTextColor(Color.parseColor("#00FF00"));
@@ -88,6 +96,8 @@ public class UserActivity extends AppCompatActivity {
                                 binding.tvstatus.setText("the green card not right");
                                 binding.tvstatus.setTextSize(20);
                                 binding.switchUser.setChecked(false);
+                                binding.calendarView.setVisibility(View.INVISIBLE);
+                                binding.editTextDateUser.setVisibility(View.INVISIBLE);
                             }
                         }else binding.imageView6.setVisibility(View.INVISIBLE);
                     }
@@ -100,10 +110,21 @@ public class UserActivity extends AppCompatActivity {
                 }
             });
         }
+        binding.calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                binding.editTextDateUser.setText(dayOfMonth+"/"+month+1+"/"+year);
+            }
+        });
         binding.btEditForemanUser.setBackgroundColor(Color.parseColor("#FF0000"));
         binding.switchUser.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 status=isChecked;
+                if(status)
+                {binding.calendarView.setVisibility(View.VISIBLE);
+                binding.editTextDateUser.setVisibility(View.VISIBLE);}
+                else   { binding.calendarView.setVisibility(View.INVISIBLE);
+                    binding.editTextDateUser.setVisibility(View.INVISIBLE);}
             }
         });
             /*binding.Cansel.setOnClickListener(new View.OnClickListener() {

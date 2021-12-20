@@ -47,6 +47,7 @@ public class UserChoiceActivity extends AppCompatActivity {
 
 
     public void help(View view) {
-        Toast.makeText(this,"coming soon",Toast.LENGTH_SHORT).show();
+
+        startActivity(new Intent(this,HelpActivity.class));
     }
 }

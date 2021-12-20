@@ -66,7 +66,7 @@ public class HomeForemanFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, R.layout.spinner_item, strings);
 
         //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item,list);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.spiner_secletin_backround);
         spinner.setAdapter(adapter);
 
         homeForemanViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {

@@ -150,6 +150,8 @@ public class UserMainActivity extends AppCompatActivity {
             case R.id.main_logout:
                 logOut();
                 break;
+            case R.id.action_settings:
+                goProfileUser(null);
         }
         return super.onOptionsItemSelected(item);
     }

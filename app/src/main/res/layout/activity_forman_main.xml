@@ -9,13 +9,14 @@
         android:id="@+id/nav_view_foreman"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
         android:background="@drawable/bottom_bg_circular_trasnfo"
+        android:popupBackground="#FBFBFB"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/bottom_nav_menu_foreman" />
+        app:menu="@menu/bottom_nav_menu_foreman"
+        app:itemIconTint="@drawable/selector"
+        app:itemTextColor="@color/bnv_tab_item_foreground"/>
 
     <fragment
         android:id="@+id/nav_host_fragment_activity_forman_main"

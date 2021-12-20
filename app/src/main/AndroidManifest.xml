@@ -13,6 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StartApplication">
         <activity
+            android:name=".HelpActivity"
+            android:exported="false"
+            android:label="@string/title_activity_help"
+            android:theme="@style/Theme.StartApplication.NoActionBar" />
+        <activity
             android:name=".FullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="false"
