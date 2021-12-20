@@ -7,12 +7,67 @@
     tools:context=".UserActivity"
     android:background="@drawable/backround_dark">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/profileimage_backround"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageView_mainProfile"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="42dp"
+            android:src="@drawable/profile_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:onClick="delete"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_delete_24" />
+
+        <ImageView
+            android:id="@+id/imgstatus"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginStart="-70dp"
+            android:layout_marginTop="64dp"
+            app:layout_constraintStart_toEndOf="@+id/imageView_mainProfile"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_access_time_24" />
+
+        <TextView
+            android:id="@+id/name_profile2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-40dp"
+            android:background="@drawable/bottom_bg_circular_trasnfo"
+            android:text="Chris Morris"
+            android:textColor="@color/colorWhite"
+            android:textSize="26sp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView_mainProfile" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <Button
         android:id="@+id/bt_save_foreman_user"
         style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/bottom_bg_left"
+        android:background="@drawable/bottom_bg_circular"
         android:onClick="save"
         android:shadowColor="#A8A8A8"
         android:shadowDx="0"
@@ -24,16 +79,17 @@
         android:textSize="30sp"
         app:icon="@drawable/ic_baseline_save_alt_24"
         app:iconTint="#FFFFFF"
-        app:layout_constraintEnd_toStartOf="@+id/bt_edit_foreman_user"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bt_edit_foreman_user"
         app:layout_constraintStart_toStartOf="parent" />
+
 
     <Button
         android:id="@+id/bt_edit_foreman_user"
         style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/bottom_bg"
+        android:background="@drawable/bottom_bg_circular"
         android:shadowDx="0"
         android:shadowDy="0"
         android:shadowRadius="5"
@@ -45,100 +101,22 @@
         app:iconTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/bt_save_foreman_user"/>
-
-    <TextView
-        android:id="@+id/tvstatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="in sight"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/yellow"/>
-
-    <ImageView
-        android:id="@+id/imgstatus"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_access_time_24" />
+        app:layout_constraintStart_toEndOf="@+id/bt_save_foreman_user" />
 
     <ScrollView
         android:id="@+id/scrollView3"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/bt_edit_foreman_user"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView8">
+        app:layout_constraintTop_toBottomOf="@+id/status">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/status"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imageView_mainProfile"
-                    android:layout_width="250dp"
-                    android:layout_height="250dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/profile_img"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/imageView11"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView_mainProfile"
-                    app:layout_constraintTop_toTopOf="@+id/imageView_mainProfile"
-                    app:srcCompat="@drawable/ic_baseline_star_24" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <RelativeLayout
-                android:id="@+id/relative_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:paddingVertical="10dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="70dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Name"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/name_profile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Chris Morris"
-                        android:textColor="@color/black"
-                        android:textSize="26sp" />
-
-                </LinearLayout>
-
-            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -211,23 +189,21 @@
             </RelativeLayout>
 
 
-            <com.github.chrisbanes.photoview.PhotoView
-                android:id="@+id/imageView6"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@android:drawable/ic_menu_report_image"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:zoomage_animateOnReset="true"
-                app:zoomage_autoCenter="true"
-                app:zoomage_autoResetMode="UNDER"
-                app:zoomage_maxScale="10"
-                app:zoomage_minScale="0.5"
-                app:zoomage_restrictBounds="false"
-                app:zoomage_translatable="true"
-                app:zoomage_zoomable="true" />
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:onClick="photoShow"
+                    android:src="@android:drawable/ic_menu_report_image"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -271,7 +247,10 @@
             <RelativeLayout
                 android:id="@+id/relative_date"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="24dp"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
@@ -300,14 +279,16 @@
         </LinearLayout>
     </ScrollView>
 
-    <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+    <TextView
+        android:id="@+id/tvstatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="in sight"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/yellow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_delete_24"
-        android:onClick="delete"/>
-
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

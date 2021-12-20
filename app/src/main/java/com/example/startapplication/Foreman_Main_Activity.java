@@ -2,13 +2,17 @@ package com.example.startapplication;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -23,13 +27,25 @@ public class Foreman_Main_Activity extends AppCompatActivity {
     private static final String PREFS_NAME = "LOGIN";
     private static final String DATA_TAG = "KEY";
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityFormanMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        ActionBar actionBar;
+        actionBar = getSupportActionBar();
 
+        // Define ColorDrawable object and parse color
+        // using parseColor method
+        // with color hash code as its parameter
+        ColorDrawable colorDrawable
+                = new ColorDrawable(Color.parseColor("#3A3A3A"));
+
+        // Set BackgroundDrawable
+        actionBar.setBackgroundDrawable(colorDrawable);
         BottomNavigationView navView = findViewById(R.id.nav_view_foreman);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.

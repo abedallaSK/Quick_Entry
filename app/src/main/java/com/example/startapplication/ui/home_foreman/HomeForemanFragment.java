@@ -60,9 +60,12 @@ public class HomeForemanFragment extends Fragment {
         View root = binding.getRoot();
         Foreman_Main_Activity activity = ( Foreman_Main_Activity ) getActivity();
         spinner = binding.spinnerForeman;
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
-                filter_list, android.R.layout.simple_spinner_item);
+     /*   ArrayAdapter<String> adapter = ArrayAdapter.createFromResource(activity,
+                R.layout.spinner_item, filter_list,);*/
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, R.layout.spinner_item, strings);
+
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item,list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 

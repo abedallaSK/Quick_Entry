@@ -199,6 +199,7 @@
                                 android:layout_height="wrap_content"
                                 android:ems="10"
                                 android:inputType="textPersonName"
+                                android:minHeight="48dp"
                                 android:text="Name" />
 
                             <View
@@ -228,6 +229,7 @@
                                 android:layout_height="wrap_content"
                                 android:ems="10"
                                 android:inputType="textPersonName"
+                                android:minHeight="48dp"
                                 android:text="Name" />
 
                             <View
@@ -296,23 +298,14 @@
 
                         </LinearLayout>
 
-                        <com.github.chrisbanes.photoview.PhotoView
-                            android:id="@+id/img_profile"
+                        <ImageView
+                            android:id="@+id/imageView10"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginRight="15dp"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerInside"
+                            android:layout_height="wrap_content"
                             app:srcCompat="@android:drawable/ic_menu_report_image"
-                            app:zoomage_animateOnReset="true"
-                            app:zoomage_autoCenter="true"
-                            app:zoomage_autoResetMode="UNDER"
-                            app:zoomage_maxScale="10"
-                            app:zoomage_minScale="0.5"
-                            app:zoomage_restrictBounds="false"
-                            app:zoomage_translatable="true"
-                            app:zoomage_zoomable="true" />
+                            android:onClick="changeGreen"/>
+
+
 
                     </LinearLayout>
 
@@ -361,23 +354,22 @@
         app:layout_constraintStart_toEndOf="@+id/save" />
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/imageView_setting_profile"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:onClick="profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_settings" />
 
     <ImageView
-        android:id="@+id/imageView18"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:id="@+id/imageView_logout_profile"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:onClick="logOut"
+        android:onClick="logOut_Profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_login_24" />

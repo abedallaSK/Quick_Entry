@@ -74,6 +74,8 @@ public class Create_Account_Activity extends AppCompatActivity {
     private Button btGreen;
     private Switch swIgnore;
     private EditText edSerialNumber;
+    private  boolean isProfile=true;
+
 
     private final Handler mHideHandler = new Handler();
     private final Runnable mHideRunnable = new Runnable() {
@@ -104,7 +106,7 @@ public class Create_Account_Activity extends AppCompatActivity {
         edEmail = findViewById(R.id.Email);
         edPassword = findViewById(R.id.Password);
         edRe_Password = findViewById(R.id.Re_Password);
-        imageView = findViewById(R.id.imageView3);
+        imageView = findViewById(R.id.img_green_create);
         progressBar = findViewById(R.id.progressBar);
         progressBarUserName = findViewById(R.id.progressBar3);
         profile = findViewById(R.id.imageView_mainProfile);
@@ -361,12 +363,11 @@ public class Create_Account_Activity extends AppCompatActivity {
     }
 
 
-    public boolean Storage(View view) {
-        Intent galleryIntent = new Intent();
-        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-        galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent, 2);
-        return true;
+    public void Storage(View view) {
+        isProfile=false;
+        CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .start(this);
     }
 
   /*  @Override
@@ -388,19 +389,22 @@ public class Create_Account_Activity extends AppCompatActivity {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
-                profileUriData = result.getUri();
-                imageView.setImageURI(profileUriData);
+                if(isProfile) {
+                    profileUriData = result.getUri();
+                    profile.setImageURI(profileUriData);
+                }
+                else {
+                    imageUriData = result.getUri();
+                    imageView.setImageURI(imageUriData);
+                }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
         }
-        if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
-            imageUriData = data.getData();
-            imageView.setImageURI(imageUriData);
-        }
     }
 
     public void AddProfilePhotoNormal(View view) {
+        isProfile=true;
         CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .start(this);

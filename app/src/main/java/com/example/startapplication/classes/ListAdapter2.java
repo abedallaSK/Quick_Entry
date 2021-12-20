@@ -1,6 +1,8 @@
 package com.example.startapplication.classes;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,15 +37,42 @@ public class ListAdapter2 extends ArrayAdapter<Account> {
             convertView= LayoutInflater.from(getContext()).inflate(R.layout.list_item,parent,false);
         }
         ImageView imageView=convertView.findViewById(R.id.profilc_pic);
+        ImageView star1=convertView.findViewById(R.id.star1);
+        ImageView star2=convertView.findViewById(R.id.star2);
+        ImageView star3=convertView.findViewById(R.id.star3);
         TextView userName= convertView.findViewById(R.id.personName);
         TextView lastMsg= convertView.findViewById(R.id.lastMessage);
         TextView time = convertView.findViewById(R.id.msgtime);
+        ImageView backround=convertView.findViewById(R.id.imgbackround_item_list);
 
-        Picasso.get().load(account.getProfileUri()).resize(128,128).into(imageView);
+        Picasso.get().load(account.getProfileUri()).resize(512,512).into(imageView);
       //  imageView.setImageResource(account.getProfileUri());
         userName.setText(account.getName());
         lastMsg.setText(account.getEmail());
         time.setText(account.getId());
+        if(account.getType()==1)
+        {
+            star1.setVisibility(View.VISIBLE);
+            star2.setVisibility(View.INVISIBLE);
+            star3.setVisibility(View.INVISIBLE);
+            if(account.getCheckGreen()==0) backround.setImageResource(R.color.yellow);
+            else if (account.getCheckGreen()==1) backround.setImageResource(R.color.green);
+            else  backround.setImageResource(R.color.red);
+        }
+        if(account.getType()==2)
+        {
+            star1.setVisibility(View.VISIBLE);
+            star2.setVisibility(View.VISIBLE);
+            star3.setVisibility(View.INVISIBLE);
+            backround.setVisibility(View.INVISIBLE);
+        }
+        if(account.getType()==3)
+        {
+            star1.setVisibility(View.VISIBLE);
+            star2.setVisibility(View.VISIBLE);
+            star3.setVisibility(View.VISIBLE);
+            backround.setVisibility(View.INVISIBLE);
+        }
 
         return convertView;
     }

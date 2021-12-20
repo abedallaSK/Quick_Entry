@@ -23,4 +23,23 @@
         app:zoomage_restrictBounds="false"
         app:zoomage_translatable="true"
         app:zoomage_zoomable="true" />
+
+    <Button
+        android:id="@+id/btGreenCard"
+        style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/bottom_bg_circular"
+        android:text="upload green card"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/photo_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="goProfileUser"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

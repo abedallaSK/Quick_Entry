@@ -43,7 +43,6 @@ public class BusinessDoorActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "LOGIN";
     private static final String DATA_TAG = "KEY";
     private String key ;
-    private DatabaseReference doorRef = FirebaseDatabase.getInstance().getReference("Doors");
     private DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Accounts");
     private List<String> doorName = new ArrayList();
     private TextView tital;
@@ -69,6 +68,8 @@ public class BusinessDoorActivity extends AppCompatActivity {
 
 
         }
+
+
         myRef.child(key).addValueEventListener(new ValueEventListener() {
             @SuppressLint("SetTextI18n")
             @Override

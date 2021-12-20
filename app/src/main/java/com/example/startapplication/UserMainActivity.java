@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -95,19 +96,20 @@ public class UserMainActivity extends AppCompatActivity {
                         ImageView imageView1=findViewById(R.id.imgstatus2);
                         if (account.getCheckGreen() == 0) {
                             imageView1.setImageResource(R.drawable.ic_baseline_access_time_24);
-                            tvstatus.setTextColor(R.color.yellow);
                             tvstatus.setText("in sight");
+                            tvstatus.setTextColor(Color.parseColor("#FFFF00"));
                         } else if (account.getCheckGreen() == 1) {
                             imageView1.setImageResource(R.drawable.ic_baseline_done_24);
-                            tvstatus.setTextColor(R.color.green);
+
                             tvstatus.setText("OK");
+                            tvstatus.setTextColor(Color.parseColor("#00FF00"));
                             TextView textView2=findViewById(R.id.textView7);
                             textView2.setText(account.getDate());
 
                         } else if (account.getCheckGreen() == 2) {
                             imageView1.setImageResource(R.drawable.ic_baseline_clear_24);
-                            tvstatus.setTextColor(R.color.red);
-                            tvstatus.setText("OK");
+                            tvstatus.setText("\n\n\nyour green card not right\n\n");
+                            tvstatus.setTextColor(Color.parseColor("#FF0000"));
                         }
                     }
 
@@ -179,4 +181,5 @@ public class UserMainActivity extends AppCompatActivity {
             intent.putExtra("KEY",key);
             startActivity(intent);
     }
+
 }

@@ -3,11 +3,14 @@ package com.example.startapplication.ui.main;
 import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,13 +20,20 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.startapplication.BusinessDoorActivity;
+import com.example.startapplication.Foreman_Main_Activity;
 import com.example.startapplication.R;
+import com.example.startapplication.UserActivity;
 import com.example.startapplication.classes.Account;
+import com.example.startapplication.classes.DoorUser;
+import com.example.startapplication.classes.ListAdapter2;
+import com.example.startapplication.classes.ListDoorUser;
+import com.example.startapplication.classes.ListUserDoorAdapter;
 import com.example.startapplication.databinding.FragmentBusinessMainBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,6 +42,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -55,7 +68,10 @@ public class PlaceholderFragment extends Fragment {
     private List<String> doorName=new ArrayList();
     private int counter=0;
     private int maxnumber=99999;
-    private boolean islock=false;
+    private Boolean islock=false;
+    private  ListDoorUser listDoorUser;
+     //private  ArrayList<DoorUser> doorUsers=new ArrayList<>();
+   private ArrayList<DoorUser> doorUsers=new ArrayList<>();
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -93,7 +109,7 @@ public class PlaceholderFragment extends Fragment {
         final Button btLock =binding.btLock;
         BusinessDoorActivity activity = (BusinessDoorActivity) getActivity();
         key = activity.getKey();
-        final ArrayList<String> list= new ArrayList<>();
+        //final ArrayList<String> list= new ArrayList<>();
         pageViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -104,22 +120,58 @@ public class PlaceholderFragment extends Fragment {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
 
-                            Set<String> set = new HashSet<>();
+                            Set<DoorUser> set = new HashSet<>();
                             Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
-
-                            while (i.hasNext()) {
-                                String key=i.next().getKey();
-                                set.add((dataSnapshot.child(key)).getValue(String.class));
+                            listDoorUser= dataSnapshot.getValue(ListDoorUser.class);
+                            if(listDoorUser==null)
+                                listDoorUser=new ListDoorUser();
+                            doorUsers=listDoorUser.getDoorUsers();
+                            /*while (i.hasNext()) {
+                                String key = i.next().getKey();
+                                set.add((dataSnapshot.child(key)).getValue(DoorUser.class));
                             }
 
-                            list.clear();
-                            list.addAll(set);
-                            ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(),R.layout.listview_business_door, R.id.name_listview_door,  list);
+                            doorUsers.clear();
+                            doorUsers.addAll(set);
+                            Collections.sort(doorUsers, new Comparator<DoorUser>() {
+                                @Override
+                                public int compare(DoorUser o1, DoorUser o2) {
+                                    return Integer.compare(o2.getRank(), o1.getRank());
+                                }
+                            });*/
+
+                            ListUserDoorAdapter arrayAdapter = new ListUserDoorAdapter(getContext(),doorUsers);
                             listView.setAdapter(arrayAdapter);
                         }
+
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
 
+                        }
+                    });
+
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            AlertDialog.Builder myAlertBuilder=new AlertDialog.Builder(activity);
+                            myAlertBuilder.setTitle("Delete");
+                            myAlertBuilder.setMessage("Are you sure to delete?");
+                            myAlertBuilder.setIcon(R.drawable.ic_baseline_delete_24);
+                            myAlertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    doorRef.child(key).child(doorName.get(0)).child("counter").setValue(--counter);
+                                    listDoorUser.removeUser(position);
+                                    doorRef.child(key).child(doorName.get(0)).child("list").setValue(listDoorUser);
+                                }
+                            });
+                            myAlertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                            myAlertBuilder.show();
                         }
                     });
 
@@ -128,9 +180,12 @@ public class PlaceholderFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                                 doorRef.child(key).child(doorName.get(0)).child("status").setValue(true);
-                                counter++;
-                                doorRef.child(key).child(doorName.get(0)).child("counter").setValue(counter);
-                                doorRef.child(key).child(doorName.get(0)).child("list").push().setValue("unknown:"+counter);
+                                doorRef.child(key).child(doorName.get(0)).child("counter").setValue(++counter);
+
+                                DoorUser doorUser=new DoorUser("unknown","unknown",
+                                        new StringBuilder().append(+Calendar.getInstance().getTime().getDate()).append("/").append(Calendar.getInstance().getTime().getMonth()).append("/").append(Calendar.getInstance().getTime().getSeconds()).append("                 ").append(Calendar.getInstance().getTime().getHours()).append(":").append(Calendar.getInstance().getTime().getMinutes()).append(":").append(Calendar.getInstance().getTime().getSeconds()).toString(),counter);
+                                listDoorUser.addUser(doorUser);
+                                doorRef.child(key).child(doorName.get(0)).child("list").setValue(listDoorUser);
                         }
                     });
 
@@ -140,9 +195,12 @@ public class PlaceholderFragment extends Fragment {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             // This method is called once with the initial value and again
                             // whenever data at this location is updated.
-                            boolean value;
+                            Boolean value;
                             value = dataSnapshot.child("status").getValue(boolean.class);
+                            if(value==null) value=false;
+
                             islock=dataSnapshot.child("islock").getValue(boolean.class);
+                            if(islock==null) islock=false;
 
                             button.setEnabled(islock);
                             if(islock)  btLock.setText("Lock");
@@ -154,10 +212,12 @@ public class PlaceholderFragment extends Fragment {
                             Log.d(TAG, "Value is: " + value);
                             if (value) {
                                 imageView.setImageResource(R.drawable.ic_baseline_lock_open_24);
+                                button.setEnabled(false);
                                 new android.os.Handler().postDelayed(
                                         new Runnable() {
                                             public void run() {
                                                 imageView.setImageResource(R.drawable.ic_baseline_lock_24);
+                                                button.setEnabled(true);
                                                 doorRef.child(key).child(doorName.get(0)).child("status").setValue(false);
                                             }
                                         },

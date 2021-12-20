@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.startapplication.R;
 import com.example.startapplication.UserMainActivity;
+import com.example.startapplication.classes.Account;
 import com.example.startapplication.databinding.FragmentHomeBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -51,15 +52,30 @@ public class HomeFragment extends Fragment {
                 UserMainActivity activity = (UserMainActivity) getActivity();
                 String key = activity.getKey();
 
-                myRef.child(key).child("greenUri").addValueEventListener(new ValueEventListener() {
+                myRef.child(key).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // This method is called once with the initial value and again
                         // whenever data at this location is updated.
-                        String value = dataSnapshot.getValue(String.class);
-                        final ImageView imageView = binding.photoView;
-                        Picasso.get().load(value).into(imageView);
-                        Log.d(TAG, "Value is: " + value);
+                        Account value = dataSnapshot.getValue(Account.class);
+                        if (value != null) {
+                            if (value.getCheckGreen() == 1) {
+                                final ImageView imageView = binding.photoView;
+                                binding.btGreenCard.setVisibility(View.INVISIBLE);
+                                Picasso.get().load(value.getGreenUri()).into(imageView);
+                            }
+                            if (value.getCheckGreen() == 2) {
+                                binding.btGreenCard.setVisibility(View.VISIBLE);
+                                binding.photoView.setVisibility(View.INVISIBLE);
+                            }
+                            if (value.getCheckGreen() == 0) {
+                                final ImageView imageView = binding.photoView;
+                                binding.btGreenCard.setVisibility(View.VISIBLE);
+                                Picasso.get().load(value.getGreenUri()).into(imageView);
+                            }
+
+                            Log.d(TAG, "Value is: " + value);
+                        }
                     }
 
                     @Override

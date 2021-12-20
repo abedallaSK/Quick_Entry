@@ -50,7 +50,7 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         mHideHandler.removeCallbacks(mHideRunnable);
-        mHideHandler.postDelayed(mHideRunnable, 0);
+        mHideHandler.postDelayed(mHideRunnable, 500);
 
         SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
          key= mSettings.getString(DATA_TAG, "");
@@ -84,7 +84,7 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    sleep(1000);
+                    sleep(2000);
                     StartActivity(typeAccount);
                     finish();
                 } catch (InterruptedException e) {

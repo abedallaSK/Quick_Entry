@@ -2,13 +2,16 @@ package com.example.startapplication;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -29,6 +32,16 @@ public class UserActivity extends AppCompatActivity {
     private DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Accounts");
     private  String key;
     private boolean status ;
+    private final Handler mHideHandler = new Handler();
+    Account account;
+    private final Runnable mHideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.hide();
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +49,8 @@ public class UserActivity extends AppCompatActivity {
         binding =ActivityUserBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
+        mHideHandler.removeCallbacks(mHideRunnable);
+        mHideHandler.postDelayed(mHideRunnable, 0);
         Intent intent =this.getIntent();
         if (intent != null){
 
@@ -49,9 +63,9 @@ public class UserActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     // This method is called once with the initial value and again
                     // whenever data at this location is updated.
-                    Account account = dataSnapshot.getValue(Account.class);
+                     account = dataSnapshot.getValue(Account.class);
                     if (account != null) {
-                        binding.nameProfile.setText(account.getName() + " " + account.getFamilyName());
+                        binding.nameProfile2.setText(account.getName() + " " + account.getFamilyName());
                         binding.phoneProfile.setText(account.getId());
                         Picasso.get().load(account.getProfileUri()).resize(512,512).into(binding.imageViewMainProfile);
                         if (account.getType() == 1) {
@@ -59,21 +73,23 @@ public class UserActivity extends AppCompatActivity {
                             binding.countryProfile.setText("normal user");
                             if (account.getCheckGreen() == 0) {
                                 binding.imgstatus.setImageResource(R.drawable.ic_baseline_access_time_24);
-                                binding.tvstatus.setTextColor(R.color.yellow);
+                                binding.tvstatus.setTextColor(Color.parseColor("#FFFF00"));
                                 binding.tvstatus.setText("in sight");
                             } else if (account.getCheckGreen() == 1) {
                                 binding.imgstatus.setImageResource(R.drawable.ic_baseline_done_24);
-                                binding.tvstatus.setTextColor(R.color.green);
+                                binding.tvstatus.setTextColor(Color.parseColor("#00FF00"));
                                 binding.tvstatus.setText("OK");
                                 binding.editTextDateUser.setHint(account.getDate());
+                                binding.switchUser.setChecked(true);
 
                             } else if (account.getCheckGreen() == 2) {
                                 binding.imgstatus.setImageResource(R.drawable.ic_baseline_clear_24);
-                                binding.tvstatus.setTextColor(R.color.red);
-                                binding.tvstatus.setText("OK");
+                                binding.tvstatus.setTextColor(Color.parseColor("#FF0000"));
+                                binding.tvstatus.setText("the green card not right");
+                                binding.tvstatus.setTextSize(20);
+                                binding.switchUser.setChecked(false);
                             }
-
-                        }
+                        }else binding.imageView6.setVisibility(View.INVISIBLE);
                     }
                 }
 
@@ -83,12 +99,11 @@ public class UserActivity extends AppCompatActivity {
                     Log.w(TAG, "Failed to read value.", error.toException());
                 }
             });
-                                                   }
+        }
+        binding.btEditForemanUser.setBackgroundColor(Color.parseColor("#FF0000"));
         binding.switchUser.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 status=isChecked;
-
-
             }
         });
             /*binding.Cansel.setOnClickListener(new View.OnClickListener() {
@@ -145,5 +160,11 @@ public class UserActivity extends AppCompatActivity {
         });
         myAlertBuilder.show();
 
+    }
+
+    public void photoShow(View view) {
+        Intent i=new Intent(this,FullscreenActivity.class);
+        i.putExtra("Url",account.getGreenUri().toString());
+        startActivity(i);
     }
 }

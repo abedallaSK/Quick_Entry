@@ -2,6 +2,7 @@ package com.example.startapplication;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +33,7 @@ public class BusinessMainActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "LOGIN";
     private static final String DATA_TAG = "KEY";
     private DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Accounts");
+    private DatabaseReference myDoor = FirebaseDatabase.getInstance().getReference("Doors");
     private String key;
     private final Handler mHideHandler = new Handler();
     private final Runnable mHideRunnable = new Runnable() {
@@ -49,6 +51,8 @@ public class BusinessMainActivity extends AppCompatActivity {
 
         TextView tvName=findViewById(R.id.tv_name_business);
         TextView tvUsername=findViewById(R.id.tv_username_business);
+        TextView number =findViewById(R.id.tvnumberB);
+        TextView maxNumber =findViewById(R.id.max_number);
         ImageView imProfile=findViewById(R.id.imageView17_business);
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, 0);
@@ -67,6 +71,7 @@ public class BusinessMainActivity extends AppCompatActivity {
                         tvName.setText(account.getName() + " " + account.getFamilyName());
                        tvUsername.setText(account.getId());
                         Picasso.get().load(account.getProfileUri()).into(imProfile);
+                        maxNumber.setText(account.getNumberOfPeople()+"");
                     }
                 }
 
@@ -74,6 +79,18 @@ public class BusinessMainActivity extends AppCompatActivity {
                 public void onCancelled(DatabaseError error) {
                     // Failed to read value
                     Log.w(TAG, "Failed to read value.", error.toException());
+                }
+            });
+            myDoor.child(key).child("Door_1").child("counter").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Integer x=snapshot.getValue(Integer.class);
+                    if(x!=null) number.setText(x+"");
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
                 }
             });
         }

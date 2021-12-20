@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -44,7 +45,9 @@ public class ProfileActivity extends AppCompatActivity {
     private StorageReference reference = FirebaseStorage.getInstance().getReference("GreenCard");
     private String key;
     private final Handler mHideHandler = new Handler();
-
+    private boolean isProfilePhoto=true;
+    private static final String PREFS_NAME = "LOGIN";
+    private static final String DATA_TAG = "KEY";
 
     private final Runnable mHideRunnable = new Runnable() {
         @Override
@@ -54,6 +57,9 @@ public class ProfileActivity extends AppCompatActivity {
         }
     };
     private Uri profileUriData;
+    private Uri greenUriData;
+    private Uri profileUriWeb;
+    private Uri  imageUriWeb ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +92,7 @@ public class ProfileActivity extends AppCompatActivity {
                         binding.edEmail.setText(account.getEmail());
                         binding.edPhone.setText(account.getPhoneNumber());
                        if(account.getType()==1)
-                           Picasso.get().load(account.getGreenUri()).into(binding.imgProfile);
+                           Picasso.get().load(account.getGreenUri()).into(binding.imageView10);
 
                     }
                 }
@@ -117,20 +123,22 @@ public class ProfileActivity extends AppCompatActivity {
             //if(binding.tvName.getText().length()>1)
             //{
               //  Toast.makeText(this, "the name error", Toast.LENGTH_SHORT).show();
-            /*}else*/ if(binding.edEmail.getText().length()>0){
+            /*}else*/}
+          /*  if(binding.edEmail.getText().length()<1){
                 Toast.makeText(this, "the email error", Toast.LENGTH_SHORT).show();
-            }else if(binding.edPhone.getText().length()>0){
+            }else if(binding.edPhone.getText().length()<1){
                 Toast.makeText(this, "the phone error", Toast.LENGTH_SHORT).show();
             }else {
                 myRef.child(key).child("email").setValue(binding.edEmail.getText());
                 myRef.child(key).child("id").setValue(binding.edPhone.getText());
             }
-       }
+       }*/
 
     }
 
     public void save(View view) {
 
+        //*saveEverytime
     }
 
     @Override
@@ -139,21 +147,29 @@ public class ProfileActivity extends AppCompatActivity {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
-                profileUriData = result.getUri();
-                binding.imgProfile.setImageURI(profileUriData);
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Exception error = result.getError();
-            }
+                 if(isProfilePhoto) {
+                     profileUriData = result.getUri();
+                     binding.imageView17.setImageURI(profileUriData);
+                 }
+                 else{
+                     greenUriData=result.getUri();
+                         binding.imageView10.setImageURI(greenUriData);
+                     }
+                } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                    Exception error = result.getError();
+                }
         }
     }
 
-    public void changeProfile(View view) {
-        CropImage.activity()
-                .setGuidelines(CropImageView.Guidelines.ON)
-                .start(this);
+    private String getFileExtension(Uri mUri) {
+        ContentResolver cr = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cr.getType(mUri));
     }
 
-   /* private void uploadToFirebase(Uri uri, int code) {
+
+
+    private void uploadToFirebase(Uri uri, int code) {
         final StorageReference fileRef = reference.child(System.currentTimeMillis() + "." + getFileExtension(uri));
         fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -161,38 +177,49 @@ public class ProfileActivity extends AppCompatActivity {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
+                        if (code == 0)
+                            imageUriWeb = uri;
                         if (code == 1)
-                        //    profileUriWeb = uri;
-                      //  progressBar.setVisibility(View.INVISIBLE);
+                            profileUriWeb = uri;
+                        //progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(ProfileActivity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
-                        //if (type==1){
-                          //  if (profileUriWeb != null && imageUriWeb != null)
-                           //     goTOActivity();}
-                       // if(type==2 || type==3)
-                        //{
-                           // if (profileUriWeb != null)
-                               // goTOActivity();
-                        }
                     }
                 });
             }
         }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-              //  progressBar.setVisibility(View.VISIBLE);
+               // progressBar.setVisibility(View.VISIBLE);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                //progressBar.setVisibility(View.INVISIBLE);
-
+               // progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(ProfileActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
-    private String getFileExtension(Uri mUri) {
-        ContentResolver cr = getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cr.getType(mUri));
-    }*/
+    public void changeProfile(View view) {
+        isProfilePhoto=true;
+        CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .start(this);
+    }
+
+    public void changeGreen(View view) {
+        isProfilePhoto=false;
+        CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .start(this);
+    }
+
+
+
+    public void logOut_Profile(View view) {
+        SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = mSettings.edit();
+        editor.clear();
+        editor.commit();
+        startActivity(new Intent(this,LoginActivity.class));
+    }
 }
