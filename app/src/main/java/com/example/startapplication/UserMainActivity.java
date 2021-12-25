@@ -6,13 +6,19 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
+import android.nfc.NfcEvent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.startapplication.classes.Account;
 import com.google.android.gms.common.api.Status;
@@ -36,13 +42,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-public class UserMainActivity extends AppCompatActivity {
+import java.nio.charset.StandardCharsets;
+
+public class UserMainActivity extends AppCompatActivity implements NfcAdapter.CreateNdefMessageCallback {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityUserMainBinding binding;
     private DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Accounts");
     private Account account;
-
 
 
     //
@@ -56,6 +63,19 @@ public class UserMainActivity extends AppCompatActivity {
 
         binding = ActivityUserMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        NfcAdapter mAdapter = NfcAdapter.getDefaultAdapter(this);
+        if (mAdapter == null) {
+            Toast.makeText(this,"Sorry this device does not have NFC.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (!mAdapter.isEnabled()) {
+            Toast.makeText(this, "Please enable NFC via Settings.", Toast.LENGTH_LONG).show();
+        }
+
+        mAdapter.setNdefPushMessageCallback(this, this);
+
 
         setSupportActionBar(binding.appBarUserMain.toolbar);
         binding.appBarUserMain.fab.setOnClickListener(new View.OnClickListener() {
@@ -183,5 +203,17 @@ public class UserMainActivity extends AppCompatActivity {
             intent.putExtra("KEY",key);
             startActivity(intent);
     }
+    @Override
+    public NdefMessage createNdefMessage(NfcEvent nfcEvent) {
 
+        if(account.getCheckGreen()!=1)
+        {
+            Toast.makeText(this,"you dont have courrect green card you cant scan in nfc",Toast.LENGTH_SHORT).show();
+            return new NdefMessage(NdefRecord.createMime("text/plain","NO".getBytes()));
+        }else {
+        NdefRecord ndefRecord = NdefRecord.createMime("text/plain",key.getBytes());
+        NdefMessage ndefMessage = new NdefMessage(ndefRecord);
+        return ndefMessage;}
+
+    }
 }
