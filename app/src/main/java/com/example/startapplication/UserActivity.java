@@ -87,7 +87,7 @@ public class UserActivity extends AppCompatActivity {
                                 binding.imgstatus.setImageResource(R.drawable.ic_baseline_done_24);
                                 binding.tvstatus.setTextColor(Color.parseColor("#00FF00"));
                                 binding.tvstatus.setText("OK");
-                                binding.editTextDateUser.setHint(account.getDate());
+                                binding.editTextDateUser.setText(account.getDate());
                                 binding.switchUser.setChecked(true);
 
                             } else if (account.getCheckGreen() == 2) {
@@ -127,14 +127,6 @@ public class UserActivity extends AppCompatActivity {
                     binding.editTextDateUser.setVisibility(View.INVISIBLE);}
             }
         });
-            /*binding.Cansel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(UserActivity.this,Foreman_Main_Activity.class));
-                }
-            });*/
-
-
     }
 
     public void delete(View view) {
@@ -168,8 +160,10 @@ public class UserActivity extends AppCompatActivity {
         myAlertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(status)
+                if (status) {
                     myRef.child(key).child("checkGreen").setValue(1);
+                    myRef.child(key).child("date").setValue( binding.editTextDateUser.getText().toString());
+                }
                 else myRef.child(key).child("checkGreen").setValue(2);
             }
         });
@@ -187,5 +181,17 @@ public class UserActivity extends AppCompatActivity {
         Intent i=new Intent(this,FullscreenActivity.class);
         i.putExtra("Url",account.getGreenUri().toString());
         startActivity(i);
+    }
+
+    public void send(View view) {
+        Intent email = new Intent(Intent.ACTION_SEND);
+        email.putExtra(Intent.EXTRA_EMAIL, new String[]{ "abadalla1999@gmail.com"});
+        email.putExtra(Intent.EXTRA_SUBJECT, "Ask about green card");
+        email.putExtra(Intent.EXTRA_TEXT, "hello \n i want to ask about this green card ? \n this user is "+account.getId());
+
+//need this to prompts email client only
+        email.setType("message/rfc822");
+
+        startActivity(Intent.createChooser(email, "Choose an Email client :"));
     }
 }
