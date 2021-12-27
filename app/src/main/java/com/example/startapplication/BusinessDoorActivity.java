@@ -64,6 +64,8 @@ public class BusinessDoorActivity extends AppCompatActivity implements
     NfcAdapter nfcAdapter;
     String keyuser;
     private ListDoorUser listDoorUser;
+    private Integer counter;
+    private boolean islock;
     //private  ArrayList<DoorUser> doorUsers=new ArrayList<>();
     private ArrayList<DoorUser> doorUsers=new ArrayList<>();
     @Override
@@ -102,8 +104,24 @@ public class BusinessDoorActivity extends AppCompatActivity implements
                     Set<DoorUser> set = new HashSet<>();
                     Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
                     listDoorUser= dataSnapshot.getValue(ListDoorUser.class);
-                    if(listDoorUser==null)
-                        listDoorUser=new ListDoorUser();
+                    Integer  value= dataSnapshot.child("counter").getValue(Integer.class);
+                    if(value==null) counter=0;
+                    else counter=value;
+
+                     Boolean value1= dataSnapshot.child("islock").getValue(Boolean.class);
+                    if(value1==null) islock=false;
+                    else islock=value1;
+
+
+                    if(listDoorUser==null) {
+                        listDoorUser = new ListDoorUser();
+                        counter=0;
+                        islock=false;
+                    }
+                   /* else {
+                        counter=listDoorUser.getCounter();
+                        islock=listDoorUser.getIslock();
+                    }*/
                     doorUsers=listDoorUser.getDoorUsers();
                 }
 
@@ -202,33 +220,35 @@ public class BusinessDoorActivity extends AppCompatActivity implements
                         if (keyuser.equals("NO"))
                             Toast.makeText(this, "this user don't have green card yet", Toast.LENGTH_SHORT).show();
                         else {
-                            myRef.child(keyuser).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    // This method is called once with the initial value and again
-                                    // whenever data at this location is updated.
-                                    Account account = dataSnapshot.getValue(Account.class);
-                                    doorRef.child(key).child("Door_1").child("status").setValue(true);
-                                    if (account.getType() == 1) {
-                                        if (account != null) {
-                                            doorRef.child(key).child("Door_1").child("status").setValue(true);
-                                            //  doorRef.child(key).child("Door_1").child("counter").setValue(++counter);
+                            if (!islock) {
+                                myRef.child(keyuser).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        // This method is called once with the initial value and again
+                                        // whenever data at this location is updated.
+                                        Account account = dataSnapshot.getValue(Account.class);
+                                        doorRef.child(key).child("Door_1").child("status").setValue(true);
+                                        if (account.getType() == 1) {
+                                            if (account != null) {
+                                                doorRef.child(key).child("Door_1").child("status").setValue(true);
+                                                //  doorRef.child(key).child("Door_1").child("counter").setValue(++counter);
 
-                                            DoorUser doorUser = new DoorUser(account.getName(), account.getKey(),
-                                                    new StringBuilder().append(+Calendar.getInstance().getTime().getDate()).append("/").append(Calendar.getInstance().getTime().getMonth()).append("/").append(Calendar.getInstance().getTime().getSeconds()).append("                 ").append(Calendar.getInstance().getTime().getHours()).append(":").append(Calendar.getInstance().getTime().getMinutes()).append(":").append(Calendar.getInstance().getTime().getSeconds()).toString(), 10);
-                                            listDoorUser.addUser(doorUser);
-                                            doorRef.child(key).child("Door_1").child("list").setValue(listDoorUser);
+                                                DoorUser doorUser = new DoorUser(account.getName(), account.getKey(),
+                                                        new StringBuilder().append(+Calendar.getInstance().getTime().getDate()).append("/").append(Calendar.getInstance().getTime().getMonth()).append("/").append(Calendar.getInstance().getTime().getSeconds()).append("                 ").append(Calendar.getInstance().getTime().getHours()).append(":").append(Calendar.getInstance().getTime().getMinutes()).append(":").append(Calendar.getInstance().getTime().getSeconds()).toString(), ++counter);
+                                                listDoorUser.addUser(doorUser);
+                                                doorRef.child(key).child("Door_1").child("list").setValue(listDoorUser);
+                                            }
                                         }
+
                                     }
 
-                                }
+                                    @Override
+                                    public void onCancelled(DatabaseError error) {
+                                        // Failed to read value
 
-                                @Override
-                                public void onCancelled(DatabaseError error) {
-                                    // Failed to read value
-
-                                }
-                            });
+                                    }
+                                });
+                            }
                         }
                     }
                 }
