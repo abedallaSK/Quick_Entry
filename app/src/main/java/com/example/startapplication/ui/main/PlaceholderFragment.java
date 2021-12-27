@@ -114,154 +114,141 @@ public class PlaceholderFragment extends Fragment {
             @Override
             public void onChanged(@Nullable String s) {
 
-                if (Objects.equals(s, "1")) {
+                if(s!=null) {
+                    if (s.equals("1")) {
 
-                    doorRef.child(key).child(doorName.get(0)).child("list").addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        doorRef.child(key).child(doorName.get(0)).child("list").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                            Set<DoorUser> set = new HashSet<>();
-                            Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
-                            listDoorUser= dataSnapshot.getValue(ListDoorUser.class);
-                            if(listDoorUser==null)
-                                listDoorUser=new ListDoorUser();
-                            doorUsers=listDoorUser.getDoorUsers();
-                            /*while (i.hasNext()) {
-                                String key = i.next().getKey();
-                                set.add((dataSnapshot.child(key)).getValue(DoorUser.class));
+                                Set<DoorUser> set = new HashSet<>();
+                                Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
+                                listDoorUser = dataSnapshot.getValue(ListDoorUser.class);
+                                if (listDoorUser == null)
+                                    listDoorUser = new ListDoorUser();
+                                doorUsers = listDoorUser.getDoorUsers();
+                                ListUserDoorAdapter arrayAdapter = new ListUserDoorAdapter(getContext(), doorUsers);
+                                listView.setAdapter(arrayAdapter);
                             }
 
-                            doorUsers.clear();
-                            doorUsers.addAll(set);
-                            Collections.sort(doorUsers, new Comparator<DoorUser>() {
-                                @Override
-                                public int compare(DoorUser o1, DoorUser o2) {
-                                    return Integer.compare(o2.getRank(), o1.getRank());
-                                }
-                            });*/
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                            ListUserDoorAdapter arrayAdapter = new ListUserDoorAdapter(getContext(),doorUsers);
-                            listView.setAdapter(arrayAdapter);
-                        }
+                            }
+                        });
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                AlertDialog.Builder myAlertBuilder = new AlertDialog.Builder(activity);
+                                myAlertBuilder.setTitle("Delete");
+                                myAlertBuilder.setMessage("Are you sure to delete?");
+                                myAlertBuilder.setIcon(R.drawable.ic_baseline_delete_24);
+                                myAlertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        doorRef.child(key).child(doorName.get(0)).child("counter").setValue(--counter);
+                                        listDoorUser.removeUser(position);
+                                        doorRef.child(key).child(doorName.get(0)).child("list").setValue(listDoorUser);
+                                    }
+                                });
+                                myAlertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
 
-                        }
-                    });
+                                    }
+                                });
+                                myAlertBuilder.show();
+                            }
+                        });
 
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            AlertDialog.Builder myAlertBuilder=new AlertDialog.Builder(activity);
-                            myAlertBuilder.setTitle("Delete");
-                            myAlertBuilder.setMessage("Are you sure to delete?");
-                            myAlertBuilder.setIcon(R.drawable.ic_baseline_delete_24);
-                            myAlertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    doorRef.child(key).child(doorName.get(0)).child("counter").setValue(--counter);
-                                    listDoorUser.removeUser(position);
-                                    doorRef.child(key).child(doorName.get(0)).child("list").setValue(listDoorUser);
-                                }
-                            });
-                            myAlertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            });
-                            myAlertBuilder.show();
-                        }
-                    });
-
-                    imageView1.setVisibility(View.INVISIBLE);
-                    button.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
+                        imageView1.setVisibility(View.INVISIBLE);
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
                                 doorRef.child(key).child(doorName.get(0)).child("status").setValue(true);
                                 doorRef.child(key).child(doorName.get(0)).child("counter").setValue(++counter);
 
-                                DoorUser doorUser=new DoorUser("unknown","unknown",
-                                        new StringBuilder().append(+Calendar.getInstance().getTime().getDate()).append("/").append(Calendar.getInstance().getTime().getMonth()).append("/").append(Calendar.getInstance().getTime().getSeconds()).append("                 ").append(Calendar.getInstance().getTime().getHours()).append(":").append(Calendar.getInstance().getTime().getMinutes()).append(":").append(Calendar.getInstance().getTime().getSeconds()).toString(),counter);
+                                DoorUser doorUser = new DoorUser("unknown", "unknown",
+                                        new StringBuilder().append(+Calendar.getInstance().getTime().getDate()).append("/").append(Calendar.getInstance().getTime().getMonth()).append("/").append(Calendar.getInstance().getTime().getSeconds()).append("                 ").append(Calendar.getInstance().getTime().getHours()).append(":").append(Calendar.getInstance().getTime().getMinutes()).append(":").append(Calendar.getInstance().getTime().getSeconds()).toString(), counter);
                                 listDoorUser.addUser(doorUser);
                                 doorRef.child(key).child(doorName.get(0)).child("list").setValue(listDoorUser);
-                        }
-                    });
-
-                    doorRef.child(key).child(doorName.get(0)).child("status").setValue(false);
-                    doorRef.child(key).child(doorName.get(0)).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            // This method is called once with the initial value and again
-                            // whenever data at this location is updated.
-                            Boolean value;
-                            value = dataSnapshot.child("status").getValue(boolean.class);
-                            if(value==null) value=false;
-
-                            islock=dataSnapshot.child("islock").getValue(boolean.class);
-                            if(islock==null) islock=false;
-
-                            button.setEnabled(islock);
-                            if(islock)  btLock.setText("Lock");
-                            else btLock.setText("Unlock");
-                            Integer integer=dataSnapshot.child("counter").getValue(Integer.class);
-                            if(integer==null) counter=0;
-                            else counter=integer;
-                            textView.setText(counter + "/"+maxnumber);
-                            Log.d(TAG, "Value is: " + value);
-                            if (value) {
-                                imageView.setImageResource(R.drawable.ic_baseline_lock_open_24);
-                                button.setEnabled(false);
-                                new android.os.Handler().postDelayed(
-                                        new Runnable() {
-                                            public void run() {
-                                                imageView.setImageResource(R.drawable.ic_baseline_lock_24);
-                                                button.setEnabled(true);
-                                                doorRef.child(key).child(doorName.get(0)).child("status").setValue(false);
-                                            }
-                                        },
-                                        5000);
                             }
-                        }
+                        });
 
-                        @Override
-                        public void onCancelled(DatabaseError error) {
-                            // Failed to read value
-                            Log.w(TAG, "Failed to read value.", error.toException());
-                        }
-                    });
+                        doorRef.child(key).child(doorName.get(0)).child("status").setValue(false);
+                        doorRef.child(key).child(doorName.get(0)).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                // This method is called once with the initial value and again
+                                // whenever data at this location is updated.
+                                Boolean value;
+                                value = dataSnapshot.child("status").getValue(boolean.class);
+                                if (value == null) value = false;
 
-                    btLock.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                          doorRef.child(key).child(doorName.get(0)).child("islock").setValue(!islock);
-                        }
-                    });
+                                islock = dataSnapshot.child("islock").getValue(boolean.class);
+                                if (islock == null) islock = false;
 
-                    myRef.child(key).addValueEventListener(new ValueEventListener() {
-                        @SuppressLint("SetTextI18n")
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                            Account account=snapshot.getValue(Account.class);
-                            if(account!=null) {
-                                maxnumber=account.getNumberOfPeople();
+                                button.setEnabled(islock);
+                                if (islock) btLock.setText("Lock");
+                                else btLock.setText("Unlock");
+                                Integer integer = dataSnapshot.child("counter").getValue(Integer.class);
+                                if (integer == null) counter = 0;
+                                else counter = integer;
                                 textView.setText(counter + "/" + maxnumber);
+                                Log.d(TAG, "Value is: " + value);
+                                if (value) {
+                                    imageView.setImageResource(R.drawable.ic_baseline_lock_open_24);
+                                    button.setEnabled(false);
+                                    new android.os.Handler().postDelayed(
+                                            new Runnable() {
+                                                public void run() {
+                                                    imageView.setImageResource(R.drawable.ic_baseline_lock_24);
+                                                    button.setEnabled(true);
+                                                    doorRef.child(key).child(doorName.get(0)).child("status").setValue(false);
+                                                }
+                                            },
+                                            5000);
+                                }
                             }
+
+                            @Override
+                            public void onCancelled(DatabaseError error) {
+                                // Failed to read value
+                                Log.w(TAG, "Failed to read value.", error.toException());
+                            }
+                        });
+
+                        btLock.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                doorRef.child(key).child(doorName.get(0)).child("islock").setValue(!islock);
+                            }
+                        });
+
+                        myRef.child(key).addValueEventListener(new ValueEventListener() {
+                            @SuppressLint("SetTextI18n")
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                Account account = snapshot.getValue(Account.class);
+                                if (account != null) {
+                                    maxnumber = account.getNumberOfPeople();
+                                    textView.setText(counter + "/" + maxnumber);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                        if (maxnumber <= counter) {
+                            Toast.makeText(activity, "Full", Toast.LENGTH_SHORT).show();
+                            button.setEnabled(false);
                         }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-                    if(maxnumber<=counter)
-                    {
-                        Toast.makeText(activity, "Full", Toast.LENGTH_SHORT).show();
-                        button.setEnabled(false);
                     }
-
                 }
                 else {
                     imageView1.setVisibility(View.VISIBLE);

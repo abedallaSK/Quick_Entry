@@ -114,22 +114,25 @@ public class UserMainActivity extends AppCompatActivity implements NfcAdapter.Cr
                         Picasso.get().load(account.getProfileUri()).resize(256,256).into(imageView);
                         TextView tvstatus=findViewById(R.id.tvstatus2);
                         ImageView imageView1=findViewById(R.id.imgstatus2);
+                        TextView textView2=findViewById(R.id.textView7);
                         if (account.getCheckGreen() == 0) {
                             imageView1.setImageResource(R.drawable.ic_baseline_access_time_24);
                             tvstatus.setText("in sight");
                             tvstatus.setTextColor(Color.parseColor("#FFFF00"));
+                            textView2.setText("00/00/000");
                         } else if (account.getCheckGreen() == 1) {
                             imageView1.setImageResource(R.drawable.ic_baseline_done_24);
 
                             tvstatus.setText("OK");
                             tvstatus.setTextColor(Color.parseColor("#00FF00"));
-                            TextView textView2=findViewById(R.id.textView7);
+
                             textView2.setText(account.getDate());
 
                         } else if (account.getCheckGreen() == 2) {
                             imageView1.setImageResource(R.drawable.ic_baseline_clear_24);
                             tvstatus.setText("\n\n\nyour green card not right\n\n");
                             tvstatus.setTextColor(Color.parseColor("#FF0000"));
+                            textView2.setText("00/00/000");
                         }
                     }
 

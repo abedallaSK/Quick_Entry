@@ -6,14 +6,38 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ListDoorUser {
-    ArrayList <DoorUser> doorUsers=new ArrayList<>();
-
+    private   ArrayList <DoorUser> doorUsers=new ArrayList<>();
     public ListDoorUser(ArrayList<DoorUser> doorUsers) {
         this.doorUsers = doorUsers;
     }
 
     public ListDoorUser() {
     }
+
+    /*public Integer getCounter() {
+        if(counter==null) return 0;
+        return counter;
+    }
+
+    public void setCounter(Integer counter) {
+        this.counter = counter;
+    }
+
+    public Boolean getIslock() {
+        return islock;
+    }
+
+    public void setIslock(Boolean islock) {
+        this.islock = islock;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }*/
 
     public  void  addUser(DoorUser doorUser)
     {

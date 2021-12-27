@@ -130,6 +130,7 @@ public class Create_Account_Activity extends AppCompatActivity {
             btGreen.setVisibility(View.INVISIBLE);
             profile.setImageResource(R.drawable.profile_img);
             edSerialNumber.setVisibility(View.INVISIBLE);
+            imageView.setVisibility(View.INVISIBLE);
 
         }
         if(type==3) {
@@ -137,6 +138,7 @@ public class Create_Account_Activity extends AppCompatActivity {
             edNumber.setVisibility(View.INVISIBLE);
             swIgnore.setVisibility(View.INVISIBLE);
             profile.setImageResource(R.drawable.foreman);
+            imageView.setVisibility(View.INVISIBLE);
 
         }
         btCheck.setEnabled(false);
@@ -337,7 +339,7 @@ public class Create_Account_Activity extends AppCompatActivity {
             editor.putString(DATA_TAG, key);
             editor.putInt("Type", type);
             editor.commit();
-            startActivity(new Intent(this, BusinessDoorActivity.class));
+            startActivity(new Intent(this, BusinessMainActivity.class));
         }
         if(type==3)
         {
