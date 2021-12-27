@@ -260,15 +260,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/bottom_bg_circular_trasnfo"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/bottom_bg_circular_trasnfo">
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/bt_edit_foreman_user"
@@ -276,21 +276,41 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bottom_bg_circular_trasnfo"
+            android:onClick="send"
             android:shadowColor="#A8A8A8"
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="5"
-            android:text="Edit"
+            android:text="send"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="#FFFFFF"
-            android:textSize="30sp"
-            app:icon="@drawable/ic_baseline_edit_24"
-            app:iconTint="#FFFFFF" />
+            android:textSize="25dp"
+            app:icon="@drawable/ic_baseline_send_24"
+            app:iconTint="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/chat" />
+
+        <Button
+            android:id="@+id/chat"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bottom_bg_circular_trasnfo"
+            android:text="message"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="#FFFFFF"
+            android:textSize="25dp"
+            app:icon="@android:drawable/sym_action_chat"
+            app:iconTint="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/bt_save_foreman_user"
             style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bottom_bg_circular_trasnfo"
             android:onClick="save"
@@ -301,9 +321,11 @@
             android:text="save"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="#FFFFFF"
-            android:textSize="30sp"
+            android:textSize="25dp"
             app:icon="@drawable/ic_baseline_save_alt_24"
-            app:iconTint="#FFFFFF" />
-    </LinearLayout>
+            app:iconTint="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/chat" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

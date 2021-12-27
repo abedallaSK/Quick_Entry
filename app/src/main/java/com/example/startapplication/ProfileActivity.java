@@ -163,13 +163,14 @@ public class ProfileActivity extends AppCompatActivity {
         binding.edMaxNumber.setEnabled(isEnabled);
 
     }
+    @SuppressLint("SetTextI18n")
     public void edit(View view) {
 
-        if(binding.btEditProfile.getText()=="Edit")
+        if(binding.btEditProfile.getText().toString().equals("Edit"))
         {
            viewEnabled(true);
             binding.btEditProfile.setText("Save");
-        }else  if(binding.btEditProfile.getText()=="Save"){
+        }else  if(binding.btEditProfile.getText().toString().equals("Save")){
             binding.btEditProfile.setText("Edit");
             viewEnabled(false);
 
