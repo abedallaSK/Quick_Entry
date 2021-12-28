@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.nfc.NdefMessage;
@@ -22,6 +23,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -56,6 +58,7 @@ public class BusinessDoorActivity extends AppCompatActivity implements
     private ActivityBusinessDoorBinding binding;
     private static final String PREFS_NAME = "LOGIN";
     private static final String DATA_TAG = "KEY";
+    private static final String LOCK_TAG = "LOCK";
     private String key ;
     private DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Accounts");
     private DatabaseReference doorRef = FirebaseDatabase.getInstance().getReference("Doors");
@@ -97,41 +100,34 @@ public class BusinessDoorActivity extends AppCompatActivity implements
         TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
         tital=findViewById(R.id.title);
-            doorRef.child(key).child(doorName.get(0)).child("list").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+            doorRef.child(key).child(doorName.get(0)).child("online").setValue(  new StringBuilder().append(+Calendar.getInstance().getTime().getDate()).append("/").append(Calendar.getInstance().getTime().getMonth()).append("/").append(Calendar.getInstance().getTime().getSeconds()).append("                 ").append(Calendar.getInstance().getTime().getHours()).append(":").append(Calendar.getInstance().getTime().getMinutes()).append(":").append(Calendar.getInstance().getTime().getSeconds()).toString());
+        doorRef.child(key).child(doorName.get(0)).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                listDoorUser= dataSnapshot.child("list").getValue(ListDoorUser.class);
+                Integer  value= dataSnapshot.child("counter").getValue(Integer.class);
+                if(value==null) counter=0;
+                else counter=value;
 
-                    Set<DoorUser> set = new HashSet<>();
-                    Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
-                    listDoorUser= dataSnapshot.getValue(ListDoorUser.class);
-                    Integer  value= dataSnapshot.child("counter").getValue(Integer.class);
-                    if(value==null) counter=0;
-                    else counter=value;
+                 Boolean value1= dataSnapshot.child("islock").getValue(Boolean.class);
+                if(value1==null) islock=false;
+                else islock=value1;
 
-                     Boolean value1= dataSnapshot.child("islock").getValue(Boolean.class);
-                    if(value1==null) islock=false;
-                    else islock=value1;
-
-
-                    if(listDoorUser==null) {
-                        listDoorUser = new ListDoorUser();
-                        counter=0;
-                        islock=false;
-                    }
-                   /* else {
-                        counter=listDoorUser.getCounter();
-                        islock=listDoorUser.getIslock();
-                    }*/
-                    doorUsers=listDoorUser.getDoorUsers();
+                if(listDoorUser==null) {
+                    listDoorUser = new ListDoorUser();
+                    counter=0;
+                    islock=false;
                 }
+                doorUsers=listDoorUser.getDoorUsers();
+            }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
+            }
+        });
 
-        }
+    }
 
 
         myRef.child(key).addValueEventListener(new ValueEventListener() {
@@ -175,11 +171,27 @@ public class BusinessDoorActivity extends AppCompatActivity implements
     }
 
     public void logOut (){
-            SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
-            SharedPreferences.Editor editor = mSettings.edit();
-            editor.clear();
-            editor.commit();
-            startActivity(new Intent(this, LoginActivity.class));
+        AlertDialog.Builder myAlertBuilder=new AlertDialog.Builder(BusinessDoorActivity.this);
+        myAlertBuilder.setTitle("Logout");
+        myAlertBuilder.setMessage("Are you sure to logout");
+        myAlertBuilder.setIcon(R.drawable.ic_baseline_login_24);
+        myAlertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SharedPreferences mSettings =BusinessDoorActivity.this.getSharedPreferences(PREFS_NAME, 0);
+                SharedPreferences.Editor editor = mSettings.edit();
+                editor.clear();
+                editor.commit();
+                startActivity(new Intent(BusinessDoorActivity.this, LoginActivity.class));
+            }
+        });
+        myAlertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        myAlertBuilder.show();
     }
 
 
@@ -201,6 +213,8 @@ public class BusinessDoorActivity extends AppCompatActivity implements
 
     @Override
     protected void onResume() {
+        SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
+       islock = mSettings.getBoolean(LOCK_TAG,false);
         super.onResume();
         Intent intent = getIntent();
         if (intent != null) {
@@ -220,7 +234,7 @@ public class BusinessDoorActivity extends AppCompatActivity implements
                         if (keyuser.equals("NO"))
                             Toast.makeText(this, "this user don't have green card yet", Toast.LENGTH_SHORT).show();
                         else {
-                            if (!islock) {
+                            if (islock) {
                                 myRef.child(keyuser).addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -231,17 +245,15 @@ public class BusinessDoorActivity extends AppCompatActivity implements
                                         if (account.getType() == 1) {
                                             if (account != null) {
                                                 doorRef.child(key).child("Door_1").child("status").setValue(true);
-                                                //  doorRef.child(key).child("Door_1").child("counter").setValue(++counter);
+                                                doorRef.child(key).child("Door_1").child("counter").setValue(++counter);
 
                                                 DoorUser doorUser = new DoorUser(account.getName(), account.getKey(),
-                                                        new StringBuilder().append(+Calendar.getInstance().getTime().getDate()).append("/").append(Calendar.getInstance().getTime().getMonth()).append("/").append(Calendar.getInstance().getTime().getSeconds()).append("                 ").append(Calendar.getInstance().getTime().getHours()).append(":").append(Calendar.getInstance().getTime().getMinutes()).append(":").append(Calendar.getInstance().getTime().getSeconds()).toString(), ++counter);
+                                                        new StringBuilder().append(+Calendar.getInstance().getTime().getDate()).append("/").append(Calendar.getInstance().getTime().getMonth()).append("/").append(Calendar.getInstance().getTime().getYear()).append("                 ").append(Calendar.getInstance().getTime().getHours()).append(":").append(Calendar.getInstance().getTime().getMinutes()).append(":").append(Calendar.getInstance().getTime().getSeconds()).toString(), ++counter);
                                                 listDoorUser.addUser(doorUser);
                                                 doorRef.child(key).child("Door_1").child("list").setValue(listDoorUser);
                                             }
                                         }
-
                                     }
-
                                     @Override
                                     public void onCancelled(DatabaseError error) {
                                         // Failed to read value

@@ -3,6 +3,7 @@ package com.example.startapplication;
 import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -11,7 +12,6 @@ import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,12 +21,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.startapplication.classes.Account;
-import com.google.android.gms.common.api.Status;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
-import androidx.core.view.GravityCompat;
+import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -42,12 +41,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.nio.charset.StandardCharsets;
-
 public class UserMainActivity extends AppCompatActivity implements NfcAdapter.CreateNdefMessageCallback {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private ActivityUserMainBinding binding;
+    ActivityUserMainBinding binding;
     private DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Accounts");
     private Account account;
 
@@ -58,7 +55,7 @@ public class UserMainActivity extends AppCompatActivity implements NfcAdapter.Cr
     private String key="Cash";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityUserMainBinding.inflate(getLayoutInflater());
@@ -186,13 +183,33 @@ public class UserMainActivity extends AppCompatActivity implements NfcAdapter.Cr
                 || super.onSupportNavigateUp();
     }
 
-    public boolean logOut() {
-        SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
-        SharedPreferences.Editor editor = mSettings.edit();
-        editor.clear();
-        editor.commit();
-        startActivity(new Intent(this,LoginActivity.class));
-        return false;
+    public AlertDialog.Builder logOut() {
+        AlertDialog.Builder myAlertBuilder=new AlertDialog.Builder(UserMainActivity.this);
+        myAlertBuilder.setTitle("Logout");
+        myAlertBuilder.setMessage("Are you want to logout?");
+        myAlertBuilder.setIcon(R.drawable.ic_baseline_login_24);
+        myAlertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                SharedPreferences mSettings = UserMainActivity.this.getSharedPreferences(PREFS_NAME, 0);
+                SharedPreferences.Editor editor = mSettings.edit();
+                editor.clear();
+                editor.commit();
+                Intent i=new Intent( UserMainActivity.this,LoginActivity.class);
+                startActivity(i);
+            }
+        });
+        myAlertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        myAlertBuilder.show();
+
+        //for test
+        return myAlertBuilder;
     }
 
 
@@ -201,17 +218,19 @@ public class UserMainActivity extends AppCompatActivity implements NfcAdapter.Cr
         return  key;
     }
 
-    public void goProfileUser(View view) {
+
+    public Intent goProfileUser(View view) {
             Intent intent=new Intent(this,ProfileActivity.class);
             intent.putExtra("KEY",key);
             startActivity(intent);
+            return intent;
     }
     @Override
     public NdefMessage createNdefMessage(NfcEvent nfcEvent) {
 
         if(account.getCheckGreen()!=1)
         {
-            Toast.makeText(this,"you dont have courrect green card you cant scan in nfc",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"you don't have correct green card you cant scan in nfc",Toast.LENGTH_SHORT).show();
             return new NdefMessage(NdefRecord.createMime("text/plain","NO".getBytes()));
         }else {
         NdefRecord ndefRecord = NdefRecord.createMime("text/plain",key.getBytes());

@@ -32,7 +32,7 @@ import com.squareup.picasso.Picasso;
 public class UserActivity extends AppCompatActivity {
     ActivityUserBinding binding;
     private DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Accounts");
-    private  String key;
+    String key;
     private boolean status ;
     private final Handler mHideHandler = new Handler();
     Account account;

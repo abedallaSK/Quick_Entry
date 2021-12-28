@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -57,7 +58,8 @@ import java.util.Set;
 public class PlaceholderFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
-
+    private static final String PREFS_LOCK = "DOOR";
+    private static final String LOCK_TAG = "LOCK";
     private PageViewModel pageViewModel;
     private FragmentBusinessMainBinding binding;
     private static final String PREFS_NAME = "LOGIN";
@@ -68,7 +70,7 @@ public class PlaceholderFragment extends Fragment {
     private List<String> doorName=new ArrayList();
     private int counter=0;
     private int maxnumber=99999;
-    private Boolean islock=false;
+    public Boolean islock=false;
     private  ListDoorUser listDoorUser;
      //private  ArrayList<DoorUser> doorUsers=new ArrayList<>();
    private ArrayList<DoorUser> doorUsers=new ArrayList<>();
@@ -170,7 +172,7 @@ public class PlaceholderFragment extends Fragment {
                                 doorRef.child(key).child(doorName.get(0)).child("counter").setValue(++counter);
 
                                 DoorUser doorUser = new DoorUser("unknown", "unknown",
-                                        new StringBuilder().append(+Calendar.getInstance().getTime().getDate()).append("/").append(Calendar.getInstance().getTime().getMonth()).append("/").append(Calendar.getInstance().getTime().getSeconds()).append("                 ").append(Calendar.getInstance().getTime().getHours()).append(":").append(Calendar.getInstance().getTime().getMinutes()).append(":").append(Calendar.getInstance().getTime().getSeconds()).toString(), counter);
+                                        new StringBuilder().append(+Calendar.getInstance().getTime().getDate()).append("/").append(Calendar.getInstance().getTime().getMonth()+1).append("/").append(Calendar.getInstance().getTime().getYear()).append("                 ").append(Calendar.getInstance().getTime().getHours()).append(":").append(Calendar.getInstance().getTime().getMinutes()).append(":").append(Calendar.getInstance().getTime().getSeconds()).toString(), counter);
                                 listDoorUser.addUser(doorUser);
                                 doorRef.child(key).child(doorName.get(0)).child("list").setValue(listDoorUser);
                             }
@@ -188,6 +190,11 @@ public class PlaceholderFragment extends Fragment {
 
                                 islock = dataSnapshot.child("islock").getValue(boolean.class);
                                 if (islock == null) islock = false;
+
+                                SharedPreferences mSettings = activity.getSharedPreferences(PREFS_NAME, 0);
+                                SharedPreferences.Editor editor = mSettings.edit();
+                                editor.putBoolean(LOCK_TAG, islock);
+                                editor.commit();
 
                                 button.setEnabled(islock);
                                 if (islock) btLock.setText("Lock");

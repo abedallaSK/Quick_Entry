@@ -168,6 +168,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     }
 
     public void logOut (){
+
         SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = mSettings.edit();
         editor.clear();

@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     //
     private final Handler mHideHandler = new Handler();
     private Button btSing;
-
+    private Boolean isOk=false;
     private final Runnable mHideRunnable = new Runnable() {
         @Override
         public void run() {
@@ -90,10 +90,11 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-    public String Create(View view) {
-        startActivity(new Intent(this, UserChoiceActivity.class));
+    public Intent Create(View view) {
+        Intent i=new Intent(this, UserChoiceActivity.class);
+        startActivity(i);
         //for test
-        return  "OK";
+        return  i;
     }
 
     public void SingIn(View view) {
@@ -104,20 +105,21 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
-                boolean x=true;
+                isOk =false;
                 while (i.hasNext()) {
                     String ke=i.next().getKey();
                    Account account=dataSnapshot.child(ke).getValue(Account.class);
 
                    if(account.getEmail()!=null &&account.getUsername()!=null &&account.getPassword() !=null) {
                        if ((account.getEmail().equals(email) || account.getUsername().equals(email)) && account.getPassword().equals(password)) {
-                           x=false;
+                           isOk=true;
                            StartActivity(account.getType(), ke);
                            break;
                        }
                    }
                 }
-               if(x) Toast.makeText(getApplicationContext(),"The Password or name Error ",Toast.LENGTH_SHORT).show();
+               if(!isOk) Toast.makeText(getApplicationContext(),"The Password or name Error ",Toast.LENGTH_SHORT).show();
+
 
             }
             @Override
@@ -126,13 +128,13 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         });
-        progressBar.setVisibility(View.INVISIBLE);
+
 
     }
 
 
 
-   public String StartActivity(int x, String Code) {
+   public int StartActivity(int x, String Code) {
 
         SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
        SharedPreferences.Editor editor = mSettings.edit();
@@ -141,26 +143,29 @@ public class LoginActivity extends AppCompatActivity {
        editor.commit();
         switch (x) {
             case 1:
-                Intent intent = new Intent(this, UserMainActivity.class);
-                startActivity(intent);
-                break;
+                startActivity(new Intent(this, UserMainActivity.class));
+                //for test
+                return 1;
+                //break;
             case 2:
-                intent = new Intent(this, BusinessMainActivity.class);
-                startActivity(intent);
-                break;
+                startActivity(new Intent(this, BusinessMainActivity.class));
+                //for test
+                return 2;
+
             case 3:
-                intent = new Intent(this, Foreman_Main_Activity.class);
-                startActivity(intent);
-                break;
+                startActivity(new Intent(this, BusinessMainActivity.class));
+                //for test
+                return 3;
 
         }
     // for test
-       return "OK";
+       return 0;
    }
 
-    public void ForgetPassword(View view) {
+    public Intent ForgetPassword(View view) {
         Intent intent = new Intent(this, ForgetPasswordActivity.class);
         startActivity(intent);
+        return intent;
     }
 
 }

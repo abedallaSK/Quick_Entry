@@ -4,10 +4,12 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -268,13 +270,31 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     public void logOut_Profile(View view) {
-        SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
-        SharedPreferences.Editor editor = mSettings.edit();
-        editor.clear();
-        editor.commit();
-        startActivity(new Intent(this,LoginActivity.class));
+        AlertDialog.Builder myAlertBuilder=new AlertDialog.Builder(ProfileActivity.this);
+        myAlertBuilder.setTitle("logout");
+        myAlertBuilder.setMessage("Are you sure to logout?");
+        myAlertBuilder.setIcon(R.drawable.ic_baseline_login_24);
+        myAlertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SharedPreferences mSettings =ProfileActivity.this.getSharedPreferences(PREFS_NAME, 0);
+                SharedPreferences.Editor editor = mSettings.edit();
+                editor.clear();
+                editor.commit();
+                startActivity(new Intent(ProfileActivity.this,LoginActivity.class));
+            }
+        });
+        myAlertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        myAlertBuilder.show();
+
     }
 
     public void back(View view) {
+
     }
 }

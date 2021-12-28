@@ -1,5 +1,6 @@
 package com.example.startapplication;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -13,6 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -90,11 +92,28 @@ public class Foreman_Main_Activity extends AppCompatActivity {
     }
 
     public void logOut (){
-        SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
-        SharedPreferences.Editor editor = mSettings.edit();
-        editor.clear();
-        editor.commit();
-        startActivity(new Intent(this, LoginActivity.class));
+        AlertDialog.Builder myAlertBuilder=new AlertDialog.Builder(Foreman_Main_Activity.this);
+        myAlertBuilder.setTitle("Logout");
+        myAlertBuilder.setMessage("Are you sure to logout");
+        myAlertBuilder.setIcon(R.drawable.ic_baseline_login_24);
+        myAlertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SharedPreferences mSettings = Foreman_Main_Activity.this.getSharedPreferences(PREFS_NAME, 0);
+                SharedPreferences.Editor editor = mSettings.edit();
+                editor.clear();
+                editor.commit();
+                startActivity(new Intent(Foreman_Main_Activity.this, LoginActivity.class));
+            }
+        });
+        myAlertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        myAlertBuilder.show();
+
     }
 
 

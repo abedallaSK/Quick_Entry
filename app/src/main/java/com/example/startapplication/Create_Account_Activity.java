@@ -372,18 +372,6 @@ public class Create_Account_Activity extends AppCompatActivity {
                 .start(this);
     }
 
-  /*  @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
-            imageUriData = data.getData();
-            imageView.setImageURI(imageUriData);
-        }
-        if (requestCode == 3 && resultCode == RESULT_OK && data != null) {
-            profileUriData = data.getData();
-            profile.setImageURI(profileUriData);
-        }
-    }*/
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -406,14 +394,10 @@ public class Create_Account_Activity extends AppCompatActivity {
     }
 
     public void AddProfilePhotoNormal(View view) {
-        isProfile=true;
+        isProfile = true;
         CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .start(this);
-        /*Intent galleryIntent = new Intent();
-        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-        galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent, 3);*/
     }
 
     public Boolean CheekUseName(View view) {
