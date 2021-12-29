@@ -1,32 +1,56 @@
 package com.example.startapplication;
 
 import static org.junit.Assert.*;
+import static org.robolectric.Shadows.shadowOf;
 
-import android.view.View;
+
+import android.content.Intent;
+
+import com.google.firebase.FirebaseApp;
 
 import junit.framework.TestCase;
 
-import org.junit.Assert;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 
-public class LoginActivityTest {
+@RunWith(RobolectricTestRunner.class)
+public class LoginActivityTest extends TestCase {
 
-    LoginActivity loginActivity;
+    @Before
+    public void setUp() throws Exception {
+    }
 
-    @Test
-    public void create() throws InstantiationException, IllegalAccessException {
-        Assert.assertEquals(loginActivity.getClass().newInstance().Create(null), "OK");
+    @After
+    public void tearDown() throws Exception {
     }
 
     @Test
-    public void singIn() throws InstantiationException, IllegalAccessException {
-        assertNotEquals(loginActivity.getClass().newInstance().SingIn(null),null);
+    public void create() {
+
+        LoginActivity activity = Robolectric.setupActivity(LoginActivity.class);
+        FirebaseApp.initializeApp(activity);
+        activity.findViewById(R.id.btCreate).performClick();
+
+        Intent expectedIntent = new Intent(activity, Create_Account_Activity.class);
+        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+        assertEquals(expectedIntent.getComponent(), actual.getComponent());
     }
 
     @Test
-    public void startActivity() throws InstantiationException, IllegalAccessException {
-
-        Assert.assertEquals(loginActivity.getClass().newInstance().StartActivity(1, "test"), "OK");
+    public void singIn() {
     }
 
+    @Test
+    public void startActivity() {
+    }
+
+    @Test
+    public void forgetPassword() {
+    }
 }

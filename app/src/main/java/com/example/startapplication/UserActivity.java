@@ -11,6 +11,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -186,8 +187,8 @@ public class UserActivity extends AppCompatActivity {
     public void send(View view) {
         Intent email = new Intent(Intent.ACTION_SEND);
         email.putExtra(Intent.EXTRA_EMAIL, new String[]{ "abadalla1999@gmail.com"});
-        email.putExtra(Intent.EXTRA_SUBJECT, "Ask about green card");
-        email.putExtra(Intent.EXTRA_TEXT, "hello \n i want to ask about this green card ? \n this user is "+account.getId());
+        email.putExtra(Intent.EXTRA_SUBJECT, "Greetings Ministry Of Health");
+        email.putExtra(Intent.EXTRA_TEXT, "Hello \n , I would like to validate with you if the "+account.getName()+" have a valid green pass? \n id "+account.getId()+"\n\n\n\n"+account.getGreenUri());
 
 //need this to prompts email client only
         email.setType("message/rfc822");

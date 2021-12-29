@@ -153,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
                 return 2;
 
             case 3:
-                startActivity(new Intent(this, BusinessMainActivity.class));
+                startActivity(new Intent(this, Foreman_Main_Activity.class));
                 //for test
                 return 3;
 
