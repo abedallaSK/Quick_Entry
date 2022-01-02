@@ -47,7 +47,6 @@ public class UserChoiceActivity extends AppCompatActivity {
 
 
     public void help(View view) {
-
         startActivity(new Intent(this,HelpActivity.class));
     }
 }

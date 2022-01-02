@@ -145,7 +145,6 @@ public class UserActivity extends AppCompatActivity {
         myAlertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
             }
         });
         myAlertBuilder.show();

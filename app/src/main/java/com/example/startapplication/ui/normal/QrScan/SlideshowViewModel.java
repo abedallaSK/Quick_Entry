@@ -1,4 +1,4 @@
-package com.example.startapplication.ui.slideshow;
+package com.example.startapplication.ui.normal.QrScan;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

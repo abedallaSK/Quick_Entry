@@ -1,10 +1,9 @@
-package com.example.startapplication.ui.main;
+package com.example.startapplication.ui.business.door_list;
 
 import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -27,12 +25,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.startapplication.BusinessDoorActivity;
-import com.example.startapplication.Foreman_Main_Activity;
 import com.example.startapplication.R;
-import com.example.startapplication.UserActivity;
 import com.example.startapplication.classes.Account;
 import com.example.startapplication.classes.DoorUser;
-import com.example.startapplication.classes.ListAdapter2;
 import com.example.startapplication.classes.ListDoorUser;
 import com.example.startapplication.classes.ListUserDoorAdapter;
 import com.example.startapplication.databinding.FragmentBusinessMainBinding;
@@ -44,12 +39,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -118,7 +110,6 @@ public class PlaceholderFragment extends Fragment {
 
                 if(s!=null) {
                     if (s.equals("1")) {
-
                         doorRef.child(key).child(doorName.get(0)).child("list").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -254,7 +245,6 @@ public class PlaceholderFragment extends Fragment {
                             Toast.makeText(activity, "Full", Toast.LENGTH_SHORT).show();
                             button.setEnabled(false);
                         }
-
                     }
                 }
                 else {
@@ -267,8 +257,6 @@ public class PlaceholderFragment extends Fragment {
 
             }
         });
-
-
         return root;
     }
 

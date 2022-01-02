@@ -69,7 +69,7 @@ public class BusinessMainActivity extends AppCompatActivity {
                     Account account = dataSnapshot.getValue(Account.class);
                     if (account != null) {
                         tvName.setText(account.getName() + " " + account.getFamilyName());
-                       tvUsername.setText(account.getId());
+                        tvUsername.setText(account.getId());
                         Picasso.get().load(account.getProfileUri()).into(imProfile);
                         maxNumber.setText(account.getNumberOfPeople()+"");
                     }

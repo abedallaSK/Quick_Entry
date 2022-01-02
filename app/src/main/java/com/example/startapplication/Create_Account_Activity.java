@@ -42,7 +42,6 @@ import java.util.Iterator;
 public class Create_Account_Activity extends AppCompatActivity {
 
     private  EditText edNumber;
-    private EditText edCode;
     private EditText edName;
     private EditText edLastName;
     private EditText edId;
@@ -50,30 +49,32 @@ public class Create_Account_Activity extends AppCompatActivity {
     private EditText edEmail;
     private EditText edPassword;
     private EditText edRe_Password;
+    private EditText edUserName;
+    private EditText edSerialNumber;
+
     private DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Accounts");
     private StorageReference reference = FirebaseStorage.getInstance().getReference("GreenCard");
     private Uri imageUriWeb;
-    private Uri imageUriData;
+    Uri imageUriData;
     private Uri profileUriWeb;
-    private Uri profileUriData;
+    Uri profileUriData;
     private ImageView imageView;
     private static final String PREFS_NAME = "LOGIN";
     private static final String DATA_TAG = "KEY";
     private ProgressBar progressBar;
     private ProgressBar progressBarUserName;
     private ImageView profile;
-    private EditText edUserName;
-    private boolean test = false;
-    private boolean emailTest = false;
+
+    boolean test = false;
+
     private String userName;
     private Account account;
     private Button btCreate;
     private Button btCheck;
     private   String key;
-    private int type;
+    int type;
     private Button btGreen;
     private Switch swIgnore;
-    private EditText edSerialNumber;
     private  boolean isProfile=true;
 
 
@@ -216,26 +217,25 @@ public class Create_Account_Activity extends AppCompatActivity {
         if (!(edUserName.getText().toString().length() > 3 && !test)) {
             Toast.makeText(this, "UserName Error", Toast.LENGTH_LONG).show();
             return false;
-
         } else if (edName.getText().length() > 1 && edEmail.getText().length() < 1) {
             Toast.makeText(this, "First name Error", Toast.LENGTH_LONG).show();
             return false;
         } else if (edLastName.getText().length() < 1) {
             Toast.makeText(this, "the lastName Error", Toast.LENGTH_LONG).show();
             return false;
-        } else if (!(edPassword.getText().toString().equals(edRe_Password.getText().toString()))) {
+        } else if (edPassword.getText().length() < 5) {
+            Toast.makeText(this, "the password must be more then 5", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (!edPassword.getText().toString().equals(edRe_Password.getText().toString())) {
             Toast.makeText(this, "the password must be equals", Toast.LENGTH_LONG).show();
-            if (edPassword.getText().length() < 5) {
-                Toast.makeText(this, "the password must be more then 5", Toast.LENGTH_LONG).show();
-                return false;
-            }
+            return false;
         } else if (edId.getText().length() != 9) {
             Toast.makeText(this, "ID  Error the id word must to pe up from 9 number", Toast.LENGTH_LONG).show();
             return false;
         } else if (edPhone.getText().length() != 10) {
             Toast.makeText(this, "phone  Error the id word must to pe up from 10 number", Toast.LENGTH_LONG).show();
             return false;
-        } else if (edEmail.getText().length() < 1 && emailTest) {
+        } else if (edEmail.getText().length() < 5) {
             Toast.makeText(this, "Email  Error", Toast.LENGTH_LONG).show();
             return false;
         } else {
@@ -248,7 +248,7 @@ public class Create_Account_Activity extends AppCompatActivity {
                     return false;
                 }
             }
-            if (type==3) {
+           else if (type==3) {
                 if (!(edSerialNumber.getText().toString().equals("102030"))) {
                     Toast.makeText(this, "Serial Number not correct", Toast.LENGTH_LONG).show();
                     return false;
@@ -263,9 +263,9 @@ public class Create_Account_Activity extends AppCompatActivity {
                 return false;
             }
 
-            return true;
+
         }
-        return false;
+        return true;
     }
 
     //upload Green card and profile image
@@ -400,7 +400,7 @@ public class Create_Account_Activity extends AppCompatActivity {
                 .start(this);
     }
 
-    public Boolean CheekUseName(View view) {
+    public void CheekUseName(View view) {
         progressBarUserName.setVisibility(View.VISIBLE);
         userName = edUserName.getText().toString();
         test=false;
@@ -440,7 +440,6 @@ public class Create_Account_Activity extends AppCompatActivity {
             //test
         }else Toast.makeText(Create_Account_Activity.this, "Error the name must to be up 5", Toast.LENGTH_LONG).show();
         progressBarUserName.setVisibility(View.INVISIBLE);
-        return true;
     }
 
     public void SendCode(View view) {

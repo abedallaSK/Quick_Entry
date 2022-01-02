@@ -1,4 +1,4 @@
-package com.example.startapplication.ui.main;
+package com.example.startapplication.ui.business.door_list;
 
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;

@@ -96,6 +96,6 @@ dependencies {
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
 
     //gif
-    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.+'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.23'
 
 }

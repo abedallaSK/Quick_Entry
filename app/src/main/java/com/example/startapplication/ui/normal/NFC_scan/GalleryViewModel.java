@@ -1,16 +1,16 @@
-package com.example.startapplication.ui.home_foreman;
+package com.example.startapplication.ui.normal.NFC_scan;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeForemanViewModel extends ViewModel {
+public class GalleryViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public HomeForemanViewModel() {
+    public GalleryViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is home213 fragment");
+        mText.setValue("This is gallery fragment");
     }
 
     public LiveData<String> getText() {

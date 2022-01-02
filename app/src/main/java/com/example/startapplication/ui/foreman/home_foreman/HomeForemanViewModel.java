@@ -1,16 +1,16 @@
-package com.example.startapplication.ui.dashboard;
+package com.example.startapplication.ui.foreman.home_foreman;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class DashboardViewModel extends ViewModel {
+public class HomeForemanViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public DashboardViewModel() {
+    public HomeForemanViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        mText.setValue("This is home213 fragment");
     }
 
     public LiveData<String> getText() {

@@ -61,19 +61,6 @@ public class UserMainActivityTest extends TestCase {
     }
 
 
-    @Test
-    public void getKey() {
-        assertEquals(userMainActivity.getKey(),"test");
-    }
-
-    @Test
-    public void goProfileUser() {
-
-        Intent intent=userMainActivity.goProfileUser(null);
-        String s=intent.getStringExtra("KEY");
-        assertEquals(s,"test");
-    }
-
 
     @Test
     public void onCreate() {

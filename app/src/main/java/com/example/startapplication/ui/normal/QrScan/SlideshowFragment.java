@@ -1,10 +1,10 @@
-package com.example.startapplication.ui.gallery;
+package com.example.startapplication.ui.normal.QrScan;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,27 +12,26 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.startapplication.UserMainActivity;
-import com.example.startapplication.databinding.FragmentGalleryBinding;
+import com.example.startapplication.databinding.FragmentSlideshowBinding;
 
-public class GalleryFragment extends Fragment {
+public class SlideshowFragment extends Fragment {
 
-    private GalleryViewModel galleryViewModel;
-    private FragmentGalleryBinding binding;
+    private SlideshowViewModel slideshowViewModel;
+    private FragmentSlideshowBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel =
-                new ViewModelProvider(this).get(GalleryViewModel.class);
+        slideshowViewModel =
+                new ViewModelProvider(this).get(SlideshowViewModel.class);
 
-        binding = FragmentGalleryBinding.inflate(inflater, container, false);
+        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-       //final TextView textView = binding.textGallery;
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        final TextView textView = binding.textSlideshow;
+        slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                //textView.setText(s);
+                textView.setText(s);
             }
         });
         return root;

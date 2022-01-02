@@ -87,8 +87,7 @@ public class UserMainActivity extends AppCompatActivity implements NfcAdapter.Cr
         key= mSettings.getString(DATA_TAG, "Cash");
         if(key.equals("Cash"))
             logOut();
-      //  TextView textView=findViewById(R.id.textViewName);
-       // textView.setText( key);
+
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navViewHome;

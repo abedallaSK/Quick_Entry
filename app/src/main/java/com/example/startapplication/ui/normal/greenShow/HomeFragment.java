@@ -1,16 +1,13 @@
-package com.example.startapplication.ui.home;
+package com.example.startapplication.ui.normal.greenShow;
 
 import static android.content.ContentValues.TAG;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.startapplication.R;
 import com.example.startapplication.UserMainActivity;
 import com.example.startapplication.classes.Account;
 import com.example.startapplication.databinding.FragmentHomeBinding;

@@ -187,7 +187,6 @@ public class ProfileActivity extends AppCompatActivity {
                     myRef.child(key).child("checkGreen").setValue(0);
                     if(greenUriData!=null)  uploadToFirebase(profileUriData, 1);
             }
-
         }
     }
 
@@ -276,13 +275,7 @@ public class ProfileActivity extends AppCompatActivity {
         myAlertBuilder.setIcon(R.drawable.ic_baseline_login_24);
         myAlertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                SharedPreferences mSettings =ProfileActivity.this.getSharedPreferences(PREFS_NAME, 0);
-                SharedPreferences.Editor editor = mSettings.edit();
-                editor.clear();
-                editor.commit();
-                startActivity(new Intent(ProfileActivity.this,LoginActivity.class));
-            }
+            public void onClick(DialogInterface dialog, int which) { logOut(); }
         });
         myAlertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
@@ -292,6 +285,14 @@ public class ProfileActivity extends AppCompatActivity {
         });
         myAlertBuilder.show();
 
+    }
+
+    public  void logOut(){
+        SharedPreferences mSettings =ProfileActivity.this.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = mSettings.edit();
+        editor.clear();
+        editor.commit();
+        startActivity(new Intent(ProfileActivity.this,LoginActivity.class));
     }
 
     public void back(View view) {

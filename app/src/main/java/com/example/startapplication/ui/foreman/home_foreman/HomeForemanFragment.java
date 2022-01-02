@@ -1,9 +1,7 @@
-package com.example.startapplication.ui.home_foreman;
+package com.example.startapplication.ui.foreman.home_foreman;
 
-import static com.example.startapplication.R.array.*;
-
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +9,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -76,7 +74,7 @@ public class HomeForemanFragment extends Fragment {
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                        mood=position;
+                        mood = position;
                         myRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -85,25 +83,21 @@ public class HomeForemanFragment extends Fragment {
                                 Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
 
                                 while (i.hasNext()) {
-                                    String key=i.next().getKey();
-                                    Account account=dataSnapshot.child(key).getValue(Account.class);
-                                    if(mood==0)  set.add(account);
-                                    if(mood==4)
-                                    {
-                                        if(account.getCheckGreen()==1)
+                                    String key = i.next().getKey();
+                                    Account account = dataSnapshot.child(key).getValue(Account.class);
+                                    if (mood == 0) set.add(account);
+                                    if (mood == 4) {
+                                        if (account.getCheckGreen() == 1)
                                             set.add(account);
                                     }
-                                    if(mood==5)
-                                    {
-                                        if(account.getCheckGreen()==2)
+                                    if (mood == 5) {
+                                        if (account.getCheckGreen() == 2)
                                             set.add(account);
                                     }
-                                    if(mood==6)
-                                    {
-                                        if(account.getCheckGreen()==0)
+                                    if (mood == 6) {
+                                        if (account.getCheckGreen() == 0)
                                             set.add(account);
-                                    }
-                                    else if(account.getType()==mood)
+                                    } else if (account.getType() == mood)
                                         set.add(account);
                                 }
 
@@ -116,19 +110,42 @@ public class HomeForemanFragment extends Fragment {
 
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
-
                             }
                         });
                         binding.listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                Intent intent=new Intent(activity, UserActivity.class);
-                                intent.putExtra("KEY",list_of_Account.get(position).getKey());
+                                Intent intent = new Intent(activity, UserActivity.class);
+                                intent.putExtra("KEY", list_of_Account.get(position).getKey());
                                 startActivity(intent);
                             }
                         });
-                    }
+                        binding.listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                            @Override
+                            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                                AlertDialog.Builder myAlertBuilder = new AlertDialog.Builder(activity);
+                                myAlertBuilder.setTitle("Delete");
+                                myAlertBuilder.setMessage("Are you sure to delete?");
+                                myAlertBuilder.setIcon(R.drawable.ic_baseline_delete_24);
+                                myAlertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
 
+                                    }
+                                });
+                                myAlertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+                                myAlertBuilder.show();
+
+                                return true;
+                            }
+
+                        });
+                    }
                     @Override
                     public void onNothingSelected(AdapterView<?> parentView) {
                         // your code here

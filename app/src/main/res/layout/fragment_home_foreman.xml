@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home_foreman.HomeForemanFragment"
+    tools:context=".ui.foreman.home_foreman.HomeForemanFragment"
     android:background="@drawable/profileimage_backround">
 
 

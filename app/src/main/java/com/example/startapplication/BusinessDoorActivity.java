@@ -1,9 +1,6 @@
 package com.example.startapplication;
 
-import static android.content.ContentValues.TAG;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,10 +13,6 @@ import android.os.Bundle;
 import com.example.startapplication.classes.Account;
 import com.example.startapplication.classes.DoorUser;
 import com.example.startapplication.classes.ListDoorUser;
-import com.example.startapplication.classes.ListUserDoorAdapter;
-import com.example.startapplication.databinding.ActivityUserBinding;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
@@ -28,7 +21,6 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Parcelable;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,7 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.startapplication.ui.main.SectionsPagerAdapter;
+import com.example.startapplication.ui.business.door_list.SectionsPagerAdapter;
 import com.example.startapplication.databinding.ActivityBusinessDoorBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,10 +39,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 public class BusinessDoorActivity extends AppCompatActivity implements
         NfcAdapter.CreateNdefMessageCallback, NfcAdapter.OnNdefPushCompleteCallback {
@@ -63,9 +52,9 @@ public class BusinessDoorActivity extends AppCompatActivity implements
     private DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Accounts");
     private DatabaseReference doorRef = FirebaseDatabase.getInstance().getReference("Doors");
     private List<String> doorName = new ArrayList();
-    private TextView tital;
+    private TextView title;
     NfcAdapter nfcAdapter;
-    String keyuser;
+    String keyUser;
     private ListDoorUser listDoorUser;
     private Integer counter;
     private boolean islock;
@@ -99,8 +88,8 @@ public class BusinessDoorActivity extends AppCompatActivity implements
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
-        tital=findViewById(R.id.title);
-            doorRef.child(key).child(doorName.get(0)).child("online").setValue(  new StringBuilder().append(+Calendar.getInstance().getTime().getDate()).append("/").append(Calendar.getInstance().getTime().getMonth()).append("/").append(Calendar.getInstance().getTime().getSeconds()).append("                 ").append(Calendar.getInstance().getTime().getHours()).append(":").append(Calendar.getInstance().getTime().getMinutes()).append(":").append(Calendar.getInstance().getTime().getSeconds()).toString());
+        title =findViewById(R.id.title);
+        doorRef.child(key).child(doorName.get(0)).child("online").setValue(  new StringBuilder().append(+Calendar.getInstance().getTime().getDate()).append("/").append(Calendar.getInstance().getTime().getMonth()).append("/").append(Calendar.getInstance().getTime().getSeconds()).append("                 ").append(Calendar.getInstance().getTime().getHours()).append(":").append(Calendar.getInstance().getTime().getMinutes()).append(":").append(Calendar.getInstance().getTime().getSeconds()).toString());
         doorRef.child(key).child(doorName.get(0)).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -120,35 +109,28 @@ public class BusinessDoorActivity extends AppCompatActivity implements
                 }
                 doorUsers=listDoorUser.getDoorUsers();
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
 
     }
 
-
         myRef.child(key).addValueEventListener(new ValueEventListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 Account account=snapshot.getValue(Account.class);
                 if(account!=null) {
-                   tital.setText(account.getUsername());
+                   title.setText(account.getUsername());
                    ImageView imageView=findViewById(R.id.imageView17);
                    Picasso.get().load(account.getProfileUri()).into(imageView);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
-
     }
 
     @Override
@@ -178,23 +160,24 @@ public class BusinessDoorActivity extends AppCompatActivity implements
         myAlertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                SharedPreferences mSettings =BusinessDoorActivity.this.getSharedPreferences(PREFS_NAME, 0);
-                SharedPreferences.Editor editor = mSettings.edit();
-                editor.clear();
-                editor.commit();
-                startActivity(new Intent(BusinessDoorActivity.this, LoginActivity.class));
+                logOut_remove();
             }
         });
         myAlertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
             }
         });
         myAlertBuilder.show();
     }
 
-
+    public void logOut_remove() {
+        SharedPreferences mSettings =BusinessDoorActivity.this.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = mSettings.edit();
+        editor.clear();
+        editor.commit();
+        startActivity(new Intent(BusinessDoorActivity.this, LoginActivity.class));
+    }
 
 
     public void addDoor(View view) {
@@ -227,15 +210,15 @@ public class BusinessDoorActivity extends AppCompatActivity implements
                     NdefMessage inNdefMessage = (NdefMessage) parcelables[0];
                     NdefRecord[] inNdefRecords = inNdefMessage.getRecords();
                     NdefRecord NdefRecord_0 = inNdefRecords[0];
-                    keyuser = new String(NdefRecord_0.getPayload());
+                    keyUser = new String(NdefRecord_0.getPayload());
                     //textOut.setText(keyuser);
 
-                    if (keyuser != null) {
-                        if (keyuser.equals("NO"))
+                    if (keyUser != null) {
+                        if (keyUser.equals("NO"))
                             Toast.makeText(this, "this user don't have green card yet", Toast.LENGTH_SHORT).show();
                         else {
                             if (islock) {
-                                myRef.child(keyuser).addValueEventListener(new ValueEventListener() {
+                                myRef.child(keyUser).addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         // This method is called once with the initial value and again
@@ -280,7 +263,6 @@ public class BusinessDoorActivity extends AppCompatActivity implements
 
         final String eventString = "onNdefPushComplete\n" + event.toString();
         runOnUiThread(new Runnable() {
-
             @Override
             public void run() {
                 Toast.makeText(getApplicationContext(),
@@ -288,7 +270,6 @@ public class BusinessDoorActivity extends AppCompatActivity implements
                         Toast.LENGTH_LONG).show();
             }
         });
-
     }
 
     @Override

@@ -26,7 +26,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class ForgetPasswordActivity extends AppCompatActivity {
 
@@ -39,7 +41,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     private static final String DATA_TAG = "KEY";
      private Spinner spinner;
 
-
+    List<Account> accounts=new ArrayList<>();
     private final Handler mHideHandler = new Handler();
     private Button btcheckPassword;
     private Button btSaved;
@@ -78,6 +80,24 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         editText_Email.addTextChangedListener(loginTextWatcher);
         editText_Username.addTextChangedListener(loginTextWatcher);
 
+
+
+        //getdata
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
+                //isOk =false;
+                while (i.hasNext()) {
+                    String ke=i.next().getKey();
+                    accounts.add(dataSnapshot.child(ke).getValue(Account.class));
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(),"No Internet ",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
@@ -101,37 +121,20 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     public void Check(View view) {
         btSaved.setVisibility(View.INVISIBLE);
         edPasswordShow.setVisibility(View.INVISIBLE);
-        String email=editText_Email.getText().toString();
-        String username= editText_Username.getText().toString();
-        int type=spinner.getSelectedItemPosition()+1;
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
-                boolean x=true;
-                while (i.hasNext()) {
-                    String ke=i.next().getKey();
-                    Account account=dataSnapshot.child(ke).getValue(Account.class);
-
-                    if(account.getEmail()!=null &&account.getUsername()!=null &&account.getPassword() !=null) {
-                        if ((account.getEmail().equals(email) && account.getUsername().equals(username)) && account.getType()==type) {
-                            x=false;
-                            key=account.getKey();
-                            edPasswordShow.setText(account.getPassword());
-                            edPasswordShow.setVisibility(View.VISIBLE);
-                            btSaved.setVisibility(View.VISIBLE);
-                            break;
-                        }
-                    }
-                }
-                if(x) Toast.makeText(getApplicationContext(),"The Email or username Error ",Toast.LENGTH_SHORT).show();
-
+        String email = editText_Email.getText().toString();
+        String username = editText_Username.getText().toString();
+        int type = spinner.getSelectedItemPosition() + 1;
+        boolean flag =false;
+        for (int i = 0; i < accounts.size(); i++) {
+            if (accounts.get(i).getUsername().equals(username) && accounts.get(i).getEmail().equals(email) && accounts.get(i).getType() == type) {
+                key = accounts.get(i).getKey();
+                edPasswordShow.setText(accounts.get(i).getPassword());
+                edPasswordShow.setVisibility(View.VISIBLE);
+                btSaved.setVisibility(View.VISIBLE);
+                flag=true;
             }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-
-        });
+        }
+       if(!flag) Toast.makeText(getApplicationContext(), "The Email or username Error ", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -148,33 +151,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         Toast.makeText(this, "connect with us", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.user_business_main, menu);
-        return true;
-    }
 
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId())
-        {
-            case R.id.main_logout:
-                logOut();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void logOut (){
-
-        SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
-        SharedPreferences.Editor editor = mSettings.edit();
-        editor.clear();
-        editor.commit();
-        startActivity(new Intent(this, LoginActivity.class));
-    }
 
 
 }

@@ -1,13 +1,13 @@
-package com.example.startapplication;
+package com.example.startapplication.classes;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import com.example.startapplication.classes.Account;
 
 import org.junit.Test;
 
 public class AccountTest {
-        Account account=new Account("username","name","familyName","password","email","phoneNumber","id",1,"profileUri","greenUri");
+        Account account=new Account("username","name","familyName","password","email","phoneNumber","id",1,"profileUri","greenUri","key");
     @Test
     public void getId() {
         assertEquals(account.getId(),"id");
@@ -99,7 +99,6 @@ public class AccountTest {
 
     @Test
     public void getGreenUri() {
-        account.setGreenUri("greenUri");
         assertEquals(account.getGreenUri(),"greenUri");
     }
 

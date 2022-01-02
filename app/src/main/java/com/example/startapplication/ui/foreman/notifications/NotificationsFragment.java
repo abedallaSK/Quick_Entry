@@ -1,4 +1,4 @@
-package com.example.startapplication.ui.notifications;
+package com.example.startapplication.ui.foreman.notifications;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.startapplication.R;
 import com.example.startapplication.databinding.FragmentNotificationsBinding;
 
 public class NotificationsFragment extends Fragment {

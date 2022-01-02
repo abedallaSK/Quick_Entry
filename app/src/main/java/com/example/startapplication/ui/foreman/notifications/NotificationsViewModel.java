@@ -1,4 +1,4 @@
-package com.example.startapplication.ui.notifications;
+package com.example.startapplication.ui.foreman.notifications;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

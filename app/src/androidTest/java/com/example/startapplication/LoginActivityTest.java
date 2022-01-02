@@ -29,7 +29,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 @RunWith(JUnit4.class)
 
@@ -43,6 +45,7 @@ public class LoginActivityTest extends TestCase {
     @Before
     public void setUp() throws Exception {
         loginActivity = mActivityTestRule.getActivity();
+
     }
 
     @After
@@ -50,151 +53,39 @@ public class LoginActivityTest extends TestCase {
         loginActivity = null;
     }
 
-    @Test
-    public void create() {
-        Intent i=loginActivity.Create(null);
-        assertFalse(i==null);
-    }
 
     @Test
-    public void singIn() {
+    public void isCorrectUser()throws Exception {
+        List<Account> accounts=new ArrayList<>();
+        accounts.add(new Account("111111","name","familyName","123123","email","phone","id",1,"photo","photo","code1"));
+        accounts.add(new Account("222222","name","familyName","asdasd1","email","phone","id",1,"photo","photo","code1"));
+        accounts.add(new Account("333333","name","familyName","333123","email","phone","id",1,"photo","photo","code1"));
+
+        loginActivity.accounts=accounts;
 
         getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
-                DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Accounts");
                 EditText em = loginActivity.findViewById(R.id.editTextEmail);
                 EditText pass = loginActivity.findViewById(R.id.editTextPassword);
+
                 em.setText("email");
                 pass.setText("pass");
+                assertEquals(loginActivity.IsCorrectUser(em.getText().toString(), pass.getText().toString()), -1);
 
-                myRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Boolean isOk =true;
-                        Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
-                        while (i.hasNext()) {
-                            String ke=i.next().getKey();
-                            Account account=dataSnapshot.child(ke).getValue(Account.class);
-
-                            if(account.getUsername()!=null &&account.getPassword() !=null) {
-                                if (account.getUsername().equals(em.getText().toString()) && account.getPassword().equals(pass.getText().toString())) {
-                                    isOk=false;
-                                    //Assert.assertFalse(isOk);
-                                    break;
-                                }
-                            }
-                        }
-                        Assert.assertTrue(true);
-
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
+                em.setText("111111");
+                pass.setText("pass");
+                assertEquals(loginActivity.IsCorrectUser(em.getText().toString(), pass.getText().toString()), -1);
 
                 em.setText("111111");
                 pass.setText("123123");
-                myRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
-                        Boolean isOk =false;
-                        while (i.hasNext()) {
-                            String ke=i.next().getKey();
-                            Account account=dataSnapshot.child(ke).getValue(Account.class);
-
-                            if(account.getUsername()!=null &&account.getPassword() !=null) {
-                                if (account.getUsername().equals(em.getText().toString()) && account.getPassword().equals(pass.getText().toString())) {
-                                    Assert.assertTrue(true);
-                                    break;
-                                }
-                            }
-                        }
-                        Assert.assertTrue(true);
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
-                em.setText("222222");
-                pass.setText("pass");
-                myRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
-                        Boolean isOk =false;
-                        while (i.hasNext()) {
-                            String ke=i.next().getKey();
-                            Account account=dataSnapshot.child(ke).getValue(Account.class);
-
-                            if(account.getUsername()!=null &&account.getPassword() !=null) {
-                                if (account.getUsername().equals(em.getText().toString()) && account.getPassword().equals(pass.getText().toString())) {
-                                   // Assert.assertFalse(true);
-                                    break;
-                                }
-                            }
-                        }
-                        Assert.assertTrue(true);
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
-
+                assertEquals(loginActivity.IsCorrectUser(em.getText().toString(), pass.getText().toString()), 0);
 
                 em.setText("222222");
                 pass.setText("asdasd1");
-                myRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
-                        Boolean isOk =false;
-                        while (i.hasNext()) {
-                            String ke=i.next().getKey();
-                            Account account=dataSnapshot.child(ke).getValue(Account.class);
-
-                            if(account.getUsername()!=null &&account.getPassword() !=null) {
-                                if (account.getUsername().equals(em.getText().toString()) && account.getPassword().equals(pass.getText().toString())) {
-                                    Assert.assertTrue(true);
-                                    break;
-                                }
-                            }
-                        }
-                        Assert.assertTrue(true);
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
-
+                assertEquals(loginActivity.IsCorrectUser(em.getText().toString(), pass.getText().toString()), 1);
             }
         });
-
-
     }
 
-
-
-    @Test
-    public void startActivity() {
-        int x=loginActivity.StartActivity(1,"test");
-        assertEquals(x,1);
-        x=loginActivity.StartActivity(2,"test");
-        assertEquals(x,2);
-        x=loginActivity.StartActivity(3,"test");
-        assertEquals(x,3);
-        x=loginActivity.StartActivity(4,"test");
-        assertEquals(x,0);
-        x=loginActivity.StartActivity(-2,"test");
-        assertEquals(x,0);
-
-
-    }
-
-    @Test
-    public void forgetPassword() {
-        Intent i=loginActivity.ForgetPassword(null);
-        assertFalse(i==null);
-    }
 }

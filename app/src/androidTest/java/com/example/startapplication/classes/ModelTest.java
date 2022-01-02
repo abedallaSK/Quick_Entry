@@ -1,6 +1,8 @@
-package com.example.startapplication;
+package com.example.startapplication.classes;
 
-import com.example.startapplication.classes.Model;
+import static org.junit.Assert.*;
+
+import junit.framework.TestCase;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -22,7 +22,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -31,14 +33,14 @@ public class LoginActivity extends AppCompatActivity {
 
     private DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Accounts");
     private ProgressBar progressBar;
-
+     List<Account> accounts=new ArrayList<>();
     //
     private static final String PREFS_NAME = "LOGIN";
     private static final String DATA_TAG = "KEY";
     //
     private final Handler mHideHandler = new Handler();
     private Button btSing;
-    private Boolean isOk=false;
+   // private Boolean isOk=false;
     private final Runnable mHideRunnable = new Runnable() {
         @Override
         public void run() {
@@ -61,12 +63,29 @@ public class LoginActivity extends AppCompatActivity {
         progressBar=findViewById(R.id.progressBar4);
         progressBar.setVisibility(View.INVISIBLE);
 
-      //  Toast.makeText(getApplicationContext(),"for foreman Test the Username is abedalla2 and the passowrd is 123456789 or you can click in the button  ",Toast.LENGTH_SHORT).show();
-
-
         editText_Email.addTextChangedListener(loginTextWatcher);
         editText_PassWord.addTextChangedListener(loginTextWatcher);
 
+
+        //getdata
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                progressBar.setVisibility(View.VISIBLE);
+                Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
+                //isOk =false;
+                while (i.hasNext()) {
+                    String ke=i.next().getKey();
+                    accounts.add(dataSnapshot.child(ke).getValue(Account.class));
+                }
+                progressBar.setVisibility(View.INVISIBLE);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                progressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(getApplicationContext(),"No Internet ",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
@@ -84,64 +103,45 @@ public class LoginActivity extends AppCompatActivity {
         }
         @Override
         public void afterTextChanged(Editable s) {
-
         }
     };
 
 
 
-    public Intent Create(View view) {
+    public void Create(View view) {
         Intent i=new Intent(this, UserChoiceActivity.class);
         startActivity(i);
-        //for test
-        return  i;
     }
+
 
     public void SingIn(View view) {
-        String email=editText_Email.getText().toString();
+        String name=editText_Email.getText().toString();
         String password=editText_PassWord.getText().toString();
-        progressBar.setVisibility(View.VISIBLE);
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
-                isOk =false;
-                while (i.hasNext()) {
-                    String ke=i.next().getKey();
-                   Account account=dataSnapshot.child(ke).getValue(Account.class);
-
-                   if(account.getEmail()!=null &&account.getUsername()!=null &&account.getPassword() !=null) {
-                       if ((account.getEmail().equals(email) || account.getUsername().equals(email)) && account.getPassword().equals(password)) {
-                           isOk=true;
-                           StartActivity(account.getType(), ke);
-                           break;
-                       }
-                   }
-                }
-               if(!isOk) Toast.makeText(getApplicationContext(),"The Password or name Error ",Toast.LENGTH_SHORT).show();
-
-
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                progressBar.setVisibility(View.INVISIBLE);
-            }
-
-        });
-
-
+        int index=-1;
+        index=IsCorrectUser(name,password);
+        if(index>=0) GoToActivity(index);
+        else  Toast.makeText(getApplicationContext(),"The Password or name Error ",Toast.LENGTH_SHORT).show();
     }
 
 
+    public int IsCorrectUser(String name,String password)
+    {
+        for(int i=0;i<accounts.size();i++)
+        {
+            if(accounts.get(i).getUsername().equals(name) && accounts.get(i).getPassword().equals(password))
+                return i;
+        }
+        return -1;
+    }
 
-   public int StartActivity(int x, String Code) {
+   public int GoToActivity(int x) {
 
         SharedPreferences mSettings = this.getSharedPreferences(PREFS_NAME, 0);
        SharedPreferences.Editor editor = mSettings.edit();
-       editor.putString(DATA_TAG, Code);
-       editor.putInt("Type",x);
+       editor.putString(DATA_TAG, accounts.get(x).getKey());
+       editor.putInt("Type",accounts.get(x).getType());
        editor.commit();
-        switch (x) {
+        switch (accounts.get(x).getType()) {
             case 1:
                 startActivity(new Intent(this, UserMainActivity.class));
                 //for test
