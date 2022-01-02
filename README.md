@@ -1,8 +1,4 @@
-# Quick_Entry_Hakaton
- 11:31 28/11/2021
- 
-  Introduction 
-  this app it part first version from app to managing th<div id="top"></div>
+<div id="top"></div>
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
@@ -40,7 +36,7 @@
  # Introduction 
 #### This app is the first version  from  android application to managing the smart green card examination system.
 #### This application helps you to quickly show the green signal and check it through the NFC system.
-#### This app is used by 3 users
+#### This app is made to handle 3 different kinds of users 
 
 
 
@@ -61,8 +57,8 @@
 </div>
 
 
- ### 2) Bussinis Account: 
-  &nbsp;  &nbsp;  To monitor the gate and display the number of people entering daily.
+ ### 2) Business Account: 
+  &nbsp;  &nbsp;  For monitering gate activity and keeps track of number of people entered so far using that gate
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
     <img src="https://user-images.githubusercontent.com/93610654/147409760-4d65ac83-66d8-4cee-8bda-d73ac6989a34.png"
@@ -71,8 +67,8 @@
 
 
 
- ### 3) Foreman Account:
-   &nbsp;   &nbsp;  TO giving permissions to users to use their green card to prevent counterfeiting.
+ ### 3) Administrator Account:
+   &nbsp;   &nbsp; This type of user is designed to grant users the ability to use their green card
  <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
     <img src="https://user-images.githubusercontent.com/93610654/147409790-e2809178-edac-475d-9717-80ae1eacb1fe.png"
@@ -83,15 +79,18 @@
   
 <p align="right">(<a href="#top">back to top</a>)</p>
 
- # The system to run the application:
- 
- #### 1.  Android Studio Arctic Fox | 2020.3.1 Patch 4
- #### 2. Windows  10
- #### 3. android phone Pixel 2 / honor 10 
+ # The application was tested on : 
+    #### 3. android phone Pixel 2 / honor 10 
   
+ # The Developing Envioronment Used :
+     Android Studio Arctic Fox | 2020.3.1 Patch 4
+ 
+ # Operation System Used :
+     Windows  10
+
   ## Database used: 
  #### Google firebase
-  ####    you must to add your firbase to run this code 
+  ####  A FireBase Is Required To run this application 
   
  ## libraries used:
  
@@ -143,7 +142,7 @@
  
  # Getting Started
  This is an example of how you may give instructions on setting up your project locally. To get a local copy up and running follow these simple example steps.
- ## Prerequisites
+ ## Requiremenets :
 
 1. Android Studio App
 2. Firebase Account
@@ -153,7 +152,7 @@
 
 ## Installation
 1. Open Android Studio 
-2. File / new profject /get from version Control
+2. File / new project /get from version Control
 3. put in URl this link  https://github.com/SceProject21/Quick_Entry.
 4.  Make Firebase Account open https://firebase.google.com/
 5.  Click Tools > SDK Manager.
@@ -180,12 +179,3 @@ Run the app and make three account one for Normal user and for business user and
 The project is being developed by student in Sami Shimon College
 For Further Questions : Abadalla1999@gmail.com
  <p align="right">(<a href="#top">back to top</a>)</p>
-e smart green card examination system  
-  int the app can use 3 user 
-  1-) normal user to cheeck the green card 
-  2-) user for bussinis account <coming soon>
-  3-) user to chaek the green card 
-  
-  the databath use google firbase 
-  
-  
